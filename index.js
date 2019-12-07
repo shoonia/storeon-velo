@@ -1,37 +1,37 @@
 export function createConnector(store) {
-	let subscribe = [];
+  let subscribe = [];
 
-	store.on('@changed', (state, data) => {
-		subscribe.forEach(({ property, callback }) => {
-			if (property in data) {
-				callback(state, data);
-			}
-		});
-	});
+  store.on('@changed', (state, data) => {
+    subscribe.forEach(({ property, callback }) => {
+      if (property in data) {
+        callback(state, data);
+      }
+    });
+  });
 
-	$w.onReady(() => {
-		const state = store.get();
+  $w.onReady(() => {
+    const state = store.get();
 
-		subscribe.forEach(({ property, callback }) => {
-			callback(state, { [property]: state[property] });
-		});
-	});
+    subscribe.forEach(({ property, callback }) => {
+      callback(state, { [property]: state[property] });
+    });
+  });
 
-	return {
-		getState: store.get,
-		dispatch: store.dispatch,
+  return {
+    getState: store.get,
+    dispatch: store.dispatch,
 
-		connect(property, callback) {
-			subscribe.push({ property, callback });
+    connect(property, callback) {
+      subscribe.push({ property, callback });
 
-			return () => {
-				subscribe = subscribe.filter((listener) => listener.callback !== callback);
-			};
-		},
-		connectPage(callback) {
-			$w.onReady(() => {
-				callback(store.get());
-			});
-		},
-	};
+      return () => {
+        subscribe = subscribe.filter((listener) => listener.callback !== callback);
+      };
+    },
+    connectPage(callback) {
+      $w.onReady(() => {
+        callback(store.get());
+      });
+    },
+  };
 }
