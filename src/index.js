@@ -1,22 +1,22 @@
 import storeon from 'storeon/index.js';
 
-export function createStore(modules) {
-  const store = storeon(modules);
-  let subscribe = [];
+export var createStore = function (modules) {
+  var store = storeon(modules);
+  var subscribe = [];
 
-  store.on('@changed', (state, data) => {
-    subscribe.forEach(({ property, callback }) => {
-      if (property in data) {
-        callback(state, data);
+  store.on('@changed', function (state, data) {
+    subscribe.forEach(function (s) {
+      if (s.key in data) {
+        s.cb(state);
       }
     });
   });
 
-  $w.onReady(() => {
-    const state = store.get();
+  $w.onReady(function () {
+    var state = store.get();
 
-    subscribe.forEach(({ property, callback }) => {
-      callback(state, { [property]: state[property] });
+    subscribe.forEach(function (s) {
+      s.cb(state);
     });
   });
 
@@ -24,17 +24,19 @@ export function createStore(modules) {
     getState: store.get,
     dispatch: store.dispatch,
 
-    connect(property, callback) {
-      subscribe.push({ property, callback });
+    connect: function (key, cb) {
+      subscribe.push({ key: key, cb: cb });
 
-      return () => {
-        subscribe = subscribe.filter((listener) => listener.callback !== callback);
+      return function () {
+        subscribe = subscribe.filter(function (s) {
+          return s.cb !== cb;
+        });
       };
     },
-    connectPage(callback) {
-      $w.onReady(() => {
-        callback(store.get());
+    connectPage: function (cb) {
+      $w.onReady(function () {
+        cb(store.get());
       });
-    },
+    }
   };
-}
+};

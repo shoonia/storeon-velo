@@ -1,10 +1,11 @@
 {
   "name": "corvid-storeon",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A tiny event-based state manager Storeon for Corvid by Wix",
   "main": "dist/index.js",
+  "module": "dist/index.esm.js",
   "scripts": {
-    "lint": "eslint index.js --fix",
+    "lint": "eslint src/** --fix",
     "dist": "rollup --config rollup.config.js && eslint dist --fix"
   },
   "devDependencies": {

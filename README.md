@@ -69,7 +69,7 @@ const disconnect = connect("key", (state) => { });
 disconnect();
 ```
 - `connect(key: string, handler: ConnectEventHandler): Disconnect`
-- `callback ConnectEventHandler(state: object, [event: object]): void`
+- `callback ConnectEventHandler(state: object): void`
 - `function Disconnect(): void`
 
 ### connectPage

@@ -1,7 +1,3 @@
-'use strict';
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
 var createStore = function (modules) {
   var events = { };
   var state = { };
@@ -77,4 +73,4 @@ var createStore$1 = function (modules) {
   };
 };
 
-exports.createStore = createStore$1;
+export { createStore$1 as createStore };
