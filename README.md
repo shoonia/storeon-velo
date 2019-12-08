@@ -6,17 +6,14 @@
 
 **public/store.js**
 ```js
-import { createStore } from "storeon";
-import { createConnector } from "corvid-storeon";
+import { createStore } from "corvid-storeon";
 
 const counter = (store) => {
   store.on("@init", () => ({ count: 0 }));
   store.on("inc", ({ count }) => ({ count: count + 1 }));
 };
 
-const store = createStore([counter]);
-
-export const { getState, dispatch, connect, connectPage } = createConnector(store);
+export const { getState, dispatch, connect, connectPage } = createStore([counter]);
 ```
 
 **HOME PAGE**
@@ -40,4 +37,5 @@ connectPage((state) => {
 });
 ```
 
-## MIT
+## License
+[MIT](./LICENSE)

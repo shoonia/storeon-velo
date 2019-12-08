@@ -1,4 +1,7 @@
-export function createConnector(store) {
+import storeon from 'storeon/index.js';
+
+export function createStore(modules) {
+  const store = storeon(modules);
   let subscribe = [];
 
   store.on('@changed', (state, data) => {
