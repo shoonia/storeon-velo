@@ -1,12 +1,12 @@
 {
   "name": "corvid-storeon",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "A tiny event-based state manager Storeon for Corvid by Wix",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "scripts": {
     "lint": "eslint src/** --fix",
-    "dist": "rollup --config rollup.config.js && eslint dist --fix"
+    "dist": "rollup --config rollup.config.js && eslint dist/** --fix"
   },
   "devDependencies": {
     "storeon": "^0.9.5",
@@ -36,6 +36,7 @@
     "email": "alexanderz@wix.com",
     "url": "https://twitter.com/_shoonia"
   },
+  "homepage": "https://github.com/shoonia/corvid-storeon#readme",
   "license": "MIT",
   "private": false
 }
