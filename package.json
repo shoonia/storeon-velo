@@ -6,15 +6,17 @@
   "module": "dist/index.esm.js",
   "scripts": {
     "lint": "eslint src/** --fix",
-    "dist": "rollup --config rollup.config.js && eslint dist/** --fix"
+    "dist": "rollup --config rollup.config.js && eslint dist/** --fix",
+    "test": "jest"
   },
   "devDependencies": {
-    "storeon": "^0.9.5",
     "eslint": "^6.7.2",
+    "jest": "^24.9.0",
     "rollup": "^1.27.9",
     "rollup-plugin-cleanup": "^3.1.1",
     "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-node-resolve": "^5.2.0"
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "storeon": "^0.9.5"
   },
   "repository": {
     "type": "git",
