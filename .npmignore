@@ -1,10 +1,11 @@
-__test__/
+__tests__/
 .github/
 node_modules/
 src/
 
 .gitignore
 .eslintrc
+.nvmrc
 .DS_Store
 package-lock.json
 rollup.config.js
