@@ -7,7 +7,7 @@
   "scripts": {
     "lint": "eslint src/** --fix",
     "dist": "rollup --config rollup.config.js && eslint dist/** --fix",
-    "test": "jest"
+    "test": "jest __tests__/**.test.js"
   },
   "devDependencies": {
     "eslint": "^6.7.2",
