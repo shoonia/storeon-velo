@@ -2,10 +2,10 @@ import storeon from 'storeon/index.js';
 
 export var createStore = function (modules) {
   var store = storeon(modules);
-  var subscribe = [];
+  var subs = [];
 
   store.on('@changed', function (state, data) {
-    subscribe.forEach(function (s) {
+    subs.forEach(function (s) {
       if (s.key in data) {
         s.cb(state);
       }
@@ -15,7 +15,7 @@ export var createStore = function (modules) {
   $w.onReady(function () {
     var state = store.get();
 
-    subscribe.forEach(function (s) {
+    subs.forEach(function (s) {
       s.cb(state);
     });
   });
@@ -25,10 +25,10 @@ export var createStore = function (modules) {
     dispatch: store.dispatch,
 
     connect: function (key, cb) {
-      subscribe.push({ key: key, cb: cb });
+      subs.push({ key: key, cb: cb });
 
       return function () {
-        subscribe = subscribe.filter(function (s) {
+        subs = subs.filter(function (s) {
           return s.cb !== cb;
         });
       };

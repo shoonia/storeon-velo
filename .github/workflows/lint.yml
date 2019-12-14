@@ -13,4 +13,4 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
-      - run: npx eslint src/** dist/** __tests__/**
+      - run: npm lint-ci

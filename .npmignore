@@ -1,10 +1,11 @@
-__tests__/
 .github/
 node_modules/
 src/
+tests/
 
 .gitignore
 .eslintrc
+.npmrc
 .nvmrc
 .DS_Store
 package-lock.json

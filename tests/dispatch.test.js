@@ -2,7 +2,7 @@ require('./mock.js');
 const { createStore } = require('../dist/index.js');
 
 describe('dispatch events', () => {
-  it('should increment value', () => {
+  it('should be incremented value', () => {
     const { dispatch, getState } = createStore([
       (store) => {
         store.on('@init', () => ({ x: 1 }));

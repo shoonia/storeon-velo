@@ -44,9 +44,9 @@ var storeon = createStore;
 
 var createStore$1 = function (modules) {
   var store = storeon(modules);
-  var subscribe = [];
+  var subs = [];
   store.on('@changed', function (state, data) {
-    subscribe.forEach(function (s) {
+    subs.forEach(function (s) {
       if (s.key in data) {
         s.cb(state);
       }
@@ -54,7 +54,7 @@ var createStore$1 = function (modules) {
   });
   $w.onReady(function () {
     var state = store.get();
-    subscribe.forEach(function (s) {
+    subs.forEach(function (s) {
       s.cb(state);
     });
   });
@@ -62,9 +62,9 @@ var createStore$1 = function (modules) {
     getState: store.get,
     dispatch: store.dispatch,
     connect: function (key, cb) {
-      subscribe.push({ key: key, cb: cb });
+      subs.push({ key: key, cb: cb });
       return function () {
-        subscribe = subscribe.filter(function (s) {
+        subs = subs.filter(function (s) {
           return s.cb !== cb;
         });
       };
