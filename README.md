@@ -1,5 +1,7 @@
 # corvid-storeon
 
+<img src="assets/corvid-storeon.png" height="100" align="right" alt="Corvid By Wix">
+
 A tiny event-based state manager [Storeon](https://github.com/storeon/storeon) for [Corvid](https://www.wix.com/corvid) by Wix.
 
 ## How to use
