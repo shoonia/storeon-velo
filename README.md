@@ -1,6 +1,6 @@
 # corvid-storeon
 
-<img src="assets/corvid-storeon.png" height="100" align="right" alt="Corvid By Wix">
+<img src="assets/corvid-storeon.png" height="100" align="right" alt="Corvid Storeon">
 
 A tiny event-based state manager [Storeon](https://github.com/storeon/storeon) for [Corvid](https://www.wix.com/corvid) by Wix.
 
@@ -12,18 +12,18 @@ import { createStore } from "corvid-storeon";
 
 const counter = (store) => {
   store.on("@init", () => ({ count: 0 }));
-  store.on("inc", ({ count }) => ({ count: count + 1 }));
+  store.on("increment", ({ count }) => ({ count: count + 1 }));
 };
 
 export const { getState, dispatch, connect, connectPage } = createStore([counter]);
 ```
 
-**HOME PAGE**
+**Page Code**
 ```js
 import { dispatch, connect, connectPage } from "public/store.js";
 
 // Subscribe for state property "count".
-// The callback function will be run when the page loads ($w.onReady)
+// The callback function will be run when the page loads ($w.onReady())
 // and each time when property "count" would change.
 connect("count", ({ count }) => {
   $w("#text1").text = String(count);
@@ -33,8 +33,8 @@ connect("count", ({ count }) => {
 // The callback function will be run once.
 connectPage((state) => {
   $w("#button1").onClick(() => {
-    // Dispatch action
-    dispatch("inc");
+    // Emit event
+    dispatch("increment");
   });
 });
 ```
@@ -64,7 +64,7 @@ dispatch("event/type", { value: 123 });
 - `dispatch(event: string, [data: any]): void`
 
 ### connect
-connect to state property by key. Will return function disconnect from the store.
+connect to state by property key. Will return function disconnect from the store.
 ```js
 const disconnect = connect("key", (state) => { });
 
