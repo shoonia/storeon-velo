@@ -1,4 +1,5 @@
 # corvid-storeon
+![test status](https://github.com/shoonia/corvid-storeon/workflows/test/badge.svg)
 
 <img src="assets/corvid-storeon.jpg" height="100" align="right" alt="Corvid Storeon">
 
