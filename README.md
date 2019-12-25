@@ -1,7 +1,9 @@
 # corvid-storeon
-![test status](https://github.com/shoonia/corvid-storeon/workflows/test/badge.svg)
+[![corvid-storeon test status](https://github.com/shoonia/corvid-storeon/workflows/test/badge.svg)](https://github.com/shoonia/corvid-storeon/actions)
 
-<img src="assets/corvid-storeon.jpg" height="100" align="right" alt="Corvid Storeon">
+<a href="https://www.wix.com/alexanderz5/corvid-storeon">
+  <img src="assets/corvid-storeon.jpg" height="100" align="right" alt="Corvid Storeon">
+</a>
 
 A tiny event-based state manager [Storeon](https://github.com/storeon/storeon) for [Corvid](https://www.wix.com/corvid) by Wix.
 
