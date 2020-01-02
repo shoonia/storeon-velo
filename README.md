@@ -1,5 +1,6 @@
 # corvid-storeon
 [![corvid-storeon test status](https://github.com/shoonia/corvid-storeon/workflows/test/badge.svg)](https://github.com/shoonia/corvid-storeon/actions)
+[![npm version](https://img.shields.io/npm/v/corvid-storeon.svg)](https://www.npmjs.com/package/corvid-storeon)
 
 <a href="https://www.wix.com/alexanderz5/corvid-storeon">
   <img src="assets/corvid-storeon.jpg" height="100" align="right" alt="Corvid Storeon">
@@ -78,7 +79,12 @@ const disconnect = connect("key", (state) => { });
 
 disconnect();
 ```
-- `connect(key: string, handler: ConnectEventHandler): Disconnect`
+You can connect for multiple keys, the last argument must be a function.
+```js
+connect("key1", "key2", (state) => { });
+```
+
+- `connect(keys: string[arg1, arg2, ...], handler: ConnectEventHandler): Disconnect`
 - `callback ConnectEventHandler(state: object): void`
 - `function Disconnect(): void`
 

@@ -8,14 +8,14 @@ describe('Multi keys', () => {
     const { dispatch, connect, getState } = createStore([
       (store) => {
         store.on('@init', () => ({ x: 0, y: 0 }));
-        store.on('x', ({ x }) => ({ x: x + 1 }));
-        store.on('y', ({ y }) => ({ y: y + 1 }));
+        store.on('_x', ({ x }) => ({ x: x + 1 }));
+        store.on('_y', ({ y }) => ({ y: y + 1 }));
       },
     ]);
 
     connect('x', 'y', callback);
-    dispatch('x');
-    dispatch('y');
+    dispatch('_x');
+    dispatch('_y');
 
     expect(callback).toHaveBeenCalledTimes(2);
     expect(getState()).toEqual({ x: 1, y: 1 });
@@ -28,11 +28,11 @@ describe('Multi keys', () => {
     const { dispatch, connect } = createStore([
       (store) => {
         store.on('@init', () => ({ x: 0, y: 0 }));
-        store.on('x', ({ x }) => {
+        store.on('_x', ({ x }) => {
           listener();
           return { x: x + 1 };
         });
-        store.on('y', ({ y }) => {
+        store.on('_y', ({ y }) => {
           listener();
           return { y: y + 1 };
         });
@@ -40,11 +40,11 @@ describe('Multi keys', () => {
     ]);
 
     var disconnect = connect('x', 'y', callback);
-    dispatch('x');
-    dispatch('y');
+    dispatch('_x');
+    dispatch('_y');
     disconnect();
-    dispatch('x');
-    dispatch('y');
+    dispatch('_x');
+    dispatch('_y');
 
     expect(callback).toHaveBeenCalledTimes(2);
     expect(listener).toHaveBeenCalledTimes(4);
