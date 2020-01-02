@@ -47,7 +47,10 @@ var createStore$1 = function (modules) {
   var subs = [];
   store.on('@changed', function (state, data) {
     subs.forEach(function (s) {
-      if (s.key in data) {
+      var changesInKeys = s.keys.some(function (key) {
+        return key in data;
+      });
+      if (changesInKeys) {
         s.cb(state);
       }
     });
@@ -61,8 +64,13 @@ var createStore$1 = function (modules) {
   return {
     getState: store.get,
     dispatch: store.dispatch,
-    connect: function (key, cb) {
-      subs.push({ key: key, cb: cb });
+    connect: function () {
+      var l = arguments.length - 1;
+      var cb = arguments[l];
+      subs.push({
+        keys: [].slice.call(arguments, 0, l),
+        cb: cb
+      });
       return function () {
         subs = subs.filter(function (s) {
           return s.cb !== cb;
