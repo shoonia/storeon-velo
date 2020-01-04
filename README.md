@@ -84,7 +84,7 @@ You can connect for multiple keys, the last argument must be a function.
 connect("key1", "key2", (state) => { });
 ```
 
-- `connect(keys: string[arg1, arg2, ...], handler: ConnectEventHandler): Disconnect`
+- `connect(key: string, [key: string, ...], handler: ConnectEventHandler): Disconnect`
 - `callback ConnectEventHandler(state: object): void`
 - `function Disconnect(): void`
 
