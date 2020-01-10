@@ -1,4 +1,3 @@
-import cleanup from 'rollup-plugin-cleanup';
 import commonjs from 'rollup-plugin-commonjs';
 import nodeResolve from 'rollup-plugin-node-resolve';
 
@@ -17,7 +16,6 @@ export default {
     },
   ],
   plugins: [
-    cleanup(),
     commonjs(),
     nodeResolve(),
   ]

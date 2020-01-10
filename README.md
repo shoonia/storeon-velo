@@ -96,5 +96,11 @@ connectPage((state) => { });
 - `connectPage(initFunction: ReadyHandler): void`
 - `callback ReadyHandler(state: object): void`
 
+## Package Manager
+
+You use the [Package Manager](https://support.wix.com/en/article/corvid-managing-external-code-libraries-with-the-package-manager) to manage the npm packages in your site.
+
+<img src="assets/cs.png" width="500" alt="Install corvid-storeon">
+
 ## License
 [MIT](./LICENSE)
