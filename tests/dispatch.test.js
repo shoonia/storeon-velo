@@ -10,9 +10,9 @@ describe('dispatch events', () => {
       },
     ]);
 
-    expect(getState().x).toBe(1);
+    expect(getState()).toEqual({ x: 1 });
     dispatch('inc');
-    expect(getState().x).toBe(2);
+    expect(getState()).toEqual({ x: 2 });
   });
 
   it('should be called twice time', () => {
@@ -26,19 +26,22 @@ describe('dispatch events', () => {
 
     dispatch('run');
     dispatch('run');
+
     expect(listener).toHaveBeenCalledTimes(2);
   });
 
-  it('should be passed data', (done) => {
+  it('should be passed data', () => {
+    const listener = jest.fn();
+
     const { dispatch } = createStore([
       (store) => {
-        store.on('run', (_, data) => {
-          expect(data).toBe(5);
-          done();
-        });
+        store.on('@init', () => ({}));
+        store.on('run', listener);
       },
     ]);
 
-    dispatch('run', 5);
+    dispatch('run', { data: 1 });
+
+    expect(listener).toHaveBeenCalledWith({}, { data: 1 });
   });
 });

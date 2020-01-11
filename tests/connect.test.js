@@ -11,9 +11,8 @@ describe('Connect to properties', () => {
       },
     ]);
 
-    connect('x', ({ x, y }) => {
-      expect(x).toBe(2);
-      expect(y).toBe(2);
+    connect('x', (state) => {
+      expect(state).toEqual({ x: 2, y: 2 });
       done();
     });
 
@@ -23,9 +22,10 @@ describe('Connect to properties', () => {
 
   it('should be run twice time', () => {
     const callback = jest.fn();
+
     const { dispatch, connect } = createStore([
       (store) => {
-        store.on('@init', () => ({ x: 1}));
+        store.on('@init', () => ({ x: 1 }));
         store.on('run', ({ x }) => ({ x: x + 1 }));
       },
     ]);
@@ -59,5 +59,22 @@ describe('Connect to properties', () => {
 
     expect(callback).toHaveBeenCalledTimes(1);
     expect(listener).toHaveBeenCalledTimes(2);
+  });
+
+  it('should be connected twice', () => {
+    const callback = jest.fn();
+
+    const { connect, dispatch } = createStore([
+      (store) => {
+        store.on('@init', () => ({ z: 0 }));
+        store.on('go', ({ z }) => ({ z: z + 1 }));
+      },
+    ]);
+
+    connect('z', callback);
+    connect('z', callback);
+    dispatch('go');
+
+    expect(callback).toHaveBeenCalledTimes(2);
   });
 });

@@ -39,7 +39,8 @@ describe('Multi keys', () => {
       },
     ]);
 
-    var disconnect = connect('x', 'y', callback);
+    const disconnect = connect('x', 'y', callback);
+
     dispatch('_x');
     dispatch('_y');
     disconnect();
