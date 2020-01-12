@@ -73,7 +73,7 @@ dispatch("event/type", { value: 123 });
 - `dispatch(event: string, [data: any]): void`
 
 ### connect
-connect to state by property key. Will return function disconnect from the store.
+connect to state by property key. It will return function disconnect from the store.
 ```js
 const disconnect = connect("key", (state) => { });
 
