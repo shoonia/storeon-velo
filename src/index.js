@@ -2,6 +2,7 @@ import storeon from 'storeon/index.js';
 
 export var createStore = function (modules) {
   var store = storeon(modules);
+  var page = [];
   var subs = [];
 
   store.on('@changed', function (state, data) {
@@ -19,7 +20,7 @@ export var createStore = function (modules) {
   $w.onReady(function () {
     var state = store.get();
 
-    subs.forEach(function (s) {
+    page.concat(subs).forEach(function (s) {
       s.cb(state);
     });
   });
@@ -43,10 +44,9 @@ export var createStore = function (modules) {
         });
       };
     },
+
     connectPage: function (cb) {
-      $w.onReady(function () {
-        cb(store.get());
-      });
+      page.push({ cb: cb });
     }
   };
 };
