@@ -73,6 +73,7 @@ var storeon = createStore;
 
 var createStore$1 = function (modules) {
   var store = storeon(modules);
+  var page = [];
   var subs = [];
 
   store.on('@changed', function (state, data) {
@@ -90,7 +91,7 @@ var createStore$1 = function (modules) {
   $w.onReady(function () {
     var state = store.get();
 
-    subs.forEach(function (s) {
+    page.concat(subs).forEach(function (s) {
       s.cb(state);
     });
   });
@@ -114,10 +115,9 @@ var createStore$1 = function (modules) {
         });
       };
     },
+
     connectPage: function (cb) {
-      $w.onReady(function () {
-        cb(store.get());
-      });
+      page.push({ cb: cb });
     }
   };
 };

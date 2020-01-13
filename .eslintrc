@@ -11,7 +11,7 @@
     "sourceType": "module"
   },
   "globals": {
-    "$w": true
+    "$w": "readonly"
   },
   "rules": {
     "linebreak-style": "off",
