@@ -71,16 +71,14 @@ var createStore = function (modules) {
 
 var storeon = createStore;
 
-var createStore$1 = function (modules) {
-  var store = storeon(modules);
-  var page = [];
-  var subs = [];
+const createStore$1 = (modules) => {
+  const store = storeon(modules);
+  const page = [];
+  let subs = [];
 
-  store.on('@changed', function (state, data) {
-    subs.forEach(function (s) {
-      var changesInKeys = s.keys.some(function (key) {
-        return key in data;
-      });
+  store.on('@changed', (state, data) => {
+    subs.forEach((s) => {
+      const changesInKeys = s.keys.some((key) => key in data);
 
       if (changesInKeys) {
         s.cb(state);
@@ -88,10 +86,10 @@ var createStore$1 = function (modules) {
     });
   });
 
-  $w.onReady(function () {
-    var state = store.get();
+  $w.onReady(() => {
+    const state = store.get();
 
-    page.concat(subs).forEach(function (s) {
+    page.concat(subs).forEach((s) => {
       s.cb(state);
     });
   });
@@ -100,24 +98,22 @@ var createStore$1 = function (modules) {
     getState: store.get,
     dispatch: store.dispatch,
 
-    connect: function () {
-      var l = arguments.length - 1;
-      var cb = arguments[l];
+    connect() {
+      const l = arguments.length - 1;
+      const cb = arguments[l];
 
       subs.push({
         keys: [].slice.call(arguments, 0, l),
-        cb: cb
+        cb
       });
 
-      return function () {
-        subs = subs.filter(function (s) {
-          return s.cb !== cb;
-        });
+      return () => {
+        subs = subs.filter((s) => s.cb !== cb);
       };
     },
 
-    connectPage: function (cb) {
-      page.push({ cb: cb });
+    connectPage(cb) {
+      page.push({ cb });
     }
   };
 };
