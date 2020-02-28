@@ -1,7 +1,7 @@
 require('./mock.js');
 const { createStore } = require('../dist/index.js');
 
-describe('@init actions', () => {
+describe('@init event', () => {
   const init = () => createStore([
     (store) => {
       store.on('@init', () => ({ x: 5 }));

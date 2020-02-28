@@ -89,6 +89,8 @@ const createStore$1 = (modules) => {
   $w.onReady(() => {
     const state = store.get();
 
+    store.dispatch('@ready', state);
+
     page.concat(subs).forEach((s) => {
       s.cb(state);
     });
