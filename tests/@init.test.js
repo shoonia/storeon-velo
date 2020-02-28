@@ -23,11 +23,29 @@ describe('@init event', () => {
     });
   });
 
+  it('connect() should be working with async callback', (done) => {
+    const { connect } = init();
+
+    connect('x', async (state) => {
+      await expect(state).toEqual({ x: 5 });
+      done();
+    });
+  });
+
   it('connectPage() initial run', (done) => {
     const { connectPage } = init();
 
     connectPage(({ x }) => {
       expect(x).toBe(5);
+      done();
+    });
+  });
+
+  it('connectPage() should be working with async callback', (done) => {
+    const { connectPage } = init();
+
+    connectPage(async (state) => {
+      await expect(state).toEqual({ x: 5 });
       done();
     });
   });
