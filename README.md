@@ -9,9 +9,10 @@
 A tiny event-based state manager [Storeon](https://github.com/storeon/storeon) for [Corvid](https://www.wix.com/corvid) by Wix.
 
 ## How to use
-You can use demo template to try corvid-storeon
+You can use demo template or install from Package Manager.
 
 - Wix Website Template: [Open In Editor](https://editor.wix.com/html/editor/web/renderer/new?siteId=d6003ab4-7b91-4fe1-b65e-55ff3baca1f4&metaSiteId=654936ba-93bc-4f97-920a-c3050dd82fe7)
+- Install: [Package Manager](#install)
 
 ## Example
 
@@ -47,6 +48,13 @@ connectPage((state) => {
   });
 });
 ```
+
+## Install
+You use the [Package Manager](https://support.wix.com/en/article/corvid-managing-external-code-libraries-with-the-package-manager) to manage the npm packages in your site.
+
+Latest available version: `v1.1.0`
+
+<img src="assets/cs.png" width="500" alt="Install corvid-storeon">
 
 ## API
 
@@ -96,11 +104,46 @@ connectPage((state) => { });
 - `connectPage(initFunction: ReadyHandler): void`
 - `callback ReadyHandler(state: object): void`
 
-## Package Manager
+## Events
+There are 4 built-in events:
 
-You use the [Package Manager](https://support.wix.com/en/article/corvid-managing-external-code-libraries-with-the-package-manager) to manage the npm packages in your site.
+### `@init`
+will be fired in `createStore()`. The best moment to set an initial state.
+```js
+store.on("@init", () => {
+  return { local: "" };
+});
+```
 
-<img src="assets/cs.png" width="500" alt="Install corvid-storeon">
+### `@ready`
+> Added in: v2.0.0
+
+It will be fired in `$w.onReady()` when all the page elements have finished loading. The best moment to get data from Wix APIs.
+```js
+store.on("@ready", (state) => {
+  return { local: wixWindow.locale };
+});
+```
+
+### `@dispatch`
+It will be fired on every new action (on `store.dispatch()` calls and `@changed` event). It receives an array with the event name and the event’s data. Can be useful for debugging.
+```js
+store.on("@dispatch", (state, [event, data]) => {
+  console.log(event, data);
+});
+```
+
+### `@changed`
+It will be fired when any event changes the state. It receives object with state changes.
+```js
+store.on("@changed", (state, data) => {
+  // ...
+});
+```
+
+You can dispatch any other events. Just do not start event names with `@`.
+
+If the event listener returns an object, this object will update the state. You do not need to return the whole state, return an object with changed keys.
 
 ## License
 [MIT](./LICENSE)
