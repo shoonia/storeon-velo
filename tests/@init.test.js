@@ -49,4 +49,38 @@ describe('@init event', () => {
       done();
     });
   });
+
+  it('should execute in the strict queue @init -> @ready -> connectPage() -> connect()', (done) => {
+    const callback = jest.fn();
+    let increment = 0;
+
+    const { connect, connectPage } = createStore([
+      (store) => {
+        store.on('@init', () => {
+          callback();
+          expect(increment).toBe(0);
+          increment++;
+          return { prop: '' };
+        });
+
+        store.on('@ready', () => {
+          callback();
+          expect(increment).toBe(1);
+          increment++;
+        });
+      },
+    ]);
+
+    connect('prop', () => {
+      expect(increment).toBe(3);
+      expect(callback).toHaveBeenCalledTimes(3);
+      done();
+    });
+
+    connectPage(() => {
+      callback();
+      expect(increment).toBe(2);
+      increment++;
+    });
+  });
 });
