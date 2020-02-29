@@ -59,7 +59,7 @@ Latest available version: `v1.1.0`
 ## API
 
 ### createStore
-The APIs for creating modules the same as [Storeon Store](https://github.com/storeon/storeon#store)
+It creates the store and returns 4 methods for work with the app state. [Store API](#store)
 
 ```js
 const { getState, dispatch, connect, connectPage } = createStore(modules);
@@ -104,6 +104,55 @@ connectPage((state) => { });
 - `connectPage(initFunction: ReadyHandler): void`
 - `callback ReadyHandler(state: object): void`
 
+## Store
+The store should be created with `createStore()` function. It accepts a list of the modules.
+
+Each module is just a function, which will accept a store and bind their event listeners.
+
+```js
+import wixWindow from "wix-window";
+import { createStore } from "corvid-storeon";
+
+// Business logic
+function appModule(store) {
+  store.on("@init", () => {
+    return {
+      items: [],
+    };
+  });
+  store.on("items/add", ({ items }, item) => {
+    return {
+      items: items.concat(item),
+    };
+  });
+}
+
+// Devtools
+function logger(store) {
+  store.on("@dispatch", (state, [event, data]) => {
+    if (event === "@changed") {
+      const keys = Object.keys(data).join(', ');
+      console.log(`changed ${keys}`, state);
+    } else if (typeof data !== "undefined") {
+      console.log(`action ${event}`, data);
+    } else {
+      console.log(`action ${event}`);
+    }
+  });
+}
+
+export default createStore([
+  appModule,
+  (wixWindow.viewMode === "Preview" && logger),
+]);
+```
+
+The store has 3 methods:
+
+- `store.get()` will return current state. The state is always an object.
+- `store.on(event, callback)` will add an event listener.
+- `store.dispatch(event, data)` will emit an event with optional data.
+
 ## Events
 There are 4 built-in events:
 
@@ -111,17 +160,17 @@ There are 4 built-in events:
 will be fired in `createStore()`. The best moment to set an initial state.
 ```js
 store.on("@init", () => {
-  return { local: "" };
+  return { name: "" };
 });
 ```
 
 ### `@ready`
 > Added in: v2.0.0
 
-It will be fired in `$w.onReady()` when all the page elements have finished loading. The best moment to get data from Wix APIs.
+It will be fired in `$w.onReady()` when all the page elements have finished loading.
 ```js
 store.on("@ready", (state) => {
-  return { local: wixWindow.locale };
+  // ...
 });
 ```
 
