@@ -83,12 +83,10 @@ const createStore$1 = (modules) => {
   });
 
   $w.onReady(() => {
-    const state = store.get();
-
-    store.dispatch('@ready', state);
+    store.dispatch('@ready');
 
     page.concat(subs).forEach((s) => {
-      s.cb(state);
+      s.cb(store.get());
     });
   });
 

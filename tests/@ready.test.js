@@ -2,24 +2,23 @@ require('./mock.js');
 const { createStore } = require('../dist/index.js');
 
 describe('@ready event', () => {
-  it('@ready should be running', (done) => {
+  it('should be running with an empty state object', (done) => {
     createStore([
       (store) => {
-        store.on('@init', () => ({ k: 1 }));
         store.on('@ready', (state) => {
-          expect(state).toEqual({ k: 1 });
+          expect(state).toEqual({});
           done();
         });
       },
     ]);
   });
 
-  it('@ready should be working with async callback', (done) => {
+  it('should be running with initial state', (done) => {
     createStore([
       (store) => {
-        store.on('@init', () => ({ p: 10 }));
-        store.on('@ready', async (state) => {
-          await expect(state).toEqual({ p: 10 });
+        store.on('@init', () => ({ p: 1 }));
+        store.on('@ready', (state) => {
+          expect(state).toEqual({ p: 1 });
           done();
         });
       },

@@ -77,4 +77,44 @@ describe('Connect to properties', () => {
 
     expect(callback).toHaveBeenCalledTimes(2);
   });
+
+  it('should have to get the initial state from @ready event.', (done) => {
+    const { connect } = createStore([
+      (store) => {
+        store.on('@ready', () => {
+          return { key1: 3, key2: 7 };
+        });
+      },
+    ]);
+
+    connect((state) => {
+      expect(state).toEqual({ key1: 3, key2: 7 });
+      done();
+    });
+  });
+
+  it('should get the actual current data', (done) => {
+    const callback = jest.fn();
+
+    const { connect } = createStore([
+      (store) => {
+        store.on('@init', () => {
+          callback();
+          return { v: 5 };
+        });
+
+        store.on('@ready', ({ v }) => {
+          callback();
+          expect(v).toBe(5);
+          return { v: 10 };
+        });
+      },
+    ]);
+
+    connect('v', ({ v }) => {
+      expect(v).toBe(10);
+      expect(callback).toHaveBeenCalledTimes(2);
+      done();
+    });
+  });
 });
