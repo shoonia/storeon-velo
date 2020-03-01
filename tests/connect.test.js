@@ -20,10 +20,10 @@ describe('Connect to properties', () => {
     dispatch('incX');
   });
 
-  it('should be run twice time', () => {
+  it('should be run twice time', (done) => {
     const callback = jest.fn();
 
-    const { dispatch, connect } = createStore([
+    const { dispatch, connect, connectPage } = createStore([
       (store) => {
         store.on('@init', () => ({ x: 1 }));
         store.on('run', ({ x }) => ({ x: x + 1 }));
@@ -31,17 +31,21 @@ describe('Connect to properties', () => {
     ]);
 
     connect('x', callback);
-    dispatch('run');
-    dispatch('run');
 
-    expect(callback).toHaveBeenCalledTimes(2);
+    connectPage(() => {
+      dispatch('run');
+      dispatch('run');
+
+      expect(callback).toHaveBeenCalledTimes(2);
+      done();
+    });
   });
 
-  it('should be disconnected after first call', () => {
+  it('should be disconnected after first call', (done) => {
     const callback = jest.fn();
     const listener = jest.fn();
 
-    const { dispatch, connect } = createStore([
+    const { dispatch, connect, connectPage } = createStore([
       (store) => {
         store.on('@init', () => ({ x: 1}));
         store.on('run', ({ x }) => {
@@ -53,18 +57,21 @@ describe('Connect to properties', () => {
 
     const disconnect = connect('x', callback);
 
-    dispatch('run');
-    disconnect();
-    dispatch('run');
+    connectPage(() => {
+      dispatch('run');
+      disconnect();
+      dispatch('run');
 
-    expect(callback).toHaveBeenCalledTimes(1);
-    expect(listener).toHaveBeenCalledTimes(2);
+      expect(callback).toHaveBeenCalledTimes(1);
+      expect(listener).toHaveBeenCalledTimes(2);
+      done();
+    });
   });
 
-  it('should be connected twice', () => {
+  it('should be connected twice', (done) => {
     const callback = jest.fn();
 
-    const { connect, dispatch } = createStore([
+    const { dispatch, connect, connectPage } = createStore([
       (store) => {
         store.on('@init', () => ({ z: 0 }));
         store.on('go', ({ z }) => ({ z: z + 1 }));
@@ -73,8 +80,59 @@ describe('Connect to properties', () => {
 
     connect('z', callback);
     connect('z', callback);
-    dispatch('go');
 
-    expect(callback).toHaveBeenCalledTimes(2);
+    connectPage(() => {
+      dispatch('go');
+      expect(callback).toHaveBeenCalledTimes(2);
+      done();
+    });
+  });
+
+  it('should get the actual current data', (done) => {
+    const listener = jest.fn();
+
+    const { connect } = createStore([
+      (store) => {
+        store.on('@init', () => {
+          listener();
+          return { v: 5 };
+        });
+
+        store.on('@ready', ({ v }) => {
+          listener();
+          expect(v).toBe(5);
+          return { v: 10 };
+        });
+      },
+    ]);
+
+    connect('v', ({ v }) => {
+      expect(v).toBe(10);
+      expect(listener).toHaveBeenCalledTimes(2);
+      done();
+    });
+  });
+
+  it('should not be affected connect() until @ready event', (done) => {
+    const listener = jest.fn();
+
+    const { dispatch, connect } = createStore([
+      (store) => {
+        store.on('@init', () => ({ j: 0 }));
+        store.on('update', ({ j }) => {
+          listener();
+          return { j: j + 1 };
+        });
+      },
+    ]);
+
+    connect('j', ({ j }) => {
+      expect(j).toBe(2);
+      expect(listener).toHaveBeenCalledTimes(2);
+      done();
+    });
+
+    dispatch('update');
+    dispatch('update');
   });
 });

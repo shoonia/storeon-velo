@@ -11,6 +11,7 @@ tests/
 .DS_Store
 package-lock.json
 rollup.config.js
+.markdownlint.yml
 
 *.tgz
 *.log

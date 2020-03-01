@@ -2,10 +2,10 @@ require('./mock.js');
 const { createStore } = require('../dist/index.js');
 
 describe('Multi keys', () => {
-  it('should be called twice time', () => {
+  it('should be called twice time', (done) => {
     const callback = jest.fn();
 
-    const { dispatch, connect, getState } = createStore([
+    const { dispatch, connect, connectPage, getState } = createStore([
       (store) => {
         store.on('@init', () => ({ x: 0, y: 0 }));
         store.on('_x', ({ x }) => ({ x: x + 1 }));
@@ -14,18 +14,22 @@ describe('Multi keys', () => {
     ]);
 
     connect('x', 'y', callback);
-    dispatch('_x');
-    dispatch('_y');
 
-    expect(callback).toHaveBeenCalledTimes(2);
-    expect(getState()).toEqual({ x: 1, y: 1 });
+    connectPage(() => {
+      dispatch('_x');
+      dispatch('_y');
+
+      expect(callback).toHaveBeenCalledTimes(2);
+      expect(getState()).toEqual({ x: 1, y: 1 });
+      done();
+    });
   });
 
-  it('should be disconnected', () => {
+  it('should be disconnected', (done) => {
     const callback = jest.fn();
     const listener = jest.fn();
 
-    const { dispatch, connect } = createStore([
+    const { dispatch, connect, connectPage } = createStore([
       (store) => {
         store.on('@init', () => ({ x: 0, y: 0 }));
         store.on('_x', ({ x }) => {
@@ -41,13 +45,16 @@ describe('Multi keys', () => {
 
     const disconnect = connect('x', 'y', callback);
 
-    dispatch('_x');
-    dispatch('_y');
-    disconnect();
-    dispatch('_x');
-    dispatch('_y');
+    connectPage(() => {
+      dispatch('_x');
+      dispatch('_y');
+      disconnect();
+      dispatch('_x');
+      dispatch('_y');
 
-    expect(callback).toHaveBeenCalledTimes(2);
-    expect(listener).toHaveBeenCalledTimes(4);
+      expect(callback).toHaveBeenCalledTimes(2);
+      expect(listener).toHaveBeenCalledTimes(4);
+      done();
+    });
   });
 });
