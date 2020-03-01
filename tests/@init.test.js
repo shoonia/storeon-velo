@@ -51,20 +51,20 @@ describe('@init event', () => {
   });
 
   it('should execute in the strict queue @init -> @ready -> connectPage() -> connect()', (done) => {
-    const callback = jest.fn();
+    const listener = jest.fn();
     let increment = 0;
 
     const { connect, connectPage } = createStore([
       (store) => {
         store.on('@init', () => {
-          callback();
+          listener();
           expect(increment).toBe(0);
           increment++;
           return { prop: '' };
         });
 
         store.on('@ready', () => {
-          callback();
+          listener();
           expect(increment).toBe(1);
           increment++;
         });
@@ -73,12 +73,12 @@ describe('@init event', () => {
 
     connect('prop', () => {
       expect(increment).toBe(3);
-      expect(callback).toHaveBeenCalledTimes(3);
+      expect(listener).toHaveBeenCalledTimes(3);
       done();
     });
 
     connectPage(() => {
-      callback();
+      listener();
       expect(increment).toBe(2);
       increment++;
     });

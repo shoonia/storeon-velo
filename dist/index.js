@@ -76,18 +76,18 @@ const createStore$1 = (modules) => {
   const page = [];
   let subs = [];
 
-  store.on('@changed', (state, data) => {
-    subs.forEach((s) => {
-      const changesInKeys = s.keys.some((key) => key in data);
-
-      if (changesInKeys) {
-        s.cb(state);
-      }
-    });
-  });
-
   $w.onReady(() => {
     store.dispatch('@ready');
+
+    store.on('@changed', (state, data) => {
+      subs.forEach((s) => {
+        const changesInKeys = s.keys.some((key) => key in data);
+
+        if (changesInKeys) {
+          s.cb(state);
+        }
+      });
+    });
 
     page.concat(subs).forEach((s) => {
       s.cb(store.get());
