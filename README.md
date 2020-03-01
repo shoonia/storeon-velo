@@ -160,11 +160,11 @@ function logger(store) {
   store.on("@dispatch", (state, [event, data]) => {
     if (event === "@changed") {
       const keys = Object.keys(data).join(', ');
-      console.log(`changed ${keys}`, state);
+      console.log(`changed: ${keys}`, state);
     } else if (typeof data !== "undefined") {
-      console.log(`action ${event}`, data);
+      console.log(`action: ${event}`, data);
     } else {
-      console.log(`action ${event}`);
+      console.log(`action: ${event}`);
     }
   });
 }
@@ -245,8 +245,8 @@ As in Redux’s reducers, you should change immutable.
 ```js
 store.on("products/save", ({ products }, product) => {
   return {
-    products: { ...products, [product._id]: product };
-  }
+    products: { ...products, [product._id]: product },
+  };
 });
 ```
 
@@ -256,7 +256,7 @@ $w("#buttonAdd").onClick(() => {
     _id: uuid(),
     name: $w("inputName").value,
   });
-})
+});
 ```
 
 ### Async operations
