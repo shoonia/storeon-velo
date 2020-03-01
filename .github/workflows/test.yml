@@ -11,5 +11,6 @@ jobs:
           node-version: '13.x'
       - run: npm ci
       - run: npm run dist
-      - run: npm run lint
+      - run: npm run lint-js
+      - run: npm run lint-md
       - run: npm test
