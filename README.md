@@ -7,14 +7,15 @@
   <img src="assets/corvid-storeon.jpg" height="100" align="right" alt="Corvid Storeon">
 </a>
 
-A tiny event-based state manager [Storeon](https://github.com/storeon/storeon) for [Corvid](https://www.wix.com/corvid) by Wix.
+A tiny event-based state manager [Storeon](https://github.com/storeon/storeon)
+for [Corvid](https://www.wix.com/corvid) by Wix.
 
 ## How to use
 
 You can use demo template or install from Package Manager.
 
 - Wix Website Template: [Open In Editor](https://editor.wix.com/html/editor/web/renderer/new?siteId=d6003ab4-7b91-4fe1-b65e-55ff3baca1f4&metaSiteId=654936ba-93bc-4f97-920a-c3050dd82fe7)
-- Install: [Package Manager](#install)
+- [Install](#install)
 
 ## Example
 
@@ -55,7 +56,8 @@ connectPage((state) => {
 
 ## Install
 
-You use the [Package Manager](https://support.wix.com/en/article/corvid-managing-external-code-libraries-with-the-package-manager) to manage the npm packages in your site.
+You use the [Package Manager](https://support.wix.com/en/article/corvid-managing-external-code-libraries-with-the-package-manager)
+to manage the npm packages in your site.
 
 Latest available version: `v1.1.0`
 
@@ -65,7 +67,8 @@ Latest available version: `v1.1.0`
 
 ### createStore
 
-It creates the store and returns 4 methods for work with the app state. [Store API](#store)
+Creates a store that holds the complete state tree of your app
+and returns 4 methods for work with the app state. [Create Store modules API](#store).
 
 ```js
 const { getState, dispatch, connect, connectPage } = createStore(modules);
@@ -75,7 +78,7 @@ const { getState, dispatch, connect, connectPage } = createStore(modules);
 
 ### getState
 
-will return current state.
+Returns an object that holds the complete state of your app.
 
 ```js
 const state = getState();
@@ -85,7 +88,7 @@ const state = getState();
 
 ### dispatch
 
-will emit an event with optional data.
+Emits an event with optional data.
 
 ```js
 dispatch("event/type", { value: 123 });
@@ -95,7 +98,8 @@ dispatch("event/type", { value: 123 });
 
 ### connect
 
-connect to state by property key. It will return function disconnect from the store.
+Connects to state by property key.
+It will return the function disconnect from the store.
 
 ```js
 const disconnect = connect("key", (state) => { });
@@ -115,7 +119,8 @@ connect("key1", "key2", (state) => { });
 
 ### connectPage
 
-Sets the function that runs when all the page elements have finished loading. (wrapper around `$w.onReady()`)
+Sets the function that runs when all the page elements have finished loading.
+(wrapper around `$w.onReady()`)
 
 ```js
 connectPage((state) => { });
@@ -126,7 +131,8 @@ connectPage((state) => { });
 
 ## Store
 
-The store should be created with `createStore()` function. It accepts a list of the modules.
+The store should be created with `createStore()` function.
+It accepts a list of the modules.
 
 Each module is just a function, which will accept a store and bind their event listeners.
 
@@ -181,7 +187,7 @@ There are 4 built-in events:
 
 **`@init`**
 
-will be fired in `createStore()`. The best moment to set an initial state.
+It will be fired in `createStore()`. The best moment to set an initial state.
 
 ```js
 store.on("@init", () => {});
@@ -199,7 +205,9 @@ store.on("@ready", (state) => {});
 
 **`@dispatch`**
 
-It will be fired on every new action (on `store.dispatch()` calls and `@changed` event). It receives an array with the event name and the event’s data. Can be useful for debugging.
+It will be fired on every new action (on `store.dispatch()` calls and `@changed`
+event). It receives an array with the event name and the event’s data.
+Can be useful for debugging.
 
 ```js
 store.on("@dispatch", (state, [event, data]) => {});
@@ -207,7 +215,8 @@ store.on("@dispatch", (state, [event, data]) => {});
 
 **`@changed`**
 
-It will be fired when any event changes the state. It receives object with state changes.
+It will be fired when any event changes the state.
+It receives object with state changes.
 
 ```js
 store.on("@changed", (state, data) => {});
@@ -217,18 +226,21 @@ You can dispatch any other events. Just do not start event names with `@`.
 
 ### Reducers
 
-If the event listener returns an object, this object will update the state. You do not need to return the whole state, return an object with changed keys.
+If the event listener returns an object, this object will update the state.
+You do not need to return the whole state, return an object with changed keys.
 
 ```js
-// users: {} will be added to state on initialization
+// "products": {} will be added to state on initialization
 store.on("@init", () => {
-  return { users:  { } };
+  return { products: {} };
 });
 ```
 
-Event listener accepts the current state as a first argument and optional event object as a second.
+Event listener accepts the current state as a first argument
+and optional event object as a second.
 
-So event listeners can be a reducer as well. As in Redux’s reducers, you should change immutable.
+So event listeners can be a reducer as well.
+As in Redux’s reducers, you should change immutable.
 
 ```js
 store.on("products/save", ({ products }, product) => {
@@ -247,30 +259,30 @@ $w("#buttonAdd").onClick(() => {
 })
 ```
 
-### Unbind listener
-
-`store.on()` returns cleanup function. This function will remove the event listener.
-
-```js
-const unbind = store.on("@changed", () => {/*...*/});
-
-unbind();
-```
-
 ### Async operations
 
 You can dispatch other events in event listeners. It can be useful for async operations.
 
 ```js
-store.on("products/add", async (_, name) => {
+store.on("products/add", async (_, product) => {
   try {
-    const product = await wixData.save("Products", { name });
+    await wixData.save("Products",  product);
 
     store.dispatch("products/save", product);
   } catch (error) {
     store.dispatch("errors/database", error);
   }
 });
+```
+
+### Unbind listener
+
+`store.on()` returns cleanup function. This function will remove the event listener.
+
+```js
+const unbind = store.on("@changed", () => {});
+
+unbind();
 ```
 
 ## License
