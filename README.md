@@ -245,7 +245,7 @@ As in Redux’s reducers, you should change immutable.
 ```js
 store.on("products/save", ({ products }, product) => {
   return {
-    users: { ...products, [product._id]: product };
+    products: { ...products, [product._id]: product };
   }
 });
 ```
