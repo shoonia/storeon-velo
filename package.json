@@ -5,8 +5,7 @@
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "scripts": {
-    "lint": "eslint src/** tests/** --fix",
-    "lint-ci": "eslint src/** dist/** tests/**",
+    "lint": "eslint src/** dist/** tests/**",
     "dist": "rollup --config rollup.config.js && eslint dist/** --fix",
     "test": "jest tests/**.test.js"
   },
@@ -21,7 +20,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint-ci && npm run dist && npm test"
+      "pre-commit": "npm run dist && npm run lint && npm test"
     }
   },
   "repository": {

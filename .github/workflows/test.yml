@@ -10,6 +10,6 @@ jobs:
         with:
           node-version: '13.x'
       - run: npm ci
-      - run: npm run lint-ci
       - run: npm run dist
+      - run: npm run lint
       - run: npm test
