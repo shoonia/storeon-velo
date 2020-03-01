@@ -190,7 +190,7 @@ There are 4 built-in events:
 It will be fired in `createStore()`. The best moment to set an initial state.
 
 ```js
-store.on("@init", () => {});
+store.on("@init", () => { });
 ```
 
 **`@ready`**
@@ -200,7 +200,7 @@ store.on("@init", () => {});
 It will be fired in `$w.onReady()` when all the page elements have finished loading.
 
 ```js
-store.on("@ready", (state) => {});
+store.on("@ready", (state) => { });
 ```
 
 **`@dispatch`**
@@ -210,7 +210,7 @@ event). It receives an array with the event name and the event’s data.
 Can be useful for debugging.
 
 ```js
-store.on("@dispatch", (state, [event, data]) => {});
+store.on("@dispatch", (state, [event, data]) => { });
 ```
 
 **`@changed`**
@@ -219,7 +219,7 @@ It will be fired when any event changes the state.
 It receives object with state changes.
 
 ```js
-store.on("@changed", (state, data) => {});
+store.on("@changed", (state, data) => { });
 ```
 
 You can dispatch any other events. Just do not start event names with `@`.
@@ -232,7 +232,7 @@ You do not need to return the whole state, return an object with changed keys.
 ```js
 // "products": {} will be added to state on initialization
 store.on("@init", () => {
-  return { products: {} };
+  return { products: { } };
 });
 ```
 
@@ -280,7 +280,7 @@ store.on("products/add", async (_, product) => {
 `store.on()` returns cleanup function. This function will remove the event listener.
 
 ```js
-const unbind = store.on("@changed", () => {});
+const unbind = store.on("@changed", () => { });
 
 unbind();
 ```

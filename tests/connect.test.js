@@ -135,4 +135,29 @@ describe('Connect to properties', () => {
     dispatch('update');
     dispatch('update');
   });
+
+  it('should not be affected connect() in @ready -> store.dispatch()', (done) => {
+    const listener = jest.fn();
+
+    const { dispatch, connect } = createStore([
+      (store) => {
+        store.on('@init', () => ({ c: 0 }));
+        store.on('@ready', () => {
+          store.dispatch('inc');
+        });
+        store.on('inc', ({ c }) => {
+          listener();
+          return { c: c + 1 };
+        });
+      },
+    ]);
+
+    dispatch('inc');
+
+    connect('c', (state) => {
+      expect(state).toEqual({ c:  2 });
+      expect(listener).toHaveBeenCalledTimes(2);
+      done();
+    });
+  });
 });
