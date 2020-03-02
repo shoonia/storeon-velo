@@ -2,76 +2,50 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-/**
- * Initialize new store and apply all modules to the store.
- *
- * @param {moduleInitializer[]} modules Functions which will set initial state
- *                                      define reducer and subscribe
- *                                      to all system events.
- *
- * @return {Store} The new store.
- *
- * @example
- * import createStore from 'storeon'
- * let increment = store => {
- *   store.on('@init', () => ({ count: 0 }))
- *   store.on('inc', ({ count }) => ({ count: count + 1 }))
- * }
- * const store = createStore([increment])
- * store.get().count //=> 0
- * store.dispatch('inc')
- * store.get().count //=> 1
- */
-var createStore = function (modules) {
-  var events = { };
-  var state = { };
+var storeon = modules => {
+  let events = { };
+  let state = { };
 
-  var on = function (event, cb) {
-    (events[event] || (events[event] = [])).push(cb);
+  let store = {
+    dispatch(event, data) {
+      if (event !== '@dispatch') {
+        store.dispatch('@dispatch', [event, data, events[event]]);
+      }
 
-    return function () {
-      events[event] = events[event].filter(function (i) {
-        return i !== cb;
-      });
-    };
-  };
+      if (events[event]) {
+        let changes = { };
+        let changed;
+        events[event].forEach(i => {
+          let diff = i(state, data);
+          if (diff && typeof diff.then !== 'function') {
+            changed = state = { ...state, ...diff };
+            changes = { ...changes, ...diff };
+          }
+        });
+        if (changed) store.dispatch('@changed', changes);
+      }
+    },
 
-  var dispatch = function (event, data) {
-    if (event !== '@dispatch') {
-      dispatch('@dispatch', [event, data, events[event]]);
-    }
+    get: () => state,
 
-    if (events[event]) {
-      var changes = { };
-      var changed;
-      events[event].forEach(function (i) {
-        var diff = i(state, data);
-        if (diff && typeof diff.then !== 'function') {
-          changed = state = Object.assign({ }, state, diff);
-          Object.assign(changes, diff);
-        }
-      });
-      if (changed) dispatch('@changed', changes);
+    on(event, cb) {
+      (events[event] || (events[event] = [])).push(cb);
+
+      return () => {
+        events[event] = events[event].filter(i => i !== cb);
+      };
     }
   };
 
-  var get = function () {
-    return state;
-  };
-
-  var store = { dispatch: dispatch, get: get, on: on };
-
-  modules.forEach(function (i) {
+  modules.forEach(i => {
     if (i) i(store);
   });
-  dispatch('@init');
+  store.dispatch('@init');
 
   return store;
 };
 
-var storeon = createStore;
-
-const createStore$1 = (modules) => {
+const createStore = (modules) => {
   const store = storeon(modules);
   const page = [];
   let subs = [];
@@ -118,4 +92,4 @@ const createStore$1 = (modules) => {
   };
 };
 
-exports.createStore = createStore$1;
+exports.createStore = createStore;
