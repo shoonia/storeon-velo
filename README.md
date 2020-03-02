@@ -68,7 +68,9 @@ Latest available version: `v1.1.0`
 ### createStore
 
 Creates a store that holds the complete state tree of your app
-and returns 4 methods for work with the app state. [Create Store modules API](#store).
+and returns 4 methods for work with the app state.
+
+[Create store modules API](#store).
 
 ```js
 const { getState, dispatch, connect, connectPage } = createStore(modules);
@@ -219,7 +221,7 @@ It will be fired when any event changes the state.
 It receives object with state changes.
 
 ```js
-store.on("@changed", (state, data) => { });
+store.on("@changed", (state, changes) => { });
 ```
 
 You can dispatch any other events. Just do not start event names with `@`.
