@@ -1,7 +1,7 @@
-const delay = new Promise(resolve => setTimeout(resolve, 20));
-
 global.$w = {
-  onReady: Promise.prototype.then.bind(delay),
+  onReady(cb) {
+    setTimeout(cb, 5);
+  },
 };
 
 jest.setTimeout(1000);
