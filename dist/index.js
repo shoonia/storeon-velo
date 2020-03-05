@@ -93,3 +93,4 @@ const createStore = (modules) => {
 };
 
 exports.createStore = createStore;
+exports.storeon = storeon;

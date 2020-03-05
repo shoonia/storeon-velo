@@ -88,4 +88,4 @@ const createStore = (modules) => {
   };
 };
 
-export { createStore };
+export { createStore, storeon };

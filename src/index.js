@@ -1,6 +1,6 @@
 import storeon from 'storeon/index.js';
 
-export const createStore = (modules) => {
+const createStore = (modules) => {
   const store = storeon(modules);
   const page = [];
   let subs = [];
@@ -46,3 +46,5 @@ export const createStore = (modules) => {
     }
   };
 };
+
+export { storeon, createStore };
