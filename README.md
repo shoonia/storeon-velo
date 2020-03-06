@@ -1,7 +1,8 @@
 # corvid-storeon
 
 [![corvid-storeon test status](https://github.com/shoonia/corvid-storeon/workflows/test/badge.svg)](https://github.com/shoonia/corvid-storeon/actions)
-[![npm version](https://img.shields.io/npm/v/corvid-storeon.svg)](https://www.npmjs.com/package/corvid-storeon)
+[![npm version](https://badgen.net/npm/v/corvid-storeon)](https://www.npmjs.com/package/corvid-storeon)
+[![minzip](https://badgen.net/bundlephobia/minzip/corvid-storeon)](https://bundlephobia.com/result?p=corvid-storeon)
 
 <a href="https://www.wix.com/alexanderz5/corvid-storeon">
   <img src="assets/corvid-storeon.jpg" height="100" align="right" alt="Corvid Storeon">
