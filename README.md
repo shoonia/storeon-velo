@@ -55,6 +55,8 @@ connectPage((state) => {
 });
 ```
 
+[Demo](https://www.wix.com/alexanderz5/corvid-storeon)
+
 ## Install
 
 You use the [Package Manager](https://support.wix.com/en/article/corvid-managing-external-code-libraries-with-the-package-manager)
@@ -153,7 +155,7 @@ function appModule(store) {
 
   store.on("items/add", ({ items }, item) => {
     return {
-      items: items.concat(item),
+      items: [...items, item],
     };
   });
 }
@@ -178,17 +180,54 @@ export default createStore([
 ]);
 ```
 
+- `functon Module(store: StoreonStore): void`
+- `type StoreonStore = { get: function, on: function, dispatch: function }`
+
+### Store methods
+
 The store has 3 methods:
 
-- `store.get()` will return current state. The state is always an object.
-- `store.on(event, callback)` will add an event listener.
-- `store.dispatch(event, data)` will emit an event with optional data.
+#### store.get
 
-## Events
+Returns an object that holds the complete state of your app.
+The app state is always an object.
+
+```js
+const state = store.get();
+```
+
+- `function get(): object`
+
+#### store.on
+
+Adds an event listener. `store.on()` returns cleanup function.
+This function will remove the event listener.
+
+```js
+const unbind = store.on("event/type", (state, data) => { });
+
+unbind();
+```
+
+- `function on(event: string, listener: EventListener): Unbind`
+- `callback EventListener(state: object, [data: any]): any`
+- `function Unbind(): void`
+
+#### store.dispatch
+
+Emits an event with optional data.
+
+```js
+store.dispatch("event/type", { value: "abc" });
+```
+
+- `function dispatch(event: string, [data: any]): void`
+
+### Events
 
 There are 4 built-in events:
 
-**`@init`**
+#### `@init`
 
 It will be fired in `createStore()`. The best moment to set an initial state.
 
@@ -196,7 +235,7 @@ It will be fired in `createStore()`. The best moment to set an initial state.
 store.on("@init", () => { });
 ```
 
-**`@ready`**
+#### `@ready`
 
 > Added in: v2.0.0
 
@@ -206,17 +245,17 @@ It will be fired in `$w.onReady()` when all the page elements have finished load
 store.on("@ready", (state) => { });
 ```
 
-**`@dispatch`**
+#### `@dispatch`
 
-It will be fired on every new action (on `store.dispatch()` calls and `@changed`
-event). It receives an array with the event name and the event’s data.
+It will be fired on every new action (on `dispatch()` calls and `@changed` event).
+It receives an array with the event name and the event’s data.
 Can be useful for debugging.
 
 ```js
 store.on("@dispatch", (state, [event, data]) => { });
 ```
 
-**`@changed`**
+#### `@changed`
 
 It will be fired when any event changes the state.
 It receives object with state changes.
@@ -276,16 +315,6 @@ store.on("products/add", async (_, product) => {
     store.dispatch("errors/database", error);
   }
 });
-```
-
-### Unbind listener
-
-`store.on()` returns cleanup function. This function will remove the event listener.
-
-```js
-const unbind = store.on("@changed", () => { });
-
-unbind();
 ```
 
 ## License
