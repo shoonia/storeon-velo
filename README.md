@@ -213,6 +213,8 @@ export default createStore([
 Syntax
 
 ```ts
+function createStore(Array<Module>): Store
+
 function Module(store: StoreonStore): void
 
 type StoreonStore = {
@@ -222,9 +224,7 @@ type StoreonStore = {
 }
 ```
 
-### Store methods
-
-The store has 3 methods:
+### Storeon store methods
 
 #### store.get
 
