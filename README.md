@@ -79,7 +79,18 @@ and returns 4 methods for work with the app state.
 const { getState, dispatch, connect, connectPage } = createStore(modules);
 ```
 
-- `createStore(Array<Module>): Store`
+Syntax
+
+```ts
+function createStore(Array<Module>): Store
+
+type Store = {
+  getState: function
+  dispatch: function
+  connect: function
+  connectPage: function
+}
+```
 
 ### getState
 
@@ -89,7 +100,11 @@ Returns an object that holds the complete state of your app.
 const state = getState();
 ```
 
-- `getState(): object`
+Syntax
+
+```ts
+function getState(): object
+```
 
 ### dispatch
 
@@ -99,7 +114,11 @@ Emits an event with optional data.
 dispatch("event/type", { value: 123 });
 ```
 
-- `dispatch(event: string, [data: any]): void`
+Syntax
+
+```ts
+function dispatch(event: string, [data: any]): void
+```
 
 ### connect
 
@@ -118,9 +137,15 @@ You can connect for multiple keys, the last argument must be a function.
 connect("key1", "key2", (state) => { });
 ```
 
-- `connect(key: string, [key: string, ...], handler: ConnectEventHandler): Disconnect`
-- `callback ConnectEventHandler(state: object): void`
-- `function Disconnect(): void`
+Syntax
+
+```ts
+function connect(key: string, [key: string, ...], handler: ConnectHandler): Disconnect
+
+callback ConnectHandler(state: object): void
+
+function Disconnect(): void
+```
 
 ### connectPage
 
@@ -131,8 +156,13 @@ Sets the function that runs when all the page elements have finished loading.
 connectPage((state) => { });
 ```
 
-- `connectPage(initFunction: ReadyHandler): void`
-- `callback ReadyHandler(state: object): void`
+Syntax
+
+```ts
+function connectPage(initFunction: ReadyHandler): void
+
+callback ReadyHandler(state: object): void
+```
 
 ## Store
 
@@ -180,8 +210,17 @@ export default createStore([
 ]);
 ```
 
-- `functon Module(store: StoreonStore): void`
-- `type StoreonStore = { get: function, on: function, dispatch: function }`
+Syntax
+
+```ts
+function Module(store: StoreonStore): void
+
+type StoreonStore = {
+  get: function
+  on: function
+  dispatch: function
+}
+```
 
 ### Store methods
 
@@ -196,7 +235,11 @@ The app state is always an object.
 const state = store.get();
 ```
 
-- `function get(): object`
+Syntax
+
+```ts
+function get(): object
+```
 
 #### store.on
 
@@ -209,9 +252,15 @@ const unbind = store.on("event/type", (state, data) => { });
 unbind();
 ```
 
-- `function on(event: string, listener: EventListener): Unbind`
-- `callback EventListener(state: object, [data: any]): any`
-- `function Unbind(): void`
+Syntax
+
+```ts
+function on(event: string, listener: EventListener): Unbind
+
+callback EventListener(state: object, [data: any]): any
+
+function Unbind(): void
+```
 
 #### store.dispatch
 
@@ -221,7 +270,11 @@ Emits an event with optional data.
 store.dispatch("event/type", { value: "abc" });
 ```
 
-- `function dispatch(event: string, [data: any]): void`
+Syntax
+
+```ts
+function dispatch(event: string, [data: any]): void
+```
 
 ### Events
 
