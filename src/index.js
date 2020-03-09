@@ -1,16 +1,16 @@
-import storeon from 'storeon/index.js';
+import { createStoreon } from 'storeon/index.js';
 
 const createStore = (modules) => {
-  const store = storeon(modules);
+  const { dispatch, get, on } = createStoreon(modules);
   const page = [];
   let subs = [];
 
   $w.onReady(() => {
-    store.dispatch('@ready');
+    dispatch('@ready');
 
-    store.on('@changed', (state, data) => {
+    on('@changed', (state, changes) => {
       subs.forEach((s) => {
-        const changesInKeys = s.keys.some((key) => key in data);
+        const changesInKeys = s.keys.some((key) => key in changes);
 
         if (changesInKeys) {
           s.cb(state);
@@ -19,20 +19,19 @@ const createStore = (modules) => {
     });
 
     page.concat(subs).forEach((s) => {
-      s.cb(store.get());
+      s.cb(get());
     });
   });
 
   return {
-    getState: store.get,
-    dispatch: store.dispatch,
+    getState: get,
+    dispatch,
 
-    connect() {
-      const l = arguments.length - 1;
-      const cb = arguments[l];
+    connect(...args) {
+      const [cb] = args.slice(-1);
 
       subs.push({
-        keys: [].slice.call(arguments, 0, l),
+        keys: args.slice(0, -1),
         cb
       });
 
@@ -47,4 +46,4 @@ const createStore = (modules) => {
   };
 };
 
-export { storeon, createStore };
+export { createStoreon, createStore };

@@ -1,8 +1,8 @@
 describe('import', () => {
-  it('should import storeon core', () => {
-    const { storeon } = require('../dist');
+  it('should import createStoreon core', () => {
+    const { createStoreon } = require('../dist');
 
-    const { on, get, dispatch } = storeon([]);
+    const { on, get, dispatch } = createStoreon([]);
 
     expect(typeof on === 'function').toBeTruthy();
     expect(typeof get === 'function').toBeTruthy();
