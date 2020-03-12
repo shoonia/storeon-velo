@@ -349,7 +349,7 @@ store.on("products/save", ({ products }, product) => {
 $w("#buttonAdd").onClick(() => {
   dispatch("products/save", {
     _id: uuid(),
-    name: $w("inputName").value,
+    name: $w("#inputName").value,
   });
 });
 ```
