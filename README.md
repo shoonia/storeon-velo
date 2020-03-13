@@ -82,7 +82,7 @@ const { getState, dispatch, connect, connectPage } = createStore(modules);
 Syntax
 
 ```ts
-function createStore(Array<Module>): Store
+function createStore(Array<Module | false>): Store
 
 type Store = {
   getState: function
@@ -142,7 +142,7 @@ Syntax
 ```ts
 function connect(key: string, [key: string, ...], handler: ConnectHandler): Disconnect
 
-callback ConnectHandler(state: object): void
+callback ConnectHandler(state: object): void | Promise<void>
 
 function Disconnect(): void
 ```
@@ -161,7 +161,7 @@ Syntax
 ```ts
 function connectPage(initFunction: ReadyHandler): void
 
-callback ReadyHandler(state: object): void
+callback ReadyHandler(state: object): void | Promise<void>
 ```
 
 ## Store
@@ -213,7 +213,7 @@ export default createStore([
 Syntax
 
 ```ts
-function createStore(Array<Module>): Store
+function createStore(Array<Module | false>): Store
 
 function Module(store: StoreonStore): void
 
@@ -257,9 +257,11 @@ Syntax
 ```ts
 function on(event: string, listener: EventListener): Unbind
 
-callback EventListener(state: object, [data: any]): any
+callback EventListener(state: object, [data: any]): Result
 
 function Unbind(): void
+
+type Result = object | void | Promise<void> | false
 ```
 
 #### store.dispatch

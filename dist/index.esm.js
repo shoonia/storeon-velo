@@ -87,4 +87,4 @@ const createStore = (modules) => {
   };
 };
 
-export { createStore, createStoreon };
+export { createStore };

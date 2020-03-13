@@ -1,6 +1,6 @@
 import { createStoreon } from 'storeon/index.js';
 
-const createStore = (modules) => {
+export const createStore = (modules) => {
   const { dispatch, get, on } = createStoreon(modules);
   const page = [];
   let subs = [];
@@ -45,5 +45,3 @@ const createStore = (modules) => {
     }
   };
 };
-
-export { createStoreon, createStore };
