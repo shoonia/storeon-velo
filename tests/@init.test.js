@@ -1,5 +1,5 @@
 require('./mock.js');
-const { createStore } = require('../dist/index.js');
+const { createStore, createStoreon } = require('../dist/index.js');
 
 describe('@init event', () => {
   const init = () => createStore([
@@ -7,6 +7,10 @@ describe('@init event', () => {
       store.on('@init', () => ({ x: 5 }));
     },
   ]);
+
+  it('should be the same function', () => {
+    expect(createStore === createStoreon).toBeTruthy();
+  });
 
   it('getState() initial run', () => {
     const { getState } = init();

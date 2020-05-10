@@ -83,8 +83,8 @@ const createStore = (modules) => {
 
     connectPage(cb) {
       page.push({ cb });
-    }
+    },
   };
 };
 
-export { createStore };
+export { createStore, createStore as createStoreon };

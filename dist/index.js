@@ -87,8 +87,9 @@ const createStore = (modules) => {
 
     connectPage(cb) {
       page.push({ cb });
-    }
+    },
   };
 };
 
 exports.createStore = createStore;
+exports.createStoreon = createStore;
