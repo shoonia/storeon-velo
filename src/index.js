@@ -27,13 +27,10 @@ const createStore = (modules) => {
     getState: get,
     dispatch,
 
-    connect(...args) {
-      const [cb] = args.slice(-1);
+    connect(...keys) {
+      const cb = keys.pop();
 
-      subs.push({
-        keys: args.slice(0, -1),
-        cb
-      });
+      subs.push({ keys, cb });
 
       return () => {
         subs = subs.filter((s) => s.cb !== cb);
