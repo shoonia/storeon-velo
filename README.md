@@ -23,14 +23,14 @@ You can use demo template or install from Package Manager.
 **`public/store.js`**
 
 ```js
-import { createStore } from "corvid-storeon";
+import { createStoreon } from "corvid-storeon";
 
 const counter = (store) => {
   store.on("@init", () => ({ count: 0 }));
   store.on("increment", ({ count }) => ({ count: count + 1 }));
 };
 
-export const { getState, dispatch, connect, connectPage } = createStore([counter]);
+export const { getState, dispatch, connect, connectPage } = createStoreon([counter]);
 ```
 
 **`Page Code`**
@@ -62,13 +62,13 @@ connectPage((state) => {
 You use the [Package Manager](https://support.wix.com/en/article/corvid-managing-external-code-libraries-with-the-package-manager)
 to manage the npm packages in your site.
 
-Latest available version: `v2.1.0` [Check status](https://www.wix.com/corvid/npm-modules)
+Latest available version: `v2.3.1` [Check status](https://www.wix.com/corvid/npm-modules)
 
 <img src="assets/cs.png" width="500" alt="Install corvid-storeon">
 
 ## API
 
-### createStore
+### createStoreon
 
 Creates a store that holds the complete state tree of your app
 and returns 4 methods for work with the app state.
@@ -76,13 +76,13 @@ and returns 4 methods for work with the app state.
 [Create store modules API](#store).
 
 ```js
-const { getState, dispatch, connect, connectPage } = createStore(modules);
+const { getState, dispatch, connect, connectPage } = createStoreon(modules);
 ```
 
 Syntax
 
 ```ts
-function createStore(Array<Module | false>): Store
+function createStoreon(Array<Module | false>): Store
 
 type Store = {
   getState: function
@@ -166,14 +166,14 @@ callback ReadyHandler(state: object): void | Promise<void>
 
 ## Store
 
-The store should be created with `createStore()` function.
+The store should be created with `createStoreon()` function.
 It accepts a list of the modules.
 
 Each module is just a function, which will accept a store and bind their event listeners.
 
 ```js
 import wixWindow from "wix-window";
-import { createStore } from "corvid-storeon";
+import { createStoreon } from "corvid-storeon";
 
 // Business logic
 function appModule(store) {
@@ -204,7 +204,7 @@ function logger(store) {
   });
 }
 
-export default createStore([
+export default createStoreon([
   appModule,
   (wixWindow.viewMode === "Preview" && logger),
 ]);
@@ -213,7 +213,7 @@ export default createStore([
 Syntax
 
 ```ts
-function createStore(Array<Module | false>): Store
+function createStoreon(Array<Module | false>): Store
 
 function Module(store: StoreonStore): void
 
@@ -284,7 +284,7 @@ There are 4 built-in events:
 
 #### `@init`
 
-It will be fired in `createStore()`. The best moment to set an initial state.
+It will be fired in `createStoreon()`. The best moment to set an initial state.
 
 ```js
 store.on("@init", () => { });

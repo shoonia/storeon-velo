@@ -13,13 +13,13 @@
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^13.0.0",
-    "@rollup/plugin-node-resolve": "^8.0.1",
-    "eslint": "^7.2.0",
+    "@rollup/plugin-node-resolve": "^8.1.0",
+    "eslint": "^7.3.1",
     "husky": "^4.2.5",
-    "jest": "^26.0.1",
-    "markdownlint": "^0.20.3",
+    "jest": "^26.1.0",
+    "markdownlint": "^0.20.4",
     "markdownlint-cli": "^0.23.1",
-    "rollup": "^2.17.1",
+    "rollup": "^2.18.0",
     "storeon": "^3.0.3"
   },
   "husky": {
