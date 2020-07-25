@@ -12,14 +12,14 @@
     "test": "jest tests/**.test.js"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^13.0.0",
-    "@rollup/plugin-node-resolve": "^8.1.0",
-    "eslint": "^7.3.1",
+    "@rollup/plugin-commonjs": "^13.0.2",
+    "@rollup/plugin-node-resolve": "^8.4.0",
+    "eslint": "^7.5.0",
     "husky": "^4.2.5",
     "jest": "^26.1.0",
     "markdownlint": "^0.20.4",
-    "markdownlint-cli": "^0.23.1",
-    "rollup": "^2.18.0",
+    "markdownlint-cli": "^0.23.2",
+    "rollup": "^2.23.0",
     "storeon": "^3.0.3"
   },
   "husky": {
