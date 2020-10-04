@@ -1,9 +1,9 @@
 require('./mock.js');
-const { createStore } = require('../dist/index.js');
+const { createStoreon } = require('../dist/index.js');
 
 describe('dispatch events', () => {
   it('should be incremented value', () => {
-    const { dispatch, getState } = createStore([
+    const { dispatch, getState } = createStoreon([
       (store) => {
         store.on('@init', () => ({ x: 1 }));
         store.on('inc', ({ x }) => ({ x: x + 1 }));
@@ -18,7 +18,7 @@ describe('dispatch events', () => {
   it('should be called twice time', () => {
     const listener = jest.fn();
 
-    const { dispatch } = createStore([
+    const { dispatch } = createStoreon([
       (store) => {
         store.on('run', listener);
       },
@@ -33,7 +33,7 @@ describe('dispatch events', () => {
   it('should be passed data', () => {
     const listener = jest.fn();
 
-    const { dispatch } = createStore([
+    const { dispatch } = createStoreon([
       (store) => {
         store.on('@init', () => ({}));
         store.on('run', listener);

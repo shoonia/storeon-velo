@@ -1,9 +1,9 @@
 require('./mock.js');
-const { createStore } = require('../dist/index.js');
+const { createStoreon } = require('../dist/index.js');
 
 describe('Connect to properties', () => {
   it('should be run only if change "x" property', (done) => {
-    const { dispatch, connect } = createStore([
+    const { dispatch, connect } = createStoreon([
       (store) => {
         store.on('@init', () => ({ x: 1, y: 1 }));
         store.on('incX', ({ x }) => ({ x: x + 1 }));
@@ -23,7 +23,7 @@ describe('Connect to properties', () => {
   it('should be run twice time', (done) => {
     const callback = jest.fn();
 
-    const { dispatch, connect, connectPage } = createStore([
+    const { dispatch, connect, connectPage } = createStoreon([
       (store) => {
         store.on('@init', () => ({ x: 1 }));
         store.on('run', ({ x }) => ({ x: x + 1 }));
@@ -45,7 +45,7 @@ describe('Connect to properties', () => {
     const callback = jest.fn();
     const listener = jest.fn();
 
-    const { dispatch, connect, connectPage } = createStore([
+    const { dispatch, connect, connectPage } = createStoreon([
       (store) => {
         store.on('@init', () => ({ x: 1}));
         store.on('run', ({ x }) => {
@@ -71,7 +71,7 @@ describe('Connect to properties', () => {
   it('should be connected twice', (done) => {
     const callback = jest.fn();
 
-    const { dispatch, connect, connectPage } = createStore([
+    const { dispatch, connect, connectPage } = createStoreon([
       (store) => {
         store.on('@init', () => ({ z: 0 }));
         store.on('go', ({ z }) => ({ z: z + 1 }));
@@ -91,7 +91,7 @@ describe('Connect to properties', () => {
   it('should get the actual current data', (done) => {
     const listener = jest.fn();
 
-    const { connect } = createStore([
+    const { connect } = createStoreon([
       (store) => {
         store.on('@init', () => {
           listener();
@@ -116,7 +116,7 @@ describe('Connect to properties', () => {
   it('should not be affected connect() until @ready event', (done) => {
     const listener = jest.fn();
 
-    const { dispatch, connect } = createStore([
+    const { dispatch, connect } = createStoreon([
       (store) => {
         store.on('@init', () => ({ j: 0 }));
         store.on('update', ({ j }) => {
@@ -139,7 +139,7 @@ describe('Connect to properties', () => {
   it('should not be affected connect() in @ready -> store.dispatch()', (done) => {
     const listener = jest.fn();
 
-    const { dispatch, connect } = createStore([
+    const { dispatch, connect } = createStoreon([
       (store) => {
         store.on('@init', () => ({ c: 0 }));
         store.on('@ready', () => {

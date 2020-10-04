@@ -1,30 +1,31 @@
 {
   "name": "corvid-storeon",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "A tiny event-based state manager Storeon for Corvid by Wix",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "sideEffects": false,
   "scripts": {
-    "lint-js": "eslint src/** dist/** tests/**",
+    "lint-js": "eslint src/**/*.js tests/**/*.js",
     "lint-md": "markdownlint '**/*.md' --ignore node_modules",
-    "dist": "rollup -c && eslint dist/** --fix",
-    "test": "jest tests/**.test.js"
+    "lint": "npm run lint-js && npm run lint-md",
+    "dist": "rollup -c && eslint dist/**/*.js --fix",
+    "test": "jest tests/*.test.js"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^13.0.2",
-    "@rollup/plugin-node-resolve": "^8.4.0",
-    "eslint": "^7.5.0",
-    "husky": "^4.2.5",
-    "jest": "^26.1.0",
-    "markdownlint": "^0.20.4",
-    "markdownlint-cli": "^0.23.2",
-    "rollup": "^2.23.0",
+    "@rollup/plugin-commonjs": "^15.1.0",
+    "@rollup/plugin-node-resolve": "^9.0.0",
+    "eslint": "^7.10.0",
+    "husky": "^4.3.0",
+    "jest": "^26.4.2",
+    "markdownlint": "^0.21.0",
+    "markdownlint-cli": "^0.24.0",
+    "rollup": "^2.28.2",
     "storeon": "^3.0.3"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint-js && npm run lint-md && npm run dist && npm test"
+      "pre-commit": "npm run lint && npm run dist && npm test"
     }
   },
   "repository": {

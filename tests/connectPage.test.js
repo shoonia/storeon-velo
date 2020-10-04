@@ -1,11 +1,11 @@
 require('./mock.js');
-const { createStore } = require('../dist/index.js');
+const { createStoreon } = require('../dist/index.js');
 
 describe('connectPage', () => {
   it('Should getting an updated state by the queue.', (done) => {
     const callback = jest.fn();
 
-    const { dispatch, connectPage } = createStore([
+    const { dispatch, connectPage } = createStoreon([
       (store) => {
         store.on('@init', () => ({ i: 0 }));
         store.on('++', ({ i }) => {

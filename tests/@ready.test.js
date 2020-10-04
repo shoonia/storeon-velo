@@ -1,9 +1,9 @@
 require('./mock.js');
-const { createStore } = require('../dist/index.js');
+const { createStoreon } = require('../dist/index.js');
 
 describe('@ready event', () => {
   it('should be running with an empty state object', (done) => {
-    createStore([
+    createStoreon([
       (store) => {
         store.on('@ready', (state) => {
           expect(state).toEqual({});
@@ -14,7 +14,7 @@ describe('@ready event', () => {
   });
 
   it('should be running with initial state', (done) => {
-    createStore([
+    createStoreon([
       (store) => {
         store.on('@init', () => ({ p: 1 }));
         store.on('@ready', (state) => {
@@ -26,7 +26,7 @@ describe('@ready event', () => {
   });
 
   it('should get the initial state from @ready event.', (done) => {
-    const { connect } = createStore([
+    const { connect } = createStoreon([
       (store) => {
         store.on('@ready', () => {
           return { key1: 3, key2: 7 };
@@ -43,7 +43,7 @@ describe('@ready event', () => {
   it('@ready should not affect to connect()', (done) => {
     const listener = jest.fn();
 
-    const { connect } = createStore([
+    const { connect } = createStoreon([
       (store) => {
         store.on('@init', () => ({ val: 0 }));
         store.on('@ready', ({ val }) => {

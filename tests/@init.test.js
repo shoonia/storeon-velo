@@ -2,7 +2,7 @@ require('./mock.js');
 const { createStore, createStoreon } = require('../dist/index.js');
 
 describe('@init event', () => {
-  const init = () => createStore([
+  const init = () => createStoreon([
     (store) => {
       store.on('@init', () => ({ x: 5 }));
     },
@@ -58,7 +58,7 @@ describe('@init event', () => {
     const listener = jest.fn();
     let increment = 0;
 
-    const { connect, connectPage } = createStore([
+    const { connect, connectPage } = createStoreon([
       (store) => {
         store.on('@init', () => {
           listener();

@@ -1,11 +1,11 @@
 require('./mock.js');
-const { createStore } = require('../dist/index.js');
+const { createStoreon } = require('../dist/index.js');
 
 describe('Multi keys', () => {
   it('should be called twice time', (done) => {
     const callback = jest.fn();
 
-    const { dispatch, connect, connectPage, getState } = createStore([
+    const { dispatch, connect, connectPage, getState } = createStoreon([
       (store) => {
         store.on('@init', () => ({ x: 0, y: 0 }));
         store.on('_x', ({ x }) => ({ x: x + 1 }));
@@ -29,7 +29,7 @@ describe('Multi keys', () => {
     const callback = jest.fn();
     const listener = jest.fn();
 
-    const { dispatch, connect, connectPage } = createStore([
+    const { dispatch, connect, connectPage } = createStoreon([
       (store) => {
         store.on('@init', () => ({ x: 0, y: 0 }));
         store.on('_x', ({ x }) => {

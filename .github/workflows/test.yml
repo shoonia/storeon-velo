@@ -10,7 +10,6 @@ jobs:
         with:
           node-version: '14.x'
       - run: npm ci
+      - run: npm run lint
       - run: npm run dist
-      - run: npm run lint-js
-      - run: npm run lint-md
       - run: npm test
