@@ -6,16 +6,16 @@ export default {
   input: './src/index.js',
   output: [
     {
-      file: './dist/index.esm.js',
+      file: './lib/esm.js',
       format: 'esm',
     },
     {
-      file: './dist/index.cjs.js',
+      file: './lib/cjs.js',
       format: 'cjs',
     },
     {
-      file: './dist/index.js',
-      format: 'cjs',
+      file: './lib/es5.js',
+      format: 'esm',
       plugins: [
         getBabelOutputPlugin({
           presets: [

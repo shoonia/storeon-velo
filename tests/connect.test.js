@@ -1,5 +1,5 @@
 require('./mock.js');
-const { createStoreon } = require('../dist/index.js');
+const { createStoreon } = require('../lib/cjs.js');
 
 describe('Connect to properties', () => {
   it('should be run only if change "x" property', (done) => {
