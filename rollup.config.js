@@ -15,7 +15,7 @@ export default {
     },
     {
       file: './lib/es5.js',
-      format: 'esm',
+      format: 'cjs',
       plugins: [
         getBabelOutputPlugin({
           presets: [

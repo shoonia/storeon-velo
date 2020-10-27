@@ -1,5 +1,5 @@
 require('./mock.js');
-const { createStoreon } = require('../lib/cjs.js');
+const { createStoreon } = require('..');
 
 describe('Multi keys', () => {
   it('should be called twice time', (done) => {

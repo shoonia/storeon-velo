@@ -1,5 +1,5 @@
 require('./mock.js');
-const { createStoreon } = require('../lib/cjs.js');
+const { createStoreon } = require('..');
 
 describe('@ready event', () => {
   it('should be running with an empty state object', (done) => {

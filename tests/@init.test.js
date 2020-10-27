@@ -1,5 +1,5 @@
 require('./mock.js');
-const { createStore, createStoreon } = require('../lib/cjs.js');
+const { createStore, createStoreon } = require('..');
 
 describe('@init event', () => {
   const create = (initialData) => createStoreon([

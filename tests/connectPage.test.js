@@ -1,5 +1,5 @@
 require('./mock.js');
-const { createStoreon } = require('../lib/cjs.js');
+const { createStoreon } = require('..');
 
 describe('connectPage', () => {
   it('Should getting an updated state by the queue.', (done) => {

@@ -1,5 +1,5 @@
 require('./mock.js');
-const { createStoreon } = require('../lib/cjs.js');
+const { createStoreon } = require('..');
 
 describe('dispatch events', () => {
   it('should be called twice time', () => {
