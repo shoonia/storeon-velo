@@ -1,5 +1,6 @@
 import commonjs from '@rollup/plugin-commonjs';
 import nodeResolve from '@rollup/plugin-node-resolve';
+import { getBabelOutputPlugin } from '@rollup/plugin-babel';
 
 export default {
   input: './src/index.js',
@@ -7,12 +8,28 @@ export default {
     {
       file: './dist/index.esm.js',
       format: 'esm',
-      sourcemap: false,
+    },
+    {
+      file: './dist/index.cjs.js',
+      format: 'cjs',
     },
     {
       file: './dist/index.js',
       format: 'cjs',
-      sourcemap: false,
+      plugins: [
+        getBabelOutputPlugin({
+          presets: [
+            [
+              '@babel/preset-env',
+              {
+                loose: true,
+                useBuiltIns: 'entry',
+                targets: 'defaults',
+              },
+            ],
+          ],
+        }),
+      ],
     },
   ],
   plugins: [

@@ -1,90 +1,100 @@
 'use strict';
 
-Object.defineProperty(exports, '__esModule', { value: true });
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
-let createStoreon = modules => {
-  let events = {};
-  let state = {};
-
-  let store = {
-    dispatch(event, data) {
+var createStoreon = function createStoreon(modules) {
+  var events = {};
+  var state = {};
+  var store = {
+    dispatch: function dispatch(event, data) {
       if (event !== '@dispatch') {
         store.dispatch('@dispatch', [event, data, events[event]]);
       }
 
       if (events[event]) {
-        let changes = {};
-        let changed;
-        events[event].forEach(i => {
-          let diff = events[event].includes(i) && i(state, data, store);
+        var changes = {};
+        var changed;
+        events[event].forEach(function (i) {
+          var diff = events[event].includes(i) && i(state, data, store);
+
           if (diff && typeof diff.then !== 'function') {
-            changed = state = { ...state, ...diff };
-            changes = { ...changes, ...diff };
+            changed = state = Object.assign({}, state, diff);
+            changes = Object.assign({}, changes, diff);
           }
         });
         if (changed) store.dispatch('@changed', changes);
       }
     },
-
-    get: () => state,
-
-    on(event, cb) {
+    get: function get() {
+      return state;
+    },
+    on: function on(event, cb) {
       (events[event] || (events[event] = [])).push(cb);
-
-      return () => {
-        events[event] = events[event].filter(i => i !== cb);
+      return function () {
+        events[event] = events[event].filter(function (i) {
+          return i !== cb;
+        });
       };
     }
   };
-
-  modules.forEach(i => {
+  modules.forEach(function (i) {
     if (i) i(store);
   });
   store.dispatch('@init');
-
   return store;
 };
 
-const createStore = (modules) => {
-  const { dispatch, get, on } = createStoreon(modules);
-  const page = [];
-  let subs = [];
+var createStore = function createStore(modules) {
+  var _createStoreon = createStoreon(modules),
+    dispatch = _createStoreon.dispatch,
+    get = _createStoreon.get,
+    on = _createStoreon.on;
 
-  $w.onReady(() => {
+  var page = [];
+  var subs = [];
+  $w.onReady(function () {
     dispatch('@ready');
-
-    on('@changed', (state, changes) => {
-      subs.forEach((s) => {
-        const changesInKeys = s.keys.some((key) => key in changes);
+    on('@changed', function (state, changes) {
+      subs.forEach(function (s) {
+        var changesInKeys = s.keys.some(function (key) {
+          return key in changes;
+        });
 
         if (changesInKeys) {
           s.cb(state);
         }
       });
     });
-
-    page.concat(subs).forEach((s) => {
+    page.concat(subs).forEach(function (s) {
       s.cb(get());
     });
   });
-
   return {
     getState: get,
-    dispatch,
+    dispatch: dispatch,
+    connect: function connect() {
+      for (var _len = arguments.length, keys = new Array(_len), _key = 0; _key < _len; _key++) {
+        keys[_key] = arguments[_key];
+      }
 
-    connect(...keys) {
-      const cb = keys.pop();
-
-      subs.push({ keys, cb });
-
-      return () => {
-        subs = subs.filter((s) => s.cb !== cb);
+      var cb = keys.pop();
+      subs.push({
+        keys: keys,
+        cb: cb
+      });
+      return function () {
+        subs = subs.filter(function (s) {
+          return s.cb !== cb;
+        });
       };
     },
-
-    connectPage(cb) {
-      page.push({ cb });
-    },
+    connectPage: function connectPage(cb) {
+      page.push({
+        cb: cb
+      });
+    }
   };
 };
 
