@@ -2,6 +2,19 @@ import commonjs from '@rollup/plugin-commonjs';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import { getBabelOutputPlugin } from '@rollup/plugin-babel';
 
+const babelPlugin = getBabelOutputPlugin({
+  presets: [
+    [
+      '@babel/preset-env',
+      {
+        loose: true,
+        useBuiltIns: 'entry',
+        targets: 'defaults',
+      },
+    ],
+  ],
+});
+
 export default {
   input: './src/index.js',
   output: [
@@ -17,23 +30,12 @@ export default {
       file: './lib/es5.js',
       format: 'cjs',
       plugins: [
-        getBabelOutputPlugin({
-          presets: [
-            [
-              '@babel/preset-env',
-              {
-                loose: true,
-                useBuiltIns: 'entry',
-                targets: 'defaults',
-              },
-            ],
-          ],
-        }),
+        babelPlugin,
       ],
     },
   ],
   plugins: [
     commonjs(),
     nodeResolve(),
-  ]
+  ],
 };
