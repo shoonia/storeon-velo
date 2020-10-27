@@ -47,7 +47,7 @@ describe('Connect to properties', () => {
 
     const { dispatch, connect, connectPage } = createStoreon([
       (store) => {
-        store.on('@init', () => ({ x: 1}));
+        store.on('@init', () => ({ x: 1 }));
         store.on('run', ({ x }) => {
           listener();
           return { x: x + 1 };
@@ -98,16 +98,16 @@ describe('Connect to properties', () => {
           return { v: 5 };
         });
 
-        store.on('@ready', ({ v }) => {
+        store.on('@ready', (state) => {
           listener();
-          expect(v).toBe(5);
+          expect(state).toEqual({ v: 5 });
           return { v: 10 };
         });
       },
     ]);
 
-    connect('v', ({ v }) => {
-      expect(v).toBe(10);
+    connect('v', (state) => {
+      expect(state).toEqual({ v: 10 });
       expect(listener).toHaveBeenCalledTimes(2);
       done();
     });
@@ -126,8 +126,8 @@ describe('Connect to properties', () => {
       },
     ]);
 
-    connect('j', ({ j }) => {
-      expect(j).toBe(2);
+    connect('j', (state) => {
+      expect(state).toEqual({ j: 2 });
       expect(listener).toHaveBeenCalledTimes(2);
       done();
     });
@@ -155,7 +155,7 @@ describe('Connect to properties', () => {
     dispatch('inc');
 
     connect('c', (state) => {
-      expect(state).toEqual({ c:  2 });
+      expect(state).toEqual({ c: 2 });
       expect(listener).toHaveBeenCalledTimes(2);
       done();
     });

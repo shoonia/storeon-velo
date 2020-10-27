@@ -8,7 +8,7 @@ describe('connectPage', () => {
     const { dispatch, connectPage } = createStoreon([
       (store) => {
         store.on('@init', () => ({ i: 0 }));
-        store.on('++', ({ i }) => {
+        store.on('inc', ({ i }) => {
           return { i: i + 1 };
         });
       },
@@ -17,12 +17,12 @@ describe('connectPage', () => {
     connectPage((state) => {
       callback();
       expect(state).toEqual({ i: 0 });
-      dispatch('++');
+      dispatch('inc');
     });
     connectPage((state) => {
       callback();
       expect(state).toEqual({ i: 1 });
-      dispatch('++');
+      dispatch('inc');
     });
     connectPage((state) => {
       expect(state).toEqual({ i: 2 });

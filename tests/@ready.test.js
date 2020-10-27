@@ -46,9 +46,9 @@ describe('@ready event', () => {
     const { connect } = createStoreon([
       (store) => {
         store.on('@init', () => ({ val: 0 }));
-        store.on('@ready', ({ val }) => {
+        store.on('@ready', () => {
           listener();
-          return { val: val + 1 };
+          return { val: 1 };
         });
       },
     ]);

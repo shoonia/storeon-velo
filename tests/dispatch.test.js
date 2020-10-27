@@ -2,19 +2,6 @@ require('./mock.js');
 const { createStoreon } = require('../dist/index.js');
 
 describe('dispatch events', () => {
-  it('should be incremented value', () => {
-    const { dispatch, getState } = createStoreon([
-      (store) => {
-        store.on('@init', () => ({ x: 1 }));
-        store.on('inc', ({ x }) => ({ x: x + 1 }));
-      },
-    ]);
-
-    expect(getState()).toEqual({ x: 1 });
-    dispatch('inc');
-    expect(getState()).toEqual({ x: 2 });
-  });
-
   it('should be called twice time', () => {
     const listener = jest.fn();
 
@@ -26,7 +13,6 @@ describe('dispatch events', () => {
 
     dispatch('run');
     dispatch('run');
-
     expect(listener).toHaveBeenCalledTimes(2);
   });
 
@@ -35,13 +21,24 @@ describe('dispatch events', () => {
 
     const { dispatch } = createStoreon([
       (store) => {
-        store.on('@init', () => ({}));
-        store.on('run', listener);
+        store.on('run', (_, data) => listener(data));
       },
     ]);
 
-    dispatch('run', { data: 1 });
+    dispatch('run', { a: 1 });
+    expect(listener).toHaveBeenCalledWith({ a: 1 });
+  });
 
-    expect(listener).toHaveBeenCalledWith({}, { data: 1 });
+  it('should be incremented value', () => {
+    const { dispatch, getState } = createStoreon([
+      (store) => {
+        store.on('@init', () => ({ x: 1 }));
+        store.on('inc', ({ x }) => ({ x: x + 1 }));
+      },
+    ]);
+
+    expect(getState()).toEqual({ x: 1 });
+    dispatch('inc');
+    expect(getState()).toEqual({ x: 2 });
   });
 });

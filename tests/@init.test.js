@@ -2,33 +2,33 @@ require('./mock.js');
 const { createStore, createStoreon } = require('../dist/index.js');
 
 describe('@init event', () => {
-  const init = () => createStoreon([
+  const create = (initialData) => createStoreon([
     (store) => {
-      store.on('@init', () => ({ x: 5 }));
+      store.on('@init', () => initialData);
     },
   ]);
 
   it('should be the same function', () => {
-    expect(createStore === createStoreon).toBeTruthy();
+    expect(createStore).toEqual(createStoreon);
   });
 
   it('getState() initial run', () => {
-    const { getState } = init();
+    const { getState } = create({ xyz: 15 });
 
-    expect(getState().x).toBe(5);
+    expect(getState()).toEqual({ xyz: 15 });
   });
 
   it('connect() initial run', (done) => {
-    const { connect } = init();
+    const { connect } = create({ x: 5 });
 
-    connect('x', ({ x }) => {
-      expect(x).toBe(5);
+    connect('x', (state) => {
+      expect(state).toEqual({ x: 5 });
       done();
     });
   });
 
   it('connect() should be working with async callback', (done) => {
-    const { connect } = init();
+    const { connect } = create({ x: 5 });
 
     connect('x', async (state) => {
       await expect(state).toEqual({ x: 5 });
@@ -37,16 +37,16 @@ describe('@init event', () => {
   });
 
   it('connectPage() initial run', (done) => {
-    const { connectPage } = init();
+    const { connectPage } = create({ a: 'hello' });
 
-    connectPage(({ x }) => {
-      expect(x).toBe(5);
+    connectPage((state) => {
+      expect(state).toEqual({ a: 'hello' });
       done();
     });
   });
 
   it('connectPage() should be working with async callback', (done) => {
-    const { connectPage } = init();
+    const { connectPage } = create({ x: 5 });
 
     connectPage(async (state) => {
       await expect(state).toEqual({ x: 5 });
