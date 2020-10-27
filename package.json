@@ -3,6 +3,13 @@
   "version": "2.5.0",
   "description": "A tiny event-based state manager Storeon for Corvid by Wix",
   "main": "lib/es5.js",
+  "module": "lib/esm.js",
+  "exports": {
+    ".": {
+      "require":  "./lib/es5.js",
+      "default": "./lib/esm.js"
+    }
+  },
   "sideEffects": false,
   "scripts": {
     "lint-js": "eslint src/**/*.js tests/**/*.js",
