@@ -1,6 +1,6 @@
 {
   "name": "corvid-storeon",
-  "version": "2.4.2",
+  "version": "2.5.0",
   "description": "A tiny event-based state manager Storeon for Corvid by Wix",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
