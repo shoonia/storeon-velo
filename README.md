@@ -62,7 +62,7 @@ connectPage((state) => {
 You use the [Package Manager](https://support.wix.com/en/article/corvid-managing-external-code-libraries-with-the-package-manager)
 to manage the npm packages in your site.
 
-Latest available version: `v2.3.1` [Check status](https://www.wix.com/corvid/npm-modules)
+Latest available version: `v3.0.0` [Check status](https://www.wix.com/corvid/npm-modules)
 
 <img src="assets/cs.png" width="500" alt="Install corvid-storeon">
 
@@ -176,7 +176,7 @@ import wixWindow from "wix-window";
 import { createStoreon } from "corvid-storeon";
 
 // Business logic
-function appModule(store) {
+const appModule = (store) => {
   store.on("@init", () => {
     return {
       items: [],
@@ -188,10 +188,10 @@ function appModule(store) {
       items: [...items, item],
     };
   });
-}
+};
 
 // Devtools
-function logger(store) {
+const logger = (store) => {
   store.on("@dispatch", (state, [event, data]) => {
     if (event === "@changed") {
       const keys = Object.keys(data).join(', ');
@@ -202,9 +202,9 @@ function logger(store) {
       console.log(`action: ${event}`);
     }
   });
-}
+};
 
-export default createStoreon([
+export const store = createStoreon([
   appModule,
   (wixWindow.viewMode === "Preview" && logger),
 ]);
