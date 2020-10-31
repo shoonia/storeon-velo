@@ -40,22 +40,63 @@ describe('@ready event', () => {
     });
   });
 
-  it('@ready should not affect to connect()', (done) => {
-    const listener = jest.fn();
-
-    const { connect } = createStoreon([
+  it('should get the initial state from @ready event in connectPage()', (done) => {
+    const { connectPage } = createStoreon([
       (store) => {
-        store.on('@init', () => ({ val: 0 }));
         store.on('@ready', () => {
-          listener();
           return { val: 1 };
         });
       },
     ]);
 
-    connect('val', (state) => {
+    connectPage((state) => {
       expect(state).toEqual({ val: 1 });
-      expect(listener).toHaveBeenCalled();
+      done();
+    });
+  });
+
+  it('connect() should run once after @ready with the new state', (done) => {
+    const listener = jest.fn();
+
+    const { connect } = createStoreon([
+      (store) => {
+        store.on('@init', () => {
+          listener();
+          return { key1: 1 };
+        });
+        store.on('@ready', () => {
+          listener();
+          return { key2: 2 };
+        });
+      },
+    ]);
+
+    connect('key1', 'key2', (state) => {
+      expect(state).toEqual({ key1: 1, key2: 2 });
+      expect(listener).toHaveBeenCalledTimes(2);
+      done();
+    });
+  });
+
+  it('connectPage() should run once after @ready with the new state', (done) => {
+    const listener = jest.fn();
+
+    const { connectPage } = createStoreon([
+      (store) => {
+        store.on('@init', () => {
+          listener();
+          return { key1: 1 };
+        });
+        store.on('@ready', () => {
+          listener();
+          return { key2: 2 };
+        });
+      },
+    ]);
+
+    connectPage((state) => {
+      expect(state).toEqual({ key1: 1, key2: 2 });
+      expect(listener).toHaveBeenCalledTimes(2);
       done();
     });
   });
