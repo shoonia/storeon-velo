@@ -25,17 +25,17 @@ describe('@ready event', () => {
     ]);
   });
 
-  it('should get the initial state from @ready event.', (done) => {
+  it('should get the initial state from @ready event in connect()', (done) => {
     const { connect } = createStoreon([
       (store) => {
         store.on('@ready', () => {
-          return { key1: 3, key2: 7 };
+          return { val: 1 };
         });
       },
     ]);
 
-    connect((state) => {
-      expect(state).toEqual({ key1: 3, key2: 7 });
+    connect('val', (state) => {
+      expect(state).toEqual({ val: 1 });
       done();
     });
   });
@@ -53,7 +53,7 @@ describe('@ready event', () => {
       },
     ]);
 
-    connect((state) => {
+    connect('val', (state) => {
       expect(state).toEqual({ val: 1 });
       expect(listener).toHaveBeenCalled();
       done();
