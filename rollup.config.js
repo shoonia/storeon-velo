@@ -23,11 +23,14 @@ export default {
       format: 'esm',
     },
     {
-      file: './lib/cjs.js',
-      format: 'cjs',
+      file: './lib/es5.esm.js',
+      format: 'esm',
+      plugins: [
+        babelPlugin,
+      ],
     },
     {
-      file: './lib/es5.js',
+      file: './lib/es5.cjs.js',
       format: 'cjs',
       plugins: [
         babelPlugin,
