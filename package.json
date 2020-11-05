@@ -1,6 +1,6 @@
 {
   "name": "corvid-storeon",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "A tiny event-based state manager Storeon for Corvid by Wix",
   "main": "lib/es5.cjs.js",
   "module": "lib/es5.esm.js",
@@ -25,10 +25,10 @@
     "@rollup/plugin-node-resolve": "^10.0.0",
     "eslint": "^7.12.1",
     "husky": "^4.3.0",
-    "jest": "^26.6.1",
+    "jest": "^26.6.3",
     "markdownlint": "^0.21.1",
     "markdownlint-cli": "^0.24.0",
-    "rollup": "^2.32.1",
+    "rollup": "^2.33.1",
     "storeon": "^3.1.1"
   },
   "husky": {
