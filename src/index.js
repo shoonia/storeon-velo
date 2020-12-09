@@ -1,4 +1,4 @@
-import { createStoreon } from 'storeon/index.js';
+import { createStoreon } from '../node_modules/storeon/index.js';
 
 const createStore = (modules) => {
   const { dispatch, get, on } = createStoreon(modules);
