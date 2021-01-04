@@ -4,19 +4,13 @@
 [![npm version](https://badgen.net/npm/v/storeon-velo)](https://www.npmjs.com/package/storeon-velo)
 [![minzip](https://badgen.net/bundlephobia/minzip/storeon-velo)](https://bundlephobia.com/result?p=storeon-velo)
 
-<a href="https://www.wix.com/alexanderz5/corvid-storeon">
-  <img src="assets/corvid-storeon.jpg" height="100" align="right" alt="Corvid Storeon">
-</a>
-
 A tiny event-based state manager [Storeon](https://github.com/storeon/storeon)
 for [Velo](https://www.wix.com/velo) by Wix.
 
-## How to use
+## Install
 
-You can use demo template or install from Package Manager.
-
-- Wix Website Template: [Open In Editor](https://editor.wix.com/html/editor/web/renderer/new?siteId=d6003ab4-7b91-4fe1-b65e-55ff3baca1f4&metaSiteId=654936ba-93bc-4f97-920a-c3050dd82fe7&autoDevMode=true)
-- [Install](#install)
+You use the [Package Manager](https://support.wix.com/en/article/velo-working-with-npm-packages)
+to manage the npm packages in your site.
 
 ## Example
 
@@ -56,15 +50,6 @@ connectPage((state) => {
 ```
 
 [Demo](https://www.wix.com/alexanderz5/corvid-storeon)
-
-## Install
-
-You use the [Package Manager](https://support.wix.com/en/article/velo-working-with-npm-packages)
-to manage the npm packages in your site.
-
-Latest available version: `v3.1.0` [Check status](https://www.wix.com/corvid/npm-modules)
-
-<img src="assets/cs.png" width="500" alt="Install storeon-velo">
 
 ## API
 

@@ -1,5 +1,5 @@
 require('./mock.js');
-const { createStore, createStoreon } = require('..');
+const { createStoreon } = require('..');
 
 describe('@init event', () => {
   const create = (initialData) => createStoreon([
@@ -7,10 +7,6 @@ describe('@init event', () => {
       store.on('@init', () => initialData);
     },
   ]);
-
-  it('should be the same function', () => {
-    expect(createStore).toEqual(createStoreon);
-  });
 
   it('getState() initial run', () => {
     const { getState } = create({ xyz: 15 });
