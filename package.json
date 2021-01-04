@@ -1,7 +1,7 @@
 {
-  "name": "corvid-storeon",
-  "version": "3.1.3",
-  "description": "This package has been deprecated. Use \"storeon-velo\" https://github.com/shoonia/storeon-velo",
+  "name": "storeon-velo",
+  "version": "0.1.0",
+  "description": "A tiny event-based state manager Storeon for Velo by Wix",
   "main": "lib/es5.cjs.js",
   "module": "lib/es5.esm.js",
   "exports": {
@@ -38,10 +38,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/shoonia/corvid-storeon.git"
+    "url": "https://github.com/shoonia/storeon-velo.git"
   },
   "bugs": {
-    "url": "https://github.com/shoonia/corvid-storeon/issues"
+    "url": "https://github.com/shoonia/storeon-velo/issues"
   },
   "keywords": [
     "wix",
@@ -49,6 +49,7 @@
     "corvid-cli",
     "wixcode",
     "editorx",
+    "velo",
     "storeon",
     "redux"
   ],
@@ -57,7 +58,7 @@
     "email": "alexanderz@wix.com",
     "url": "https://twitter.com/_shoonia"
   },
-  "homepage": "https://github.com/shoonia/corvid-storeon#readme",
+  "homepage": "https://github.com/shoonia/storeon-velo#readme",
   "license": "MIT",
   "private": false
 }

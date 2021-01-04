@@ -1,15 +1,15 @@
-# corvid-storeon
+# storeon-velo
 
-[![corvid-storeon test status](https://github.com/shoonia/corvid-storeon/workflows/test/badge.svg)](https://github.com/shoonia/corvid-storeon/actions)
-[![npm version](https://badgen.net/npm/v/corvid-storeon)](https://www.npmjs.com/package/corvid-storeon)
-[![minzip](https://badgen.net/bundlephobia/minzip/corvid-storeon)](https://bundlephobia.com/result?p=corvid-storeon)
+[![corvid-storeon test status](https://github.com/shoonia/storeon-velo/workflows/test/badge.svg)](https://github.com/shoonia/storeon-velo/actions)
+[![npm version](https://badgen.net/npm/v/storeon-velo)](https://www.npmjs.com/package/storeon-velo)
+[![minzip](https://badgen.net/bundlephobia/minzip/storeon-velo)](https://bundlephobia.com/result?p=storeon-velo)
 
 <a href="https://www.wix.com/alexanderz5/corvid-storeon">
   <img src="assets/corvid-storeon.jpg" height="100" align="right" alt="Corvid Storeon">
 </a>
 
 A tiny event-based state manager [Storeon](https://github.com/storeon/storeon)
-for [Corvid](https://www.wix.com/corvid) by Wix.
+for [Velo](https://www.wix.com/velo) by Wix.
 
 ## How to use
 
@@ -23,7 +23,7 @@ You can use demo template or install from Package Manager.
 **`public/store.js`**
 
 ```js
-import { createStoreon } from "corvid-storeon";
+import { createStoreon } from "storeon-velo";
 
 const counter = (store) => {
   store.on("@init", () => ({ count: 0 }));
@@ -59,12 +59,12 @@ connectPage((state) => {
 
 ## Install
 
-You use the [Package Manager](https://support.wix.com/en/article/corvid-managing-external-code-libraries-with-the-package-manager)
+You use the [Package Manager](https://support.wix.com/en/article/velo-working-with-npm-packages)
 to manage the npm packages in your site.
 
 Latest available version: `v3.1.0` [Check status](https://www.wix.com/corvid/npm-modules)
 
-<img src="assets/cs.png" width="500" alt="Install corvid-storeon">
+<img src="assets/cs.png" width="500" alt="Install storeon-velo">
 
 ## API
 
@@ -173,7 +173,7 @@ Each module is just a function, which will accept a store and bind their event l
 
 ```js
 import wixWindow from "wix-window";
-import { createStoreon } from "corvid-storeon";
+import { createStoreon } from "storeon-velo";
 
 // Business logic
 const appModule = (store) => {
