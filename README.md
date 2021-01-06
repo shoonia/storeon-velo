@@ -7,11 +7,6 @@
 A tiny event-based state manager [Storeon](https://github.com/storeon/storeon)
 for [Velo](https://www.wix.com/velo) by Wix.
 
-## Install
-
-You use the [Package Manager](https://support.wix.com/en/article/velo-working-with-npm-packages)
-to manage the npm packages in your site.
-
 ## Example
 
 **`public/store.js`**
@@ -49,7 +44,19 @@ connectPage((state) => {
 });
 ```
 
-[Demo](https://www.wix.com/alexanderz5/corvid-storeon)
+**[Live Demo](https://www.wix.com/alexanderz5/storeon-velo)**
+
+## Install
+
+You use the [Package Manager](https://support.wix.com/en/article/velo-working-with-npm-packages)
+to manage the npm packages in your site.
+
+<img
+  src="https://static.wixstatic.com/media/e3b156_5ae2f75f6f564611adb4dc8a2a53a661~mv2.jpg"
+  width="500" height="202"
+  alt="Package Manager panel in Wix editor, installing storeon-velo"
+  crossorigin="anonymous"
+/>
 
 ## API
 
