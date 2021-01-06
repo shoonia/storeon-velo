@@ -1,7 +1,7 @@
 {
   "name": "corvid-storeon",
-  "version": "3.2.0",
-  "description": "A tiny event-based state manager Storeon for Corvid by Wix",
+  "version": "3.2.1",
+  "description": "A tiny event-based state manager Storeon for Velo by Wix",
   "main": "lib/es5.cjs.js",
   "module": "lib/es5.esm.js",
   "exports": {

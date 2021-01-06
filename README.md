@@ -1,11 +1,13 @@
 # corvid-storeon
 
-[![corvid-storeon test status](https://github.com/shoonia/storeon-velo/workflows/test/badge.svg)](https://github.com/shoonia/storeon-velo/actions)
+[![storeon-velo test status](https://github.com/shoonia/storeon-velo/workflows/test/badge.svg)](https://github.com/shoonia/storeon-velo/actions)
 [![npm version](https://badgen.net/npm/v/corvid-storeon)](https://www.npmjs.com/package/corvid-storeon)
 [![minzip](https://badgen.net/bundlephobia/minzip/corvid-storeon)](https://bundlephobia.com/result?p=corvid-storeon)
 
 <a href="https://www.wix.com/alexanderz5/corvid-storeon">
-  <img src="assets/corvid-storeon.jpg" height="100" align="right" alt="Corvid Storeon">
+  <img
+    src="https://raw.githubusercontent.com/shoonia/storeon-velo/corvid-storeon/assets/corvid-storeon.jpg"
+    height="100" align="right" alt="Corvid Storeon">
 </a>
 
 A tiny event-based state manager [Storeon](https://github.com/storeon/storeon)
@@ -64,7 +66,9 @@ to manage the npm packages in your site.
 
 Latest available version: `v3.1.0` [Check status](https://www.wix.com/corvid/npm-modules)
 
-<img src="assets/cs.png" width="500" alt="Install corvid-storeon">
+<img
+  src="https://raw.githubusercontent.com/shoonia/storeon-velo/corvid-storeon/assets/cs.png"
+  width="500" alt="Install corvid-storeon">
 
 ## API
 
