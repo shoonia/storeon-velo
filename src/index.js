@@ -1,7 +1,7 @@
-import { createStoreon } from '../node_modules/storeon/index.js';
+import { createStoreon as storeon } from '../node_modules/storeon/index.js';
 
-const createStore = (modules) => {
-  const { dispatch, get, on } = createStoreon(modules);
+export const createStoreon = (modules) => {
+  const { dispatch, get, on } = storeon(modules);
   const page = [];
   let subs = [];
 
@@ -41,10 +41,4 @@ const createStore = (modules) => {
       page.push({ cb });
     },
   };
-};
-
-export {
-  createStore,
-  // Alias for backward compatibility between Storeon v1 and v2
-  createStore as createStoreon,
 };

@@ -1,6 +1,6 @@
 # corvid-storeon
 
-[![corvid-storeon test status](https://github.com/shoonia/corvid-storeon/workflows/test/badge.svg)](https://github.com/shoonia/corvid-storeon/actions)
+[![corvid-storeon test status](https://github.com/shoonia/storeon-velo/workflows/test/badge.svg)](https://github.com/shoonia/storeon-velo/actions)
 [![npm version](https://badgen.net/npm/v/corvid-storeon)](https://www.npmjs.com/package/corvid-storeon)
 [![minzip](https://badgen.net/bundlephobia/minzip/corvid-storeon)](https://bundlephobia.com/result?p=corvid-storeon)
 
@@ -9,7 +9,7 @@
 </a>
 
 A tiny event-based state manager [Storeon](https://github.com/storeon/storeon)
-for [Corvid](https://www.wix.com/corvid) by Wix.
+for [Velo](https://www.wix.com/velo) by Wix.
 
 ## How to use
 
@@ -59,7 +59,7 @@ connectPage((state) => {
 
 ## Install
 
-You use the [Package Manager](https://support.wix.com/en/article/corvid-managing-external-code-libraries-with-the-package-manager)
+You use the [Package Manager](https://support.wix.com/en/article/velo-working-with-npm-packages)
 to manage the npm packages in your site.
 
 Latest available version: `v3.1.0` [Check status](https://www.wix.com/corvid/npm-modules)
