@@ -4,6 +4,11 @@
 [![npm version](https://badgen.net/npm/v/storeon-velo)](https://www.npmjs.com/package/storeon-velo)
 [![minzip](https://badgen.net/bundlephobia/minzip/storeon-velo@latest)](https://bundlephobia.com/result?p=storeon-velo)
 
+<a href="https://www.wix.com/alexanderz5/storeon-velo">
+  <img src="https://static.wixstatic.com/shapes/e3b156_213b86a0c75b48e39d761768ffa6ac2b.svg"
+    height="100" align="right" alt="Storeon Velo" crossorigin="anonymous"/>
+</a>
+
 A tiny event-based state manager [Storeon](https://github.com/storeon/storeon)
 for [Velo](https://www.wix.com/velo) by Wix.
 
@@ -53,7 +58,7 @@ to manage the npm packages in your site.
 
 <img
   src="https://static.wixstatic.com/media/e3b156_5ae2f75f6f564611adb4dc8a2a53a661~mv2.jpg"
-  width="500" height="202"
+  width="500"
   alt="Package Manager panel in Wix editor, installing storeon-velo"
   crossorigin="anonymous"
 />
