@@ -1,7 +1,7 @@
 {
   "name": "corvid-storeon",
-  "version": "3.2.1",
-  "description": "A tiny event-based state manager Storeon for Velo by Wix",
+  "version": "3.2.2",
+  "description": "This package has been deprecated. Use 'storeon-velo' https://github.com/shoonia/storeon-velo",
   "main": "lib/es5.cjs.js",
   "module": "lib/es5.esm.js",
   "exports": {
