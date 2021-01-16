@@ -4,4 +4,4 @@ global.$w = {
   },
 };
 
-jest.setTimeout(1000);
+jest.setTimeout(50);

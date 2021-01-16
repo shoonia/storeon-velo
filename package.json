@@ -22,13 +22,13 @@
     "@babel/preset-env": "^7.12.11",
     "@rollup/plugin-babel": "^5.2.2",
     "@rollup/plugin-commonjs": "^17.0.0",
-    "@rollup/plugin-node-resolve": "^11.0.1",
-    "eslint": "^7.17.0",
-    "husky": "^4.3.6",
+    "@rollup/plugin-node-resolve": "^11.1.0",
+    "eslint": "^7.18.0",
+    "husky": "^4.3.8",
     "jest": "^26.6.3",
     "markdownlint": "^0.22.0",
     "markdownlint-cli": "^0.26.0",
-    "rollup": "^2.36.1",
+    "rollup": "^2.36.2",
     "storeon": "^3.1.4"
   },
   "husky": {
