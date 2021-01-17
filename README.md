@@ -12,6 +12,13 @@
 A tiny event-based state manager [Storeon](https://github.com/storeon/storeon)
 for [Velo](https://www.wix.com/velo) by Wix.
 
+## How to use
+
+You can install from Package Manager or use demo template.
+
+- [Install](#install)
+- Wix Website Template: [Open In Editor](https://editor.wix.com/html/editor/web/renderer/new?siteId=d6003ab4-7b91-4fe1-b65e-55ff3baca1f4&metaSiteId=654936ba-93bc-4f97-920a-c3050dd82fe7&autoDevMode=true)
+
 ## Example
 
 **`public/store.js`**
@@ -30,7 +37,7 @@ export const { getState, dispatch, connect, connectPage } = createStoreon([count
 **`Page Code`**
 
 ```js
-import { dispatch, connect, connectPage } from "public/store.js";
+import { getState, dispatch, connect, connectPage } from "public/store.js";
 
 // Subscribe for state property "count".
 // The callback function will be run when the page loads ($w.onReady())
@@ -56,6 +63,8 @@ connectPage((state) => {
 You use the [Package Manager](https://support.wix.com/en/article/velo-working-with-npm-packages)
 to manage the npm packages in your site.
 
+Latest available version: v1.0.0 [Check status](https://www.wix.com/velo/npm-modules)
+
 <img
   src="https://static.wixstatic.com/media/e3b156_5ae2f75f6f564611adb4dc8a2a53a661~mv2.jpg"
   width="500"
@@ -63,14 +72,18 @@ to manage the npm packages in your site.
   crossorigin="anonymous"
 />
 
+## Wix Website Template
+
+Just open the template in the Wix Editor and play with `storeon-velo`
+
+- [Open In Editor](https://editor.wix.com/html/editor/web/renderer/new?siteId=d6003ab4-7b91-4fe1-b65e-55ff3baca1f4&metaSiteId=654936ba-93bc-4f97-920a-c3050dd82fe7&autoDevMode=true)
+
 ## API
 
 ### createStoreon
 
 Creates a store that holds the complete state tree of your app
-and returns 4 methods for work with the app state.
-
-[Create store modules API](#store).
+and returns 4 methods for work with the app state. ([modules API](#store))
 
 ```js
 const { getState, dispatch, connect, connectPage } = createStoreon(modules);
@@ -203,7 +216,7 @@ const logger = (store) => {
 
 export const store = createStoreon([
   appModule,
-  (wixWindow.viewMode === "Preview" && logger),
+  wixWindow.viewMode === "Preview" && logger,
 ]);
 ```
 
@@ -289,8 +302,6 @@ store.on("@init", () => { });
 
 #### `@ready`
 
-> Added in: v2.0.0
-
 It will be fired in `$w.onReady()` when all the page elements have finished loading.
 
 ```js
@@ -324,9 +335,9 @@ If the event listener returns an object, this object will update the state.
 You do not need to return the whole state, return an object with changed keys.
 
 ```js
-// "products": {} will be added to state on initialization
+// "products": [] will be added to state on initialization
 store.on("@init", () => {
-  return { products: { } };
+  return { products: [] };
 });
 ```
 
@@ -337,16 +348,16 @@ So event listeners can be a reducer as well.
 As in Redux’s reducers, you should change immutable.
 
 ```js
-store.on("products/save", ({ products }, product) => {
+store.on("products/add", ({ products }, product) => {
   return {
-    products: { ...products, [product._id]: product },
+    products: [...products, product],
   };
 });
 ```
 
 ```js
 $w("#buttonAdd").onClick(() => {
-  dispatch("products/save", {
+  dispatch("products/add", {
     _id: uuid(),
     name: $w("#inputName").value,
   });
@@ -358,12 +369,15 @@ $w("#buttonAdd").onClick(() => {
 You can dispatch other events in event listeners. It can be useful for async operations.
 
 ```js
-store.on("products/add", async (_, product) => {
+store.on("products/save", async (_, product) => {
   try {
+    // wait until saving to database
     await wixData.save("Products",  product);
 
-    store.dispatch("products/save", product);
+    // resolve
+    store.dispatch("products/add", product);
   } catch (error) {
+    // reject
     store.dispatch("errors/database", error);
   }
 });

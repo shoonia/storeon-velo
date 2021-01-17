@@ -16,7 +16,6 @@ describe('Multi keys', () => {
       },
     ]);
 
-
     connectPage(() => {
       connect('x', 'y', cb);
       dispatch(eventOne, 1);
