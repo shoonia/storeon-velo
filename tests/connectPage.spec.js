@@ -12,8 +12,19 @@ describe('connectPage method', () => {
     });
   });
 
+  it('should run with async function', (done) => {
+    const { connectPage } = createStoreon([]);
+
+    // eslint-disable-next-line require-await
+    connectPage(async (state) => {
+      expect(state).toEqual({});
+      done();
+    });
+  });
+
   it('should get correctly state for each connectPage', (done) => {
     const event = 'event+event';
+
     const spy = jest.fn();
 
     const { dispatch, connectPage } = createStoreon([

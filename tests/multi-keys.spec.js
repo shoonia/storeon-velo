@@ -16,13 +16,34 @@ describe('Multi keys', () => {
       },
     ]);
 
-    connect('x', 'y', cb);
 
     connectPage(() => {
+      connect('x', 'y', cb);
       dispatch(eventOne, 1);
       dispatch(eventTwo, 1);
 
       expect(cb).toHaveBeenCalledTimes(2);
+      done();
+    });
+  });
+
+  it('should run one time of change two properties synchronic', (done) => {
+    const event = '%event';
+
+    const cb = jest.fn();
+
+    const { dispatch, connect, connectPage } = createStoreon([
+      (store) => {
+        store.on(event, () => ({ x: '1', y: '1' }));
+      },
+    ]);
+
+    connectPage(() => {
+      connect('x', 'y', cb);
+      dispatch(event);
+
+      expect(cb).toHaveBeenCalledTimes(1);
+      expect(cb).toHaveBeenCalledWith({ x: '1', y: '1' });
       done();
     });
   });
@@ -48,9 +69,9 @@ describe('Multi keys', () => {
       },
     ]);
 
-    const off = connect('x', 'y', cb);
-
     connectPage(() => {
+      const off = connect('x', 'y', cb);
+
       dispatch(eventOne);
       dispatch(eventTwo);
 

@@ -12,6 +12,16 @@ describe('connect method', () => {
     });
   });
 
+  it('should run with async function', (done) => {
+    const { connect } = createStoreon([]);
+
+    // eslint-disable-next-line require-await
+    connect(async (state) => {
+      expect(state).toEqual({});
+      done();
+    });
+  });
+
   it('should run method connect with an unknown key', (done) => {
     const { connect } = createStoreon([]);
 
@@ -22,10 +32,10 @@ describe('connect method', () => {
   });
 
   it('should run only after @ready', (done) => {
-    const spy = jest.fn();
-
     const eventX = 'one';
     const eventY = 'two';
+
+    const spy = jest.fn();
 
     const { connect, dispatch } = createStoreon([
       (store) => {
@@ -81,6 +91,7 @@ describe('connect method', () => {
 
   it('should connect twice', (done) => {
     const event = 'event-event';
+
     const cb = jest.fn();
 
     const { dispatch, connect, connectPage } = createStoreon([
@@ -126,6 +137,7 @@ describe('connect method', () => {
 
   it('should not be affected connect if use dispatch in @ready', (done) => {
     const event = 'event#event';
+
     const spy = jest.fn();
 
     const { dispatch, connect } = createStoreon([
@@ -149,6 +161,32 @@ describe('connect method', () => {
       expect(state).toEqual({ t: 2 });
       expect(spy).toHaveBeenCalledTimes(2);
       done();
+    });
+  });
+
+  it('should not run with @ready event if set up inside connectPage method', (done) => {
+    const event = '-event';
+
+    const cbOutside = jest.fn();
+    const cbInside = jest.fn();
+
+    const { dispatch, connect, connectPage } = createStoreon([
+      (store) => store.on(event, () => ({ a: 'text' })),
+    ]);
+
+    connect('a', cbOutside);
+
+    connectPage(() => {
+      connect('a', cbInside);
+
+      setTimeout(() => {
+        dispatch(event);
+
+        expect(cbOutside).toHaveBeenCalledTimes(2);
+        expect(cbInside).toHaveBeenCalledTimes(1);
+        expect(cbInside).toHaveBeenCalledWith({ a: 'text' });
+        done();
+      }, 5);
     });
   });
 });
