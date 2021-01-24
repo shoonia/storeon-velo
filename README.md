@@ -95,10 +95,10 @@ Syntax
 function createStoreon(Array<Module | false>): Store
 
 type Store = {
-  getState: function
-  dispatch: function
-  connect: function
-  connectPage: function
+  getState: Function
+  dispatch: Function
+  connect: Function
+  connectPage: Function
 }
 ```
 
@@ -121,13 +121,13 @@ function getState(): object
 Emits an event with optional data.
 
 ```js
-dispatch("event/type", { value: 123 });
+dispatch("event/type", { xyz: 123 });
 ```
 
 Syntax
 
 ```ts
-function dispatch(event: string, [data: any]): void
+function dispatch(event: string, data?: any): void
 ```
 
 ### connect
@@ -150,11 +150,11 @@ connect("key1", "key2", (state) => { });
 Syntax
 
 ```ts
-function connect(key: string, [key: string, ...], handler: ConnectHandler): Disconnect
+function connect(...args: [key: string, ...key: string[], handler: ConnectHandler]): Disconnect
 
-callback ConnectHandler(state: object): void | Promise<void>
+type ConnectHandler = (state: object) => void | Promise<void>
 
-function Disconnect(): void
+type Disconnect = () => void
 ```
 
 ### connectPage
@@ -171,7 +171,7 @@ Syntax
 ```ts
 function connectPage(initFunction: ReadyHandler): void
 
-callback ReadyHandler(state: object): void | Promise<void>
+type ReadyHandler = (state: object) => void | Promise<void>
 ```
 
 ## Store
@@ -228,9 +228,9 @@ function createStoreon(Array<Module | false>): Store
 function Module(store: StoreonStore): void
 
 type StoreonStore = {
-  get: function
-  on: function
-  dispatch: function
+  get: Function
+  on: Function
+  dispatch: Function
 }
 ```
 
@@ -257,9 +257,9 @@ Adds an event listener. `store.on()` returns cleanup function.
 This function will remove the event listener.
 
 ```js
-const unbind = store.on("event/type", (state, data) => { });
+const off = store.on("event/type", (state, data) => { });
 
-unbind();
+off();
 ```
 
 Syntax
@@ -267,9 +267,9 @@ Syntax
 ```ts
 function on(event: string, listener: EventListener): Unbind
 
-callback EventListener(state: object, [data: any]): Result
+type EventListener = (state: object, data?: any) => Result
 
-function Unbind(): void
+type Unbind = () => void
 
 type Result = object | void | Promise<void> | false
 ```
@@ -279,13 +279,13 @@ type Result = object | void | Promise<void> | false
 Emits an event with optional data.
 
 ```js
-store.dispatch("event/type", { value: "abc" });
+store.dispatch("event/type", { xyz: "abc" });
 ```
 
 Syntax
 
 ```ts
-function dispatch(event: string, [data: any]): void
+function dispatch(event: string, data?: any): void
 ```
 
 ### Events
