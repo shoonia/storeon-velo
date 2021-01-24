@@ -71,16 +71,16 @@ describe('Multi keys', () => {
     connectPage(() => {
       const off = connect('x', 'y', cb);
 
-      dispatch(eventOne);
-      dispatch(eventTwo);
+      dispatch(eventOne, '1');
+      dispatch(eventTwo, '1');
 
       expect(cb).toHaveBeenCalledTimes(2);
       expect(spy).toHaveBeenCalledTimes(2);
 
       off();
 
-      dispatch(eventOne);
-      dispatch(eventTwo);
+      dispatch(eventOne, '2');
+      dispatch(eventTwo, '2');
 
       expect(cb).toHaveBeenCalledTimes(2);
       expect(spy).toHaveBeenCalledTimes(4);
