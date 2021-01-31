@@ -3,7 +3,7 @@ require('./mock.js');
 const { createStoreon } = require('..');
 
 describe('@ready event', () => {
-  it('should run @inti', (done) => {
+  it('should run @ready event', (done) => {
     createStoreon([
       (store) => store.on('@ready', (state) => {
         expect(state).toEqual({});
