@@ -225,7 +225,7 @@ Syntax
 ```ts
 function createStoreon(Array<Module | false>): Store
 
-function Module(store: StoreonStore): void
+type Module = (store: StoreonStore) => void
 
 type StoreonStore = {
   get: Function
@@ -347,6 +347,8 @@ and optional event object as a second.
 So event listeners can be a reducer as well.
 As in Redux’s reducers, you should change immutable.
 
+**Reducer**
+
 ```js
 store.on("products/add", ({ products }, product) => {
   return {
@@ -355,11 +357,24 @@ store.on("products/add", ({ products }, product) => {
 });
 ```
 
+**Dispatch**
+
 ```js
 $w("#buttonAdd").onClick(() => {
   dispatch("products/add", {
     _id: uuid(),
     name: $w("#inputName").value,
+  });
+});
+```
+
+**Connector**
+
+```js
+connect("products", ({ products }) => {
+  $w("#repeater").data = products;
+  $w("#repeater").forEachItem(($item, itemData) => {
+    $item("#text").text = itemData.name;
   });
 });
 ```
