@@ -2,7 +2,7 @@
 
 [![corvid-storeon test status](https://github.com/shoonia/storeon-velo/workflows/test/badge.svg)](https://github.com/shoonia/storeon-velo/actions)
 [![npm version](https://badgen.net/npm/v/storeon-velo)](https://www.npmjs.com/package/storeon-velo)
-[![minzip](https://badgen.net/bundlephobia/minzip/storeon-velo@latest)](https://bundlephobia.com/result?p=storeon-velo)
+[![minzip](https://badgen.net/bundlephobia/minzip/storeon-velo)](https://bundlephobia.com/result?p=storeon-velo)
 
 <a href="https://www.wix.com/alexanderz5/storeon-velo">
   <img src="https://static.wixstatic.com/shapes/e3b156_213b86a0c75b48e39d761768ffa6ac2b.svg"
