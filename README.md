@@ -4,13 +4,9 @@
 [![npm version](https://badgen.net/npm/v/storeon-velo)](https://www.npmjs.com/package/storeon-velo)
 [![minzip](https://badgen.net/bundlephobia/minzip/storeon-velo)](https://bundlephobia.com/result?p=storeon-velo)
 
-<a href="https://www.wix.com/alexanderz5/storeon-velo">
-  <img src="https://static.wixstatic.com/shapes/e3b156_213b86a0c75b48e39d761768ffa6ac2b.svg"
-    height="100" align="right" alt="Storeon Velo" crossorigin="anonymous"/>
-</a>
+A tiny event-based state manager [Storeon](https://github.com/storeon/storeon) for [Velo](https://www.wix.com/velo) by Wix.
 
-A tiny event-based state manager [Storeon](https://github.com/storeon/storeon)
-for [Velo](https://www.wix.com/velo) by Wix.
+![state manager storeon-velo](https://static.wixstatic.com/shapes/e3b156_87008db048c84222aa5f0814b5572677.svg)
 
 ## How to use
 
