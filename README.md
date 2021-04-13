@@ -63,14 +63,9 @@ connectPage((state) => {
 You use the [Package Manager](https://support.wix.com/en/article/velo-working-with-npm-packages)
 to manage the npm packages in your site.
 
-Latest available version: v1.0.0 [Check status](https://www.wix.com/velo/npm-modules)
+Latest available version: v1.2.0 [Check status](https://www.wix.com/velo/npm-modules)
 
-<img
-  src="https://static.wixstatic.com/media/e3b156_5ae2f75f6f564611adb4dc8a2a53a661~mv2.jpg"
-  width="500"
-  alt="Package Manager panel in Wix editor, installing storeon-velo"
-  crossorigin="anonymous"
-/>
+![Package Manager panel in Wix editor, installing storeon-velo](https://static.wixstatic.com/media/e3b156_89e4871c048b48538242a7568b7ed2de~mv2.jpg)
 
 ## Wix Website Template
 
