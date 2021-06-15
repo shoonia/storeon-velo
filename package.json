@@ -1,7 +1,7 @@
 {
   "name": "corvid-storeon",
-  "version": "3.2.2",
-  "description": "This package has been deprecated. Use 'storeon-velo' https://github.com/shoonia/storeon-velo",
+  "version": "3.2.3",
+  "description": "This package has been deprecated",
   "main": "lib/es5.cjs.js",
   "module": "lib/es5.esm.js",
   "exports": {
@@ -11,31 +11,7 @@
     }
   },
   "sideEffects": false,
-  "scripts": {
-    "lint-js": "eslint src/**/*.js tests/**/*.js",
-    "lint-md": "markdownlint '**/*.md' --ignore node_modules",
-    "lint": "npm run lint-js && npm run lint-md",
-    "build": "rollup -c && eslint lib/**/*.js --fix",
-    "test": "jest"
-  },
-  "devDependencies": {
-    "@babel/preset-env": "^7.12.11",
-    "@rollup/plugin-babel": "^5.2.2",
-    "@rollup/plugin-commonjs": "^17.0.0",
-    "@rollup/plugin-node-resolve": "^11.0.1",
-    "eslint": "^7.17.0",
-    "husky": "^4.3.6",
-    "jest": "^26.6.3",
-    "markdownlint": "^0.22.0",
-    "markdownlint-cli": "^0.26.0",
-    "rollup": "^2.36.0",
-    "storeon": "^3.1.4"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint && npm run build && npm test"
-    }
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/shoonia/storeon-velo.git"
@@ -43,16 +19,7 @@
   "bugs": {
     "url": "https://github.com/shoonia/storeon-velo/issues"
   },
-  "keywords": [
-    "wix",
-    "corvid",
-    "corvid-cli",
-    "wixcode",
-    "editorx",
-    "storeon",
-    "velo",
-    "redux"
-  ],
+  "keywords": [],
   "author": {
     "name": "Alexander Zaytsev",
     "email": "alexanderz@wix.com",
