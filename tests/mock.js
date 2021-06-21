@@ -1,6 +1,6 @@
 global.$w = {
   onReady(cb) {
-    setTimeout(cb, 5);
+    process.nextTick(cb);
   },
 };
 
