@@ -48,6 +48,12 @@
     "storeon",
     "redux"
   ],
+  "files": [
+    "lib",
+    "src",
+    "LICENSE",
+    "README.md"
+  ],
   "author": {
     "name": "Alexander Zaytsev",
     "email": "alexanderz@wix.com",
