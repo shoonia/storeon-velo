@@ -1,7 +1,8 @@
-import { createStoreon as storeon } from '../node_modules/storeon/index.js';
+import { createStoreon as core } from 'storeon';
 
 export let createStoreon = (modules) => {
-  let { dispatch, get, on } = storeon(modules);
+  let { dispatch, get, on } = core(modules);
+
   let page = [];
   let subs = [];
 
