@@ -15,6 +15,7 @@
   "scripts": {
     "lint": "eslint src/**/*.js tests/**/*.js",
     "build": "rollup -c && eslint lib/**/*.js --fix",
+    "size": "size-limit",
     "test": "jest"
   },
   "devDependencies": {
@@ -22,15 +23,31 @@
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^19.0.0",
     "@rollup/plugin-node-resolve": "^13.0.0",
+    "@size-limit/preset-small-lib": "^4.12.0",
     "eslint": "^7.29.0",
     "jest": "^27.0.4",
     "rollup": "^2.52.2",
     "simple-git-hooks": "^2.4.1",
+    "size-limit": "^4.12.0",
     "storeon": "^3.1.4"
   },
   "simple-git-hooks": {
-    "pre-commit": "npm run lint && npm run build && npm test"
+    "pre-commit": "npm run lint && npm run build && npm run size && npm test"
   },
+  "size-limit": [
+    {
+      "path": "lib/es5.cjs.js",
+      "limit": "383 B"
+    },
+    {
+      "path": "lib/es5.esm.js",
+      "limit": "389 B"
+    },
+    {
+      "path": "lib/esm.js",
+      "limit": "379 B"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/shoonia/storeon-velo.git"

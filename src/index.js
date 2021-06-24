@@ -1,32 +1,34 @@
 import { createStoreon as core } from 'storeon';
 
 export let createStoreon = (modules) => {
-  let { dispatch, get, on } = core(modules);
+  let state = core(modules);
 
   let page = [];
   let subs = [];
 
   $w.onReady(() => {
-    dispatch('@ready');
+    state.dispatch('@ready');
 
-    on('@changed', (state, changes) => {
-      subs.forEach((s) => {
-        let changesInKeys = s.keys.some((key) => key in changes);
+    state.on('@changed', (state, changes) => {
+      subs.forEach((sub) => {
+        let changesInKeys = sub.keys.some(
+          (key) => key in changes,
+        );
 
         if (changesInKeys) {
-          s.cb(state);
+          sub.cb(state);
         }
       });
     });
 
-    page.concat(subs).forEach((s) => {
-      s.cb(get());
+    page.concat(subs).forEach((sub) => {
+      sub.cb(state.get());
     });
   });
 
   return {
-    getState: get,
-    dispatch,
+    getState: state.get,
+    dispatch: state.dispatch,
 
     connect() {
       let keys = [].slice.apply(arguments);
@@ -35,7 +37,7 @@ export let createStoreon = (modules) => {
       subs.push({ keys, cb });
 
       return () => {
-        subs = subs.filter((s) => s.cb !== cb);
+        subs = subs.filter((sub) => sub.cb !== cb);
       };
     },
 
