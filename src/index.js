@@ -1,15 +1,15 @@
 import { createStoreon as core } from 'storeon';
 
 export let createStoreon = (modules) => {
-  let state = core(modules);
+  let store = core(modules);
 
   let page = [];
   let subs = [];
 
   $w.onReady(() => {
-    state.dispatch('@ready');
+    store.dispatch('@ready');
 
-    state.on('@changed', (state, changes) => {
+    store.on('@changed', (state, changes) => {
       subs.forEach((sub) => {
         let changesInKeys = sub.keys.some(
           (key) => key in changes,
@@ -22,13 +22,13 @@ export let createStoreon = (modules) => {
     });
 
     page.concat(subs).forEach((sub) => {
-      sub.cb(state.get());
+      sub.cb(store.get());
     });
   });
 
   return {
-    getState: state.get,
-    dispatch: state.dispatch,
+    getState: store.get,
+    dispatch: store.dispatch,
 
     connect() {
       let keys = [].slice.apply(arguments);
