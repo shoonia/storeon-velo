@@ -5,7 +5,9 @@ const { createStoreon } = require('..');
 describe('@init event', () => {
   it('should run @init event', () => {
     const { getState } = createStoreon([
-      (store) => store.on('@init', () => ({ a: 0 })),
+      (store) => {
+        store.on('@init', () => ({ a: 0 }));
+      },
     ]);
 
     expect(getState()).toEqual({ a: 0 });
@@ -13,7 +15,9 @@ describe('@init event', () => {
 
   it('should run initial connect', (done) => {
     const { connect } = createStoreon([
-      (store) => store.on('@init', () => ({ b: 1 })),
+      (store) => {
+        store.on('@init', () => ({ b: 1 }));
+      },
     ]);
 
     connect('b', (state) => {
@@ -24,7 +28,9 @@ describe('@init event', () => {
 
   it('should run initial connectPage', (done) => {
     const { connectPage } = createStoreon([
-      (store) => store.on('@init', () => ({ c: 2 })),
+      (store) => {
+        store.on('@init', () => ({ c: 2 }));
+      },
     ]);
 
     connectPage((state) => {

@@ -7,7 +7,9 @@ describe('getState method', () => {
     const event = '&event';
 
     const { dispatch, getState } = createStoreon([
-      (store) => store.on(event, (_, x) => ({ x })),
+      (store) => {
+        store.on(event, (_, x) => ({ x }));
+      },
     ]);
 
     expect(getState()).toEqual({});
@@ -34,5 +36,26 @@ describe('getState method', () => {
     ]);
 
     dispatch(event);
+  });
+
+  it('should equal to state in connectors', (done) => {
+    const spy = jest.fn();
+
+    const { connect, connectPage, getState } = createStoreon([
+      (store) => {
+        store.on('@init', () => ({ k: 10, g: '400' }));
+      },
+    ]);
+
+    connectPage((state) => {
+      spy();
+      expect(getState()).toEqual(state);
+    });
+
+    connect('k', (state) => {
+      expect(spy).toHaveBeenCalledTimes(1);
+      expect(getState()).toEqual(state);
+      done();
+    });
   });
 });

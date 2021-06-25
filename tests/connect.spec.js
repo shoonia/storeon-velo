@@ -95,7 +95,9 @@ describe('connect method', () => {
     const cb = jest.fn();
 
     const { dispatch, connect, connectPage } = createStoreon([
-      (store) => store.on(event, () => ({ z: 1 })),
+      (store) => {
+        store.on(event, () => ({ z: 1 }));
+      },
     ]);
 
     connect('z', cb);
@@ -171,7 +173,9 @@ describe('connect method', () => {
     const cbInside = jest.fn();
 
     const { dispatch, connect, connectPage } = createStoreon([
-      (store) => store.on(event, () => ({ a: 'text' })),
+      (store) => {
+        store.on(event, () => ({ a: 'text' }));
+      },
     ]);
 
     connect('a', cbOutside);

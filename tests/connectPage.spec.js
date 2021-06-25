@@ -28,7 +28,9 @@ describe('connectPage method', () => {
     const spy = jest.fn();
 
     const { dispatch, connectPage } = createStoreon([
-      (store) => store.on(event, (_, i) => ({ i })),
+      (store) => {
+        store.on(event, (_, i) => ({ i }));
+      },
     ]);
 
     dispatch(event, '01');

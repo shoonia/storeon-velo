@@ -5,10 +5,12 @@ const { createStoreon } = require('..');
 describe('@ready event', () => {
   it('should run @ready event', (done) => {
     createStoreon([
-      (store) => store.on('@ready', (state) => {
-        expect(state).toEqual({});
-        done();
-      }),
+      (store) => {
+        store.on('@ready', (state) => {
+          expect(state).toEqual({});
+          done();
+        });
+      },
     ]);
   });
 
@@ -26,9 +28,9 @@ describe('@ready event', () => {
 
   it('should set the initial state instead @init', (done) => {
     const { connect } = createStoreon([
-      (store) => store.on('@ready', () => {
-        return { some: [] };
-      }),
+      (store) => {
+        store.on('@ready', () => ({ some: [] }));
+      },
     ]);
 
     connect('some', (state) => {
@@ -39,9 +41,9 @@ describe('@ready event', () => {
 
   it('should get the initial state from @ready event in connectPage', (done) => {
     const { connectPage } = createStoreon([
-      (store) => store.on('@ready', () => {
-        return { data: {} };
-      }),
+      (store) => {
+        store.on('@ready', () => ({ data: {} }));
+      },
     ]);
 
     connectPage((state) => {

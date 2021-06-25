@@ -8,7 +8,9 @@ describe('dispatch method', () => {
     const spy = jest.fn();
 
     const { dispatch } = createStoreon([
-      (store) => store.on(event, spy),
+      (store) => {
+        store.on(event, spy);
+      },
     ]);
 
     dispatch(event);
@@ -22,7 +24,9 @@ describe('dispatch method', () => {
     const spy = jest.fn();
 
     const { dispatch } = createStoreon([
-      (store) => store.on(event, (_, data) => spy(data)),
+      (store) => {
+        store.on(event, (_, data) => spy(data));
+      },
     ]);
 
     dispatch(event, { data: {} });
