@@ -5,11 +5,10 @@
   "type": "module",
   "main": "lib/es5.cjs.js",
   "module": "lib/es5.esm.js",
-  "esmodule": "dist/esm.js",
+  "esmodule": "lib/esm.js",
   "exports": {
     "import": "./lib/esm.js",
-    "require": "./lib/es5.cjs.js",
-    "default": "./lib/es5.esm.js"
+    "require": "./lib/es5.cjs.js"
   },
   "sideEffects": false,
   "scripts": {
