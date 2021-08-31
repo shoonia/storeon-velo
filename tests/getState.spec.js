@@ -1,5 +1,3 @@
-require('./mock.js');
-
 const { createStoreon } = require('..');
 
 describe('getState method', () => {
