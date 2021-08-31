@@ -2,7 +2,6 @@
   "name": "storeon-velo",
   "version": "1.3.1",
   "description": "A tiny event-based state manager Storeon for Velo by Wix",
-  "type": "module",
   "main": "lib/es5.cjs.js",
   "module": "lib/es5.esm.js",
   "esmodule": "lib/esm.js",
@@ -58,7 +57,6 @@
   "keywords": [
     "wix",
     "corvid",
-    "corvid-cli",
     "wixcode",
     "editorx",
     "velo",
