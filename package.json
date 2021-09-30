@@ -6,8 +6,11 @@
   "module": "lib/es5.esm.js",
   "esmodule": "lib/esm.js",
   "exports": {
-    "import": "./lib/esm.js",
-    "require": "./lib/es5.cjs.js"
+    ".": {
+      "require": "./lib/es5.cjs.js",
+      "import": "./lib/es5.esm.js",
+      "default": "./lib/es5.esm.js"
+    }
   },
   "sideEffects": false,
   "scripts": {
