@@ -1,44 +1,39 @@
+import { rmSync, existsSync } from 'fs';
 import commonjs from '@rollup/plugin-commonjs';
 import nodeResolve from '@rollup/plugin-node-resolve';
-import { getBabelOutputPlugin } from '@rollup/plugin-babel';
+import babel from '@rollup/plugin-babel';
 
-const babelPlugin = getBabelOutputPlugin({
-  presets: [
-    [
-      '@babel/preset-env',
-      {
-        loose: true,
-        useBuiltIns: 'entry',
-        targets: 'defaults',
-      },
-    ],
-  ],
-});
+if (existsSync('./lib')) {
+  rmSync('./lib', { recursive: true });
+}
 
 export default {
   input: './src/index.js',
   output: [
     {
-      file: './lib/esm.js',
-      format: 'esm',
+      file: './lib/index.js',
+      format: 'es',
     },
     {
-      file: './lib/es5.esm.js',
-      format: 'esm',
-      plugins: [
-        babelPlugin,
-      ],
-    },
-    {
-      file: './lib/es5.cjs.js',
+      file: './lib/index.cjs',
       format: 'cjs',
-      plugins: [
-        babelPlugin,
-      ],
     },
   ],
   plugins: [
     commonjs(),
     nodeResolve(),
+    babel({
+      babelHelpers: 'bundled',
+      presets: [
+        [
+          '@babel/preset-env',
+          {
+            loose: true,
+            useBuiltIns: 'entry',
+            targets: 'defaults',
+          },
+        ],
+      ],
+    }),
   ],
 };
