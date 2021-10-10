@@ -1,7 +1,9 @@
 /** @type {import('@jest/types').Config.InitialOptions} */
-module.exports = {
+const config = {
   rootDir: '.',
   setupFiles: [
     '<rootDir>/tests/mock.js',
   ],
 };
+
+export { config as default };
