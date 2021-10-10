@@ -1,4 +1,5 @@
-const { createStoreon } = require('..');
+import { jest } from '@jest/globals';
+import { createStoreon } from '..';
 
 describe('Multi keys', () => {
   it('should call the cb two times', (done) => {

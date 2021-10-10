@@ -1,4 +1,5 @@
-const { createStoreon } = require('..');
+import { jest } from '@jest/globals';
+import { createStoreon } from '..';
 
 describe('connect method', () => {
   it('should run method connect without key', (done) => {

@@ -1,4 +1,4 @@
-const { createStoreon } = require('..');
+import { createStoreon } from '..';
 
 describe('getState method', () => {
   it('should return the current state', () => {

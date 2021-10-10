@@ -17,7 +17,7 @@
     "lint": "eslint src/**/*.js tests/**/*.js",
     "build": "rollup -c && eslint lib/**/*.js --fix",
     "size": "size-limit",
-    "test": "jest"
+    "test": "node --experimental-vm-modules node_modules/.bin/jest"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.15.8",

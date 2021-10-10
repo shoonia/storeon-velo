@@ -1,4 +1,4 @@
-const { createStoreon } = require('..');
+import { createStoreon } from '..';
 
 describe('@ready event', () => {
   it('should run @ready event', (done) => {

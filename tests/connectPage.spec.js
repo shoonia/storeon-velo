@@ -1,4 +1,5 @@
-const { createStoreon } = require('..');
+import { jest } from '@jest/globals';
+import { createStoreon } from '..';
 
 describe('connectPage method', () => {
   it('should run connectPage method', (done) => {

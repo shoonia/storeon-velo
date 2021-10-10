@@ -1,4 +1,5 @@
-const { createStoreon } = require('..');
+import { jest } from '@jest/globals';
+import { createStoreon } from '..';
 
 describe('@init event', () => {
   it('should run @init event', () => {
