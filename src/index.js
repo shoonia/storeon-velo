@@ -2,9 +2,12 @@ import { createStoreon as core } from 'storeon';
 
 export let createStoreon = (modules) => {
   let store = core(modules);
+  let SET_STATE = Symbol('@set-state');
 
   let page = [];
   let subs = [];
+
+  store.on(SET_STATE, (_, data) => data);
 
   $w.onReady(() => {
     store.dispatch('@ready');
@@ -43,6 +46,10 @@ export let createStoreon = (modules) => {
 
     connectPage(cb) {
       page.push({ cb });
+    },
+
+    setState(data) {
+      store.dispatch(SET_STATE, data);
     },
   };
 };
