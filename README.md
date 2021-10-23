@@ -78,7 +78,7 @@ Creates a store that holds the complete state tree of your app
 and returns 4 methods for work with the app state. ([modules API](#store))
 
 ```js
-const { getState, dispatch, connect, connectPage } = createStoreon(modules);
+const { getState, setState, dispatch, connect, connectPage } = createStoreon(modules);
 ```
 
 Syntax
@@ -221,7 +221,7 @@ const logger = (store) => {
   });
 };
 
-export const store = createStoreon([
+export const { getState, setState, dispatch, connect, connectPage } = createStoreon([
   appModule,
   wixWindow.viewMode === "Preview" && logger,
 ]);
@@ -379,7 +379,9 @@ $w("#buttonAdd").onClick(() => {
 
 ```js
 connect("products", ({ products }) => {
+  // Set new items to repeater
   $w("#repeater").data = products;
+  // Update repeater items
   $w("#repeater").forEachItem(($item, itemData) => {
     $item("#text").text = itemData.name;
   });
