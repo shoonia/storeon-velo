@@ -88,6 +88,7 @@ function createStoreon(Array<Module | false>): Store
 
 type Store = {
   getState: Function
+  setState: Function
   dispatch: Function
   connect: Function
   connectPage: Function
@@ -106,6 +107,20 @@ Syntax
 
 ```ts
 function getState(): object
+```
+
+### setState
+
+Set partial state. Accepts an object that will assign to the state.
+
+```js
+setState({ xyz: 123 });
+```
+
+Syntax
+
+```ts
+function setState(data: object): void
 ```
 
 ### dispatch
