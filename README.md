@@ -28,13 +28,13 @@ const counter = (store) => {
   store.on("increment", ({ count }) => ({ count: count + 1 }));
 };
 
-export const { getState, dispatch, connect, connectPage } = createStoreon([counter]);
+export const { getState, setState, dispatch, connect, connectPage } = createStoreon([counter]);
 ```
 
 **`Page Code`**
 
 ```js
-import { getState, dispatch, connect, connectPage } from "public/store.js";
+import { getState, setState, dispatch, connect, connectPage } from "public/store.js";
 
 // Subscribe for state property "count".
 // The callback function will be run when the page loads ($w.onReady())
