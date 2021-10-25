@@ -30,8 +30,12 @@ export let createStoreon = (modules) => {
   });
 
   return {
-    getState: store.get,
     dispatch: store.dispatch,
+    getState: store.get,
+
+    setState(data) {
+      store.dispatch(SET_STATE, data);
+    },
 
     connect(...keys) {
       let cb = keys.pop();
@@ -45,10 +49,6 @@ export let createStoreon = (modules) => {
 
     connectPage(cb) {
       page.push({ cb });
-    },
-
-    setState(data) {
-      store.dispatch(SET_STATE, data);
     },
   };
 };
