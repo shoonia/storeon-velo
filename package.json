@@ -1,6 +1,6 @@
 {
   "name": "storeon-velo",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "A tiny event-based state manager Storeon for Velo by Wix",
   "type": "module",
   "main": "lib/index.cjs",
@@ -20,16 +20,15 @@
     "test": "node --experimental-vm-modules node_modules/.bin/jest"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.15.8",
     "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-node-resolve": "^13.0.6",
-    "@size-limit/preset-small-lib": "^6.0.3",
+    "@size-limit/preset-small-lib": "^6.0.4",
     "@types/jest": "^27.0.2",
     "eslint": "^8.1.0",
     "jest": "^27.3.1",
-    "rollup": "^2.58.0",
-    "simple-git-hooks": "^2.6.1",
-    "size-limit": "^6.0.3",
+    "rollup": "^2.59.0",
+    "simple-git-hooks": "^2.7.0",
+    "size-limit": "^6.0.4",
     "storeon": "^3.1.4"
   },
   "simple-git-hooks": {
