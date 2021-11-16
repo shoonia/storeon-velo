@@ -2,7 +2,7 @@ import { createStoreon as core } from 'storeon';
 
 export let createStoreon = (modules) => {
   let store = core(modules);
-  let SET_STATE = Symbol('@set-state');
+  let SET_STATE = '@set';
 
   let page = [];
   let subs = [];
