@@ -24,4 +24,19 @@ describe('getState method', () => {
 
     expect(getState()).toEqual({ a: 10, b: 20 });
   });
+
+  it('should run store subscription @set', (done) => {
+    const { setState } = createStoreon([
+      (store) => {
+        store.on('@init', () => ({ a: 1, b: 0 }));
+        store.on('@set', (state, changes) => {
+          expect(state).toEqual({ a: 1, b: 0 });
+          expect(changes).toEqual({ b: 1 });
+          done();
+        });
+      },
+    ]);
+
+    setState({ b: 1 });
+  });
 });
