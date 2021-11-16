@@ -297,7 +297,7 @@ function dispatch(event: string, data?: any): void
 
 ### Events
 
-There are 4 built-in events:
+There are 5 built-in events:
 
 #### `@init`
 
@@ -323,6 +323,14 @@ Can be useful for debugging.
 
 ```js
 store.on("@dispatch", (state, [event, data]) => { });
+```
+
+#### `@set`
+
+It will be fired when you use `setState()` method
+
+```js
+store.on("@set", (state, changes) => { });
 ```
 
 #### `@changed`
