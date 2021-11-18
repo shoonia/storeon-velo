@@ -75,7 +75,7 @@ Just open the template in the Wix Editor and play with `storeon-velo`
 ### createStoreon
 
 Creates a store that holds the complete state tree of your app
-and returns 4 methods for work with the app state. ([modules API](#store))
+and returns 5 methods for work with the app state. ([modules API](#store))
 
 ```js
 const { getState, setState, dispatch, connect, connectPage } = createStoreon(modules);
