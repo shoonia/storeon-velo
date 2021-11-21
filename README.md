@@ -211,12 +211,12 @@ const appModule = (store) => {
 const logger = (store) => {
   store.on("@dispatch", (state, [event, data]) => {
     if (event === "@changed") {
-      const keys = Object.keys(data).join(', ');
-      console.log(`changed: ${keys}`, state);
+      const keys = Object.keys(data).join(", ");
+      console.log("changed:", keys, state);
     } else if (typeof data !== "undefined") {
-      console.log(`action: ${event}`, data);
+      console.log("action:", event, data);
     } else {
-      console.log(`action: ${event}`);
+      console.log("action:", event);
     }
   });
 };
