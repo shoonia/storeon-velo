@@ -20,13 +20,13 @@
     "test": "node --experimental-vm-modules node_modules/.bin/jest"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-node-resolve": "^13.0.6",
     "@size-limit/preset-small-lib": "^6.0.4",
-    "@types/jest": "^27.0.2",
-    "eslint": "^8.2.0",
+    "@types/jest": "^27.0.3",
+    "eslint": "^8.3.0",
     "jest": "^27.3.1",
     "rollup": "^2.60.0",
     "simple-git-hooks": "^2.7.0",
@@ -40,12 +40,12 @@
     {
       "path": "lib/index.cjs",
       "import": "{ createStoreon }",
-      "limit": "517 B"
+      "limit": "515 B"
     },
     {
       "path": "lib/index.js",
       "import": "{ createStoreon }",
-      "limit": "435 B"
+      "limit": "431 B"
     }
   ],
   "repository": {
