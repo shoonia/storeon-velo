@@ -1,9 +1,10 @@
+import { randomUUID } from 'crypto';
 import { jest } from '@jest/globals';
 import { createStoreon } from '..';
 
 describe('dispatch method', () => {
   it('should call the event listener two times', () => {
-    const event = '#event';
+    const event = randomUUID();
     const spy = jest.fn();
 
     const { dispatch } = createStoreon([
@@ -19,7 +20,7 @@ describe('dispatch method', () => {
   });
 
   it('should post the data to the event listener', () => {
-    const event = '*event';
+    const event = randomUUID();
     const spy = jest.fn();
 
     const { dispatch } = createStoreon([

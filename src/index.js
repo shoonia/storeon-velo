@@ -6,7 +6,7 @@ export let createStoreon = (modules) => {
   let page = [];
   let subs = [];
 
-  store.on('@set', (_, data) => data);
+  store.on('@set', (_, changes) => changes);
 
   $w.onReady(() => {
     store.dispatch('@ready');
@@ -32,8 +32,8 @@ export let createStoreon = (modules) => {
     dispatch: store.dispatch,
     getState: store.get,
 
-    setState(data) {
-      store.dispatch('@set', data);
+    setState(changes) {
+      store.dispatch('@set', changes);
     },
 
     connect() {

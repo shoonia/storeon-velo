@@ -1,10 +1,11 @@
+import { randomUUID } from 'crypto';
 import { jest } from '@jest/globals';
 import { createStoreon } from '..';
 
 describe('Multi keys', () => {
   it('should call the cb two times', (done) => {
-    const eventOne = 'event-one';
-    const eventTwo = 'event-two';
+    const eventOne = randomUUID();
+    const eventTwo = randomUUID();
 
     const cb = jest.fn();
 
@@ -26,7 +27,7 @@ describe('Multi keys', () => {
   });
 
   it('should run one time of change two properties synchronic', (done) => {
-    const event = '%event';
+    const event = randomUUID();
 
     const cb = jest.fn();
 
@@ -47,8 +48,8 @@ describe('Multi keys', () => {
   });
 
   it('should be disconnected', (done) => {
-    const eventOne = '#event-one';
-    const eventTwo = '#event-two';
+    const eventOne = randomUUID();
+    const eventTwo = randomUUID();
 
     const cb = jest.fn();
     const spy = jest.fn();

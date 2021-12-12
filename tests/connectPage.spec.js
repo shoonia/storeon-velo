@@ -1,3 +1,4 @@
+import { randomUUID } from 'crypto';
 import { jest } from '@jest/globals';
 import { createStoreon } from '..';
 
@@ -22,7 +23,7 @@ describe('connectPage method', () => {
   });
 
   it('should get correctly state for each connectPage', (done) => {
-    const event = 'event+event';
+    const event = randomUUID();
 
     const spy = jest.fn();
 

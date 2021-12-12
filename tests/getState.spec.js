@@ -1,8 +1,9 @@
+import { randomUUID } from 'crypto';
 import { createStoreon } from '..';
 
 describe('getState method', () => {
   it('should return the current state', () => {
-    const event = '&event';
+    const event = randomUUID();
 
     const { dispatch, getState } = createStoreon([
       (store) => {
@@ -18,7 +19,7 @@ describe('getState method', () => {
   });
 
   it('should equal data in all methods', (done) => {
-    const event = '!event';
+    const event = randomUUID();
 
     const { dispatch, getState } = createStoreon([
       (store) => {

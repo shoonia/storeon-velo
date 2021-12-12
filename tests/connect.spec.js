@@ -1,3 +1,4 @@
+import { randomUUID } from 'crypto';
 import { jest } from '@jest/globals';
 import { createStoreon } from '..';
 
@@ -31,8 +32,8 @@ describe('connect method', () => {
   });
 
   it('should run only after @ready', (done) => {
-    const eventX = 'one';
-    const eventY = 'two';
+    const eventX = randomUUID();
+    const eventY = randomUUID();
 
     const spy = jest.fn();
 
@@ -59,7 +60,7 @@ describe('connect method', () => {
   });
 
   it('should disconnect after the first call', (done) => {
-    const event = 'event_event';
+    const event = randomUUID();
 
     const cb = jest.fn();
     const spy = jest.fn();
@@ -89,7 +90,7 @@ describe('connect method', () => {
   });
 
   it('should connect twice', (done) => {
-    const event = 'event-event';
+    const event = randomUUID();
 
     const cb = jest.fn();
 
@@ -137,7 +138,7 @@ describe('connect method', () => {
   });
 
   it('should not be affected connect if use dispatch in @ready', (done) => {
-    const event = 'event#event';
+    const event = randomUUID();
 
     const spy = jest.fn();
 
@@ -166,7 +167,7 @@ describe('connect method', () => {
   });
 
   it('should not run with @ready event if set up inside connectPage method', (done) => {
-    const event = '-event';
+    const event = randomUUID();
 
     const cbOutside = jest.fn();
     const cbInside = jest.fn();
