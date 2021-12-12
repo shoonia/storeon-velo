@@ -235,9 +235,10 @@ function createStoreon(Array<Module | false>): Store
 type Module = (store: StoreonStore) => void
 
 type StoreonStore = {
-  get: Function
-  on: Function
   dispatch: Function
+  on: Function
+  get: Function
+  set: Function
 }
 ```
 
@@ -416,6 +417,9 @@ connect("products", ({ products }) => {
 You can dispatch other events in event listeners. It can be useful for async operations.
 
 ```js
+import wixData from "wix-data";
+import { createStoreon } from "storeon-velo";
+
 const appModule = (store) => {
   store.on("@init", () => {
     return {
@@ -461,6 +465,21 @@ const appModule = (store) => {
 const { getState, setState, dispatch, connect, connectPage } = createStoreon([
   appModule,
 ]);
+```
+
+### Work with Repeater
+
+Use [`forEachItem`](https://www.wix.com/velo/reference/$w/repeater/foreachitem) for updating a [$w.Repeater](https://www.wix.com/velo/reference/$w/repeater) items.
+
+```js
+connect("products", ({ products }) => {
+  // Set new items to repeater
+  $w("#repeater").data = products;
+  // Update repeater items
+  $w("#repeater").forEachItem(($item, itemData) => {
+    $item("#text").text = itemData.name;
+  });
+});
 ```
 
 ## License
