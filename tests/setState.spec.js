@@ -39,20 +39,4 @@ describe('getState method', () => {
 
     setState({ b: 1 });
   });
-
-  it('should update the state with @set event', (done) => {
-    const { dispatch, connectPage, getState } = createStoreon([
-      (store) => {
-        store.on('@init', () => ({ x: 0, y: 0 }));
-      },
-    ]);
-
-    dispatch('@set', { x: 9 });
-
-    connectPage((state) => {
-      expect(state).toEqual({ x: 9, y: 0 });
-      expect(getState()).toEqual({ x: 9, y: 0 });
-      done();
-    });
-  });
 });
