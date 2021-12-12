@@ -1,18 +1,54 @@
-import { createStoreon as core } from 'storeon';
-
 export let createStoreon = (modules) => {
-  let store = core(modules);
+  let events = {};
+  let state = {};
 
   let page = [];
   let subs = [];
 
-  store.on('@set', (_, changes) => changes);
+  let dispatch = (event, data) => {
+    if (event !== '@dispatch') {
+      dispatch('@dispatch', [event, data, events[event]]);
+    }
+
+    if (events[event]) {
+      let changes;
+
+      events[event].some((cb) => {
+        let diff = events[event].includes(cb) && cb(state, data);
+
+        if (diff && typeof diff.then !== 'function') {
+          state = { ...state, ...diff };
+          changes = { ...changes, ...diff };
+        }
+      });
+
+      if (changes) {
+        dispatch('@changed', changes);
+      }
+    }
+  };
+
+  let on = (event, cb) => {
+    (events[event] || (events[event] = [])).push(cb);
+
+    return () => {
+      events[event] = events[event].filter((i) => i !== cb);
+    };
+  };
+
+  let get = () => state;
+
+  let set = (changes) => {
+    dispatch('@set', changes);
+  };
+
+  on('@set', (_, changes) => changes);
 
   $w.onReady(() => {
-    store.dispatch('@ready');
+    dispatch('@ready');
 
-    store.on('@changed', (state, changes) => {
-      subs.forEach((sub) => {
+    on('@changed', (state, changes) => {
+      subs.some((sub) => {
         let changesInKeys = sub.keys.some(
           (key) => key in changes,
         );
@@ -23,18 +59,23 @@ export let createStoreon = (modules) => {
       });
     });
 
-    page.concat(subs).forEach((sub) => {
-      sub.cb(store.get());
+    page.concat(subs).some((sub) => {
+      sub.cb(get());
     });
   });
 
-  return {
-    dispatch: store.dispatch,
-    getState: store.get,
+  modules.some((mod) => {
+    if (mod) {
+      mod({ dispatch, on, get, set });
+    }
+  });
 
-    setState(changes) {
-      store.dispatch('@set', changes);
-    },
+  dispatch('@init');
+
+  return {
+    dispatch,
+    getState: get,
+    setState: set,
 
     connect() {
       let keys = [].slice.apply(arguments);
