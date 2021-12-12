@@ -426,7 +426,7 @@ const appModule = (store) => {
 
   store.on("@ready", async () => {
     try {
-      // wait to fetch from the database
+      // wait to fetch items from the database
       const { items } = await wixData.query("Products").find();
 
       // resolve
