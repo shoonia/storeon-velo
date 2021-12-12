@@ -25,8 +25,7 @@ describe('getState method', () => {
     expect(getState()).toEqual({ a: 10, b: 20 });
   });
 
-  // TODO:
-  it.skip('should run store subscription @set', (done) => {
+  it('should run store subscription @set', (done) => {
     const { setState } = createStoreon([
       (store) => {
         store.on('@init', () => ({ a: 1, b: 0 }));
