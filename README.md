@@ -243,19 +243,18 @@ type StoreonStore = {
 
 ### Storeon store methods
 
-#### store.get
+#### store.dispatch
 
-Returns an object that holds the complete state of your app.
-The app state is always an object.
+Emits an event with optional data.
 
 ```js
-const state = store.get();
+store.dispatch("event/type", { xyz: "abc" });
 ```
 
 Syntax
 
 ```ts
-function get(): object
+function dispatch(event: string, data?: any): void
 ```
 
 #### store.on
@@ -281,18 +280,34 @@ type Unbind = () => void
 type Result = object | void | Promise<void> | false
 ```
 
-#### store.dispatch
+#### store.get
 
-Emits an event with optional data.
+Returns an object that holds the complete state of your app.
+The app state is always an object.
 
 ```js
-store.dispatch("event/type", { xyz: "abc" });
+const state = store.get();
 ```
 
 Syntax
 
 ```ts
-function dispatch(event: string, data?: any): void
+function get(): object
+```
+
+#### store.set
+
+Set partial state. Accepts an object that will assign to the state.
+it can be useful for async event listeners.
+
+```js
+store.set({ xyz: 123 });
+```
+
+Syntax
+
+```ts
+function set(data: object): void
 ```
 
 ### Events
@@ -319,7 +334,7 @@ store.on("@ready", (state) => { });
 
 It will be fired on every new action (on `dispatch()` calls and `@changed` event).
 It receives an array with the event name and the event’s data.
-Can be useful for debugging.
+it can be useful for debugging.
 
 ```js
 store.on("@dispatch", (state, [event, data]) => { });
@@ -327,7 +342,7 @@ store.on("@dispatch", (state, [event, data]) => { });
 
 #### `@set`
 
-It will be fired when you use `setState()` method
+It will be fired when you use `setState()` or `store.set()` method
 
 ```js
 store.on("@set", (state, changes) => { });
@@ -401,18 +416,51 @@ connect("products", ({ products }) => {
 You can dispatch other events in event listeners. It can be useful for async operations.
 
 ```js
-store.on("products/save", async (_, product) => {
-  try {
-    // wait until saving to database
-    await wixData.save("Products",  product);
+const appModule = (store) => {
+  store.on("@init", () => {
+    return {
+      products: [],
+      error: null,
+    };
+  });
 
-    // resolve
-    store.dispatch("products/add", product);
-  } catch (error) {
-    // reject
-    store.dispatch("errors/database", error);
-  }
-});
+  store.on("@ready", async () => {
+    try {
+      // wait to fetch from the database
+      const { items } = await wixData.query("Products").find();
+
+      // resolve
+      store.set({ products: items });
+    } catch (error) {
+      // reject
+      store.set({ error });
+    }
+  });
+
+  // Listener with the logic of adding new items to list
+  store.on("products/add", ({ products }, product) => {
+    return {
+      products: [product, ...products],
+    };
+  });
+
+  store.on("products/save", async (_, product) => {
+    try {
+      // wait until saving to database
+      await wixData.save("Products",  product);
+
+      // resolve
+      store.dispatch("products/add", product);
+    } catch (error) {
+      // reject
+      store.set({ error });
+    }
+  });
+}
+
+const { getState, setState, dispatch, connect, connectPage } = createStoreon([
+  appModule,
+]);
 ```
 
 ## License
