@@ -24,13 +24,13 @@
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-node-resolve": "^13.0.6",
-    "@size-limit/preset-small-lib": "^6.0.4",
+    "@size-limit/preset-small-lib": "^7.0.3",
     "@types/jest": "^27.0.3",
-    "eslint": "^8.3.0",
-    "jest": "^27.3.1",
-    "rollup": "^2.60.0",
+    "eslint": "^8.4.1",
+    "jest": "^27.4.4",
+    "rollup": "^2.61.1",
     "simple-git-hooks": "^2.7.0",
-    "size-limit": "^6.0.4",
+    "size-limit": "^7.0.3",
     "storeon": "^3.1.4"
   },
   "simple-git-hooks": {
@@ -40,12 +40,12 @@
     {
       "path": "lib/index.cjs",
       "import": "{ createStoreon }",
-      "limit": "515 B"
+      "limit": "754 B"
     },
     {
       "path": "lib/index.js",
       "import": "{ createStoreon }",
-      "limit": "431 B"
+      "limit": "440 B"
     }
   ],
   "repository": {
