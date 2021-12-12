@@ -45,7 +45,7 @@
     {
       "path": "lib/index.js",
       "import": "{ createStoreon }",
-      "limit": "440 B"
+      "limit": "442 B"
     }
   ],
   "repository": {
