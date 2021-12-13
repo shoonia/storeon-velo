@@ -30,8 +30,7 @@
     "jest": "^27.4.4",
     "rollup": "^2.61.1",
     "simple-git-hooks": "^2.7.0",
-    "size-limit": "^7.0.3",
-    "storeon": "^3.1.4"
+    "size-limit": "^7.0.3"
   },
   "simple-git-hooks": {
     "pre-commit": "npm run lint && npm run build && npm test && npm run size"
@@ -40,12 +39,12 @@
     {
       "path": "lib/index.cjs",
       "import": "{ createStoreon }",
-      "limit": "754 B"
+      "limit": "748 B"
     },
     {
       "path": "lib/index.js",
       "import": "{ createStoreon }",
-      "limit": "442 B"
+      "limit": "423 B"
     }
   ],
   "repository": {
