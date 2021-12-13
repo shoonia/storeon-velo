@@ -343,7 +343,7 @@ store.on("@dispatch", (state, [event, data]) => { });
 
 #### `@set`
 
-It will be fired when you use `setState()` or `store.set()` method
+It will be fired when you use `setState()` or `store.set()` calls.
 
 ```js
 store.on("@set", (state, changes) => { });
@@ -416,6 +416,8 @@ connect("products", ({ products }) => {
 
 You can dispatch other events in event listeners. It can be useful for async operations.
 
+Also, you can use `store.set()` method for async listeners.
+
 ```js
 import wixData from "wix-data";
 import { createStoreon } from "storeon-velo";
@@ -469,7 +471,7 @@ const { getState, setState, dispatch, connect, connectPage } = createStoreon([
 
 ### Work with Repeater
 
-Use [`forEachItem`](https://www.wix.com/velo/reference/$w/repeater/foreachitem) for updating a [$w.Repeater](https://www.wix.com/velo/reference/$w/repeater) items.
+Use [`forEachItem()`](https://www.wix.com/velo/reference/$w/repeater/foreachitem) for updating a [$w.Repeater](https://www.wix.com/velo/reference/$w/repeater) items into `connect()` callback.
 
 ```js
 connect("products", ({ products }) => {
@@ -481,6 +483,38 @@ connect("products", ({ products }) => {
   });
 });
 ```
+
+Never nest the event handler for repeated items into any repeater loop.
+
+Use global selector `$w()` instead and use [context](https://www.wix.com/velo/reference/$w/repeater/introduction#$w_repeater_introduction_retrieve-repeater-item-data-when-clicked) for retrieving repeater item data.
+
+```diff
+connect("products", ({ products }) => {
+  $w("#repeater").data = products;
+
+  $w("#repeater").forEachItem(($item, itemData) => {
+    $item("#text").text = itemData.name;
+
+-   $item("#repeatedContainer").onClick((event) => {
+-     dispatch("cart/add", itemData);
+-   });
+  });
+});
+
++ connectPage(() => {
++   $w("#repeatedContainer").onClick((event) => {
++     const data = $w("#repeater").data;
++     const itemData = data.find(item => item._id === event.context.itemId);
++
++     dispatch("cart/add", itemData);
++   });
++ });
+```
+
+**more:**
+
+- [Event handling of Repeater Item](https://shoonia.site/event-handling-of-repeater-item)
+- [The utils for repeated item scope event handlers](https://shoonia.site/the-utils-for-repeated-item-scope-event-handlers)
 
 ## License
 
