@@ -9,6 +9,34 @@ A tiny event-based state manager [Storeon](https://github.com/storeon/storeon) f
 
 ![state manager storeon-velo](https://static.wixstatic.com/shapes/e3b156_87008db048c84222aa5f0814b5572677.svg)
 
+- [How to use](#how-to-use)
+- [Example](#example)
+- [Install](#install)
+- [Wix Website Template](#how-to-use)
+- [API](#api)
+  - [`createStoreon()`](#createstoreon)
+  - [`getState()`](#getstate)
+  - [`setState()`](#setstate)
+  - [`dispatch()`](#dispatch)
+  - [`connect()`](#connect)
+  - [`connectPage()`](#connectpage)
+- [Store](#store)
+- [Storeon store methods](#storeon-store-methods)
+  - [`store.dispatch()`](#storedispatch)
+  - [`store.on()`](#storeon)
+  - [`store.get()`](#storeget)
+  - [`store.set()`](#storeget)
+- [Events](#events)
+  - [`@init`](#init)
+  - [`@ready`](#ready)
+  - [`@dispatch`](#dispatch-1)
+  - [`@set`](#set)
+  - [`@changed`](#changed)
+- [Reducers](#reducers)
+- [Async operations](#async-operations)
+- [Work with Repeater](#work-with-repeater)
+- [License](#license)
+
 ## How to use
 
 You can install from Package Manager or use demo template.
