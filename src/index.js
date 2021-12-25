@@ -78,7 +78,7 @@ export let createStoreon = (modules) => {
     setState: set,
 
     connect() {
-      let keys = [].slice.apply(arguments);
+      let keys = Array.from(arguments);
       let cb = keys.pop();
 
       subs.push({ keys, cb });
