@@ -15,6 +15,8 @@ export default {
     {
       file: './lib/index.cjs',
       format: 'cjs',
+      interop: false,
+      esModule: false,
     },
   ],
   plugins: [
