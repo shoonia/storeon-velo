@@ -3,7 +3,7 @@
 [![https://wix.com/velo](https://img.shields.io/badge/Built%20for-Velo%20by%20Wix-3638f4)](https://wix.com/velo)
 [![corvid-storeon test status](https://github.com/shoonia/storeon-velo/workflows/test/badge.svg)](https://github.com/shoonia/storeon-velo/actions)
 [![npm version](https://badgen.net/npm/v/storeon-velo)](https://www.npmjs.com/package/storeon-velo)
-[![minzip](https://badgen.net/bundlephobia/minzip/storeon-velo@latest)](https://bundlephobia.com/package/storeon-velo@2)
+[![minzip](https://badgen.net/bundlephobia/minzip/storeon-velo)](https://bundlephobia.com/package/storeon-velo@2)
 
 A tiny event-based state manager [Storeon](https://github.com/storeon/storeon) for [Velo](https://www.wix.com/velo) by Wix.
 
