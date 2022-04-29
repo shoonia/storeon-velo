@@ -20,15 +20,15 @@
     "test": "node --experimental-vm-modules node_modules/.bin/jest"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.16.7",
-    "@rollup/plugin-babel": "^5.3.0",
-    "@size-limit/preset-small-lib": "^7.0.5",
-    "@types/jest": "^27.4.0",
-    "eslint": "^8.5.0",
-    "jest": "^27.4.5",
-    "rollup": "^2.62.0",
+    "@babel/preset-env": "^7.16.11",
+    "@rollup/plugin-babel": "^5.3.1",
+    "@size-limit/preset-small-lib": "^7.0.8",
+    "@types/jest": "^27.4.1",
+    "eslint": "^8.14.0",
+    "jest": "^28.0.2",
+    "rollup": "^2.70.2",
     "simple-git-hooks": "^2.7.0",
-    "size-limit": "^7.0.5"
+    "size-limit": "^7.0.8"
   },
   "simple-git-hooks": {
     "pre-commit": "npm run lint && npm run build && npm test && npm run size"
