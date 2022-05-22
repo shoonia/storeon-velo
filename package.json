@@ -37,12 +37,12 @@
     {
       "path": "lib/index.cjs",
       "import": "{ createStoreon }",
-      "limit": "721 B"
+      "limit": "717 B"
     },
     {
       "path": "lib/index.js",
       "import": "{ createStoreon }",
-      "limit": "424 B"
+      "limit": "420 B"
     }
   ],
   "repository": {

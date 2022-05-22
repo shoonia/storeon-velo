@@ -47,7 +47,7 @@ export let createStoreon = (modules) => {
   $w.onReady(() => {
     dispatch('@ready');
 
-    on('@changed', (state, changes) => {
+    on('@changed', (_, changes) => {
       subs.some((sub) => {
         let changesInKeys = sub.keys.some(
           (key) => key in changes,
@@ -60,7 +60,7 @@ export let createStoreon = (modules) => {
     });
 
     page.concat(subs).some((sub) => {
-      sub.cb(get());
+      sub.cb(state);
     });
   });
 
