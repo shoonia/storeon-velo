@@ -38,9 +38,7 @@ export let createStoreon = (modules) => {
 
   let get = () => state;
 
-  let set = (changes) => {
-    dispatch('@set', changes);
-  };
+  let set = (changes) => dispatch('@set', changes);
 
   on('@set', (_, changes) => changes);
 
