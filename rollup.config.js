@@ -1,4 +1,4 @@
-import { rmSync, existsSync } from 'fs';
+import { rmSync, existsSync } from 'node:fs';
 import babel from '@rollup/plugin-babel';
 
 if (existsSync('./lib')) {

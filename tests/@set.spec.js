@@ -1,5 +1,5 @@
-import { randomUUID } from 'crypto';
-import { setTimeout } from 'timers/promises';
+import { randomUUID } from 'node:crypto';
+import { setTimeout } from 'node:timers/promises';
 import { createStoreon } from '..';
 
 describe('@set event', () => {

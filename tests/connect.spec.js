@@ -1,4 +1,4 @@
-import { randomUUID } from 'crypto';
+import { randomUUID } from 'node:crypto';
 import { jest } from '@jest/globals';
 import { createStoreon } from '..';
 
