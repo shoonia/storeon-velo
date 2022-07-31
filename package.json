@@ -20,29 +20,25 @@
     "test": "node --experimental-vm-modules node_modules/.bin/jest"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.18.0",
+    "@babel/preset-env": "^7.18.9",
     "@rollup/plugin-babel": "^5.3.1",
-    "@size-limit/preset-small-lib": "^7.0.8",
-    "@types/jest": "^27.5.1",
-    "eslint": "^8.16.0",
-    "jest": "^28.1.0",
-    "rollup": "^2.74.1",
-    "simple-git-hooks": "^2.7.0",
-    "size-limit": "^7.0.8"
-  },
-  "simple-git-hooks": {
-    "pre-commit": "npm run lint && npm run build && npm test && npm run size"
+    "@size-limit/preset-small-lib": "^8.0.0",
+    "@types/jest": "^28.1.6",
+    "eslint": "^8.20.0",
+    "jest": "^28.1.3",
+    "rollup": "^2.77.2",
+    "size-limit": "^8.0.0"
   },
   "size-limit": [
     {
       "path": "lib/index.cjs",
       "import": "{ createStoreon }",
-      "limit": "717 B"
+      "limit": "686 B"
     },
     {
       "path": "lib/index.js",
       "import": "{ createStoreon }",
-      "limit": "420 B"
+      "limit": "385 B"
     }
   ],
   "repository": {
