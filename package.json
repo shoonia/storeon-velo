@@ -15,7 +15,7 @@
   "sideEffects": false,
   "scripts": {
     "lint": "eslint src/**/*.js tests/**/*.js",
-    "build": "rollup -c && eslint lib/**/*.js --fix",
+    "build": "rollup -c",
     "size": "size-limit",
     "test": "node --experimental-vm-modules node_modules/.bin/jest"
   },
