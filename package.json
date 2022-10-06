@@ -20,6 +20,7 @@
     "test": "node --experimental-vm-modules node_modules/.bin/jest"
   },
   "devDependencies": {
+    "@arkweid/lefthook": "^0.7.7",
     "@size-limit/preset-small-lib": "^8.1.0",
     "@types/jest": "^29.1.1",
     "eslint": "^8.24.0",
@@ -31,12 +32,12 @@
     {
       "path": "lib/index.cjs",
       "import": "{ createStoreon }",
-      "limit": "669 B"
+      "limit": "687 B"
     },
     {
       "path": "lib/index.js",
       "import": "{ createStoreon }",
-      "limit": "371 B"
+      "limit": "391 B"
     }
   ],
   "repository": {
