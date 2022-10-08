@@ -1,6 +1,6 @@
 {
   "name": "storeon-velo",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "A tiny event-based state manager Storeon for Velo by Wix",
   "type": "module",
   "main": "lib/index.cjs",
@@ -22,8 +22,8 @@
   "devDependencies": {
     "@arkweid/lefthook": "^0.7.7",
     "@size-limit/preset-small-lib": "^8.1.0",
-    "@types/jest": "^29.1.1",
-    "eslint": "^8.24.0",
+    "@types/jest": "^29.1.2",
+    "eslint": "^8.25.0",
     "jest": "^29.1.2",
     "rollup": "^2.79.1",
     "size-limit": "^8.1.0"
