@@ -46,37 +46,31 @@ You can install from Package Manager or use demo template.
 
 ## Example
 
-**`public/store.js`**
-
-```js
-import { createStoreon } from "storeon-velo";
-
-const counter = (store) => {
-  store.on("@init", () => ({ count: 0 }));
-  store.on("increment", ({ count }) => ({ count: count + 1 }));
-};
-
-export const { getState, setState, dispatch, connect, connectPage } = createStoreon([counter]);
-```
-
 **`Page Code`**
 
 ```js
-import { getState, setState, dispatch, connect, connectPage } from "public/store.js";
+import { createStoreon } from 'storeon-velo/legacy';
 
-// Subscribe for state property "count".
+const counter = (store) => {
+  store.on('@init', () => ({ count: 0 }));
+  store.on('increment', ({ count }) => ({ count: count + 1 }));
+};
+
+const { getState, setState, dispatch, connect, connectPage } = createStoreon([counter]);
+
+// Subscribe for state property 'count'.
 // The callback function will be run when the page loads ($w.onReady())
-// and each time when property "count" would change.
-connect("count", ({ count }) => {
-  $w("#text1").text = String(count);
+// and each time when property 'count' would change.
+connect('count', ({ count }) => {
+  $w('#text1').text = String(count);
 });
 
 // Wrapper around $w.onReady()
 // The callback function will be run once.
 connectPage((state) => {
-  $w("#button1").onClick(() => {
+  $w('#button1').onClick(() => {
     // Emit event
-    dispatch("increment");
+    dispatch('increment');
   });
 });
 ```
@@ -156,7 +150,7 @@ function setState(data: object): void
 Emits an event with optional data.
 
 ```js
-dispatch("event/type", { xyz: 123 });
+dispatch('event/type', { xyz: 123 });
 ```
 
 Syntax
@@ -171,7 +165,7 @@ Connects to state by property key.
 It will return the function disconnect from the store.
 
 ```js
-const disconnect = connect("key", (state) => { });
+const disconnect = connect('key', (state) => { });
 
 disconnect();
 ```
@@ -179,7 +173,7 @@ disconnect();
 You can connect for multiple keys, the last argument must be a function.
 
 ```js
-connect("key1", "key2", (state) => { });
+connect('key1', 'key2', (state) => { });
 ```
 
 Syntax
@@ -217,18 +211,18 @@ It accepts a list of the modules.
 Each module is just a function, which will accept a store and bind their event listeners.
 
 ```js
-import wixWindow from "wix-window";
-import { createStoreon } from "storeon-velo";
+import wixWindow from 'wix-window';
+import { createStoreon } from 'storeon-velo/legacy';
 
 // Business logic
 const appModule = (store) => {
-  store.on("@init", () => {
+  store.on('@init', () => {
     return {
       items: [],
     };
   });
 
-  store.on("items/add", ({ items }, item) => {
+  store.on('items/add', ({ items }, item) => {
     return {
       items: [...items, item],
     };
@@ -237,21 +231,21 @@ const appModule = (store) => {
 
 // Devtools
 const logger = (store) => {
-  store.on("@dispatch", (state, [event, data]) => {
-    if (event === "@changed") {
-      const keys = Object.keys(data).join(", ");
-      console.log("changed:", keys, state);
-    } else if (typeof data !== "undefined") {
-      console.log("action:", event, data);
+  store.on('@dispatch', (state, [event, data]) => {
+    if (event === '@changed') {
+      const keys = Object.keys(data).join(', ');
+      console.log('changed:', keys, state);
+    } else if (typeof data !== 'undefined') {
+      console.log('action:', event, data);
     } else {
-      console.log("action:", event);
+      console.log('action:', event);
     }
   });
 };
 
-export const { getState, setState, dispatch, connect, connectPage } = createStoreon([
+const { getState, setState, dispatch, connect, connectPage } = createStoreon([
   appModule,
-  wixWindow.viewMode === "Preview" && logger,
+  wixWindow.viewMode === 'Preview' && logger,
 ]);
 ```
 
@@ -277,7 +271,7 @@ type StoreonStore = {
 Emits an event with optional data.
 
 ```js
-store.dispatch("event/type", { xyz: "abc" });
+store.dispatch('event/type', { xyz: 'abc' });
 ```
 
 Syntax
@@ -292,7 +286,7 @@ Adds an event listener. `store.on()` returns cleanup function.
 This function will remove the event listener.
 
 ```js
-const off = store.on("event/type", (state, data) => { });
+const off = store.on('event/type', (state, data) => { });
 
 off();
 ```
@@ -348,7 +342,7 @@ There are 5 built-in events:
 It will be fired in `createStoreon()`. The best moment to set an initial state.
 
 ```js
-store.on("@init", () => { });
+store.on('@init', () => { });
 ```
 
 #### `@ready`
@@ -356,7 +350,7 @@ store.on("@init", () => { });
 It will be fired in `$w.onReady()` when all the page elements have finished loading.
 
 ```js
-store.on("@ready", (state) => { });
+store.on('@ready', (state) => { });
 ```
 
 #### `@dispatch`
@@ -366,7 +360,7 @@ It receives an array with the event name and the event’s data.
 it can be useful for debugging.
 
 ```js
-store.on("@dispatch", (state, [event, data]) => { });
+store.on('@dispatch', (state, [event, data]) => { });
 ```
 
 #### `@set`
@@ -374,7 +368,7 @@ store.on("@dispatch", (state, [event, data]) => { });
 It will be fired when you use `setState()` or `store.set()` calls.
 
 ```js
-store.on("@set", (state, changes) => { });
+store.on('@set', (state, changes) => { });
 ```
 
 #### `@changed`
@@ -383,7 +377,7 @@ It will be fired when any event changes the state.
 It receives object with state changes.
 
 ```js
-store.on("@changed", (state, changes) => { });
+store.on('@changed', (state, changes) => { });
 ```
 
 You can dispatch any other events. Just do not start event names with `@`.
@@ -394,8 +388,8 @@ If the event listener returns an object, this object will update the state.
 You do not need to return the whole state, return an object with changed keys.
 
 ```js
-// "products": [] will be added to state on initialization
-store.on("@init", () => {
+// 'products': [] will be added to state on initialization
+store.on('@init', () => {
   return { products: [] };
 });
 ```
@@ -409,7 +403,7 @@ As in Redux’s reducers, you should change immutable.
 **Reducer**
 
 ```js
-store.on("products/add", ({ products }, product) => {
+store.on('products/add', ({ products }, product) => {
   return {
     products: [...products, product],
   };
@@ -419,10 +413,10 @@ store.on("products/add", ({ products }, product) => {
 **Dispatch**
 
 ```js
-$w("#buttonAdd").onClick(() => {
-  dispatch("products/add", {
+$w('#buttonAdd').onClick(() => {
+  dispatch('products/add', {
     _id: uuid(),
-    name: $w("#inputName").value,
+    name: $w('#inputName').value,
   });
 });
 ```
@@ -430,12 +424,12 @@ $w("#buttonAdd").onClick(() => {
 **Connector**
 
 ```js
-connect("products", ({ products }) => {
+connect('products', ({ products }) => {
   // Set new items to repeater
-  $w("#repeater").data = products;
+  $w('#repeater').data = products;
   // Update repeater items
-  $w("#repeater").forEachItem(($item, itemData) => {
-    $item("#text").text = itemData.name;
+  $w('#repeater').forEachItem(($item, itemData) => {
+    $item('#text').text = itemData.name;
   });
 });
 ```
@@ -447,21 +441,21 @@ You can dispatch other events in event listeners. It can be useful for async ope
 Also, you can use `store.set()` method for async listeners.
 
 ```js
-import wixData from "wix-data";
-import { createStoreon } from "storeon-velo";
+import wixData from 'wix-data';
+import { createStoreon } from 'storeon-velo/legacy';
 
 const appModule = (store) => {
-  store.on("@init", () => {
+  store.on('@init', () => {
     return {
       products: [],
       error: null,
     };
   });
 
-  store.on("@ready", async () => {
+  store.on('@ready', async () => {
     try {
       // wait to fetch items from the database
-      const { items } = await wixData.query("Products").find();
+      const { items } = await wixData.query('Products').find();
 
       // resolve
       store.set({ products: items });
@@ -472,19 +466,19 @@ const appModule = (store) => {
   });
 
   // Listener with the logic of adding new items to list
-  store.on("products/add", ({ products }, product) => {
+  store.on('products/add', ({ products }, product) => {
     return {
       products: [product, ...products],
     };
   });
 
-  store.on("products/save", async (_, product) => {
+  store.on('products/save', async (_, product) => {
     try {
       // wait until saving to database
-      await wixData.save("Products",  product);
+      await wixData.save('Products',  product);
 
       // resolve
-      store.dispatch("products/add", product);
+      store.dispatch('products/add', product);
     } catch (error) {
       // reject
       store.set({ error });
@@ -502,12 +496,12 @@ const { getState, setState, dispatch, connect, connectPage } = createStoreon([
 Use [`forEachItem()`](https://www.wix.com/velo/reference/$w/repeater/foreachitem) for updating a [$w.Repeater](https://www.wix.com/velo/reference/$w/repeater) items into `connect()` callback.
 
 ```js
-connect("products", ({ products }) => {
+connect('products', ({ products }) => {
   // Set new items to repeater
-  $w("#repeater").data = products;
+  $w('#repeater').data = products;
   // Update repeater items
-  $w("#repeater").forEachItem(($item, itemData) => {
-    $item("#text").text = itemData.name;
+  $w('#repeater').forEachItem(($item, itemData) => {
+    $item('#text').text = itemData.name;
   });
 });
 ```
@@ -517,24 +511,24 @@ Never nest the event handler for repeated items into any repeater loop.
 Use global selector `$w()` instead and use [context](https://www.wix.com/velo/reference/$w/repeater/introduction#$w_repeater_introduction_retrieve-repeater-item-data-when-clicked) for retrieving repeater item data.
 
 ```diff
-connect("products", ({ products }) => {
-  $w("#repeater").data = products;
+connect('products', ({ products }) => {
+  $w('#repeater').data = products;
 
-  $w("#repeater").forEachItem(($item, itemData) => {
-    $item("#text").text = itemData.name;
+  $w('#repeater').forEachItem(($item, itemData) => {
+    $item('#text').text = itemData.name;
 
--   $item("#repeatedContainer").onClick((event) => {
--     dispatch("cart/add", itemData);
+-   $item('#repeatedContainer').onClick((event) => {
+-     dispatch('cart/add', itemData);
 -   });
   });
 });
 
 + connectPage(() => {
-+   $w("#repeatedContainer").onClick((event) => {
-+     const data = $w("#repeater").data;
++   $w('#repeatedContainer').onClick((event) => {
++     const data = $w('#repeater').data;
 +     const itemData = data.find(item => item._id === event.context.itemId);
 +
-+     dispatch("cart/add", itemData);
++     dispatch('cart/add', itemData);
 +   });
 + });
 ```

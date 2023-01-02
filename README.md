@@ -12,32 +12,41 @@ A tiny event-based state manager [Storeon](https://github.com/storeon/storeon) f
 ## Example
 
 ```js
-import { createStoreon } from "storeon-velo";
+import { createStoreon } from 'storeon-velo';
 
 const app = (store) => {
-  store.on("@init", () => ({ count: 0 }));
-  store.on("increment", ({ count }) => ({ count: count + 1 }));
+  store.on('@init', () => ({ count: 0 }));
+  store.on('increment', ({ count }) => ({ count: count + 1 }));
 };
 
 const { getState, setState, dispatch, connect, initStore } = createStoreon([app]);
 
-// Subscribe for state property "count".
+// Subscribe for state property 'count'.
 // The callback function will be run when the store is initialized `initState()`
-// and each time when property "count" would change.
-connect("count", ({ count }) => {
-  $w("#text1").text = String(count);
+// and each time when property 'count' would change.
+connect('count', ({ count }) => {
+  $w('#text1').text = String(count);
 });
 
 $w.onReady(() => {
-  $w("#button1").onClick(() => {
+  $w('#button1').onClick(() => {
     // Emit event
-    dispatch("increment");
+    dispatch('increment');
   });
 
   // initialize the store
   return initStore();
 });
 ```
+
+## Install
+
+You use the [Package Manager](https://support.wix.com/en/article/velo-working-with-npm-packages)
+to manage the npm packages in your site.
+
+[Check latest available version](https://www.wix.com/velo/npm-modules)
+
+![Package Manager panel in Wix editor, installing storeon-velo](https://static.wixstatic.com/media/e3b156_89e4871c048b48538242a7568b7ed2de~mv2.jpg)
 
 ## License
 
