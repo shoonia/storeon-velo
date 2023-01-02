@@ -14,7 +14,7 @@
   "include": [
     "src/**/*.js",
     "tests/**/*.js",
-    "tests/$w.d.ts"
+    "tests/legacy/$w.d.ts"
   ],
   "exclude": [
     "node_modules"
