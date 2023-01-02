@@ -1,4 +1,4 @@
-import { createStoreon } from '..';
+import { createStoreon } from '../../lib/index.cjs';
 
 describe('getState method', () => {
   it('should partial update state', () => {

@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { jest } from '@jest/globals';
-import { createStoreon } from '..';
+import { createStoreon } from '../../lib/index.cjs';
 
 describe('Multi keys', () => {
   it('should call the cb two times', (done) => {

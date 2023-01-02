@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { setTimeout } from 'node:timers/promises';
-import { createStoreon } from '..';
+import { createStoreon } from '../../lib/index.cjs';
 
 describe('@set event', () => {
   it('should update state', (done) => {
