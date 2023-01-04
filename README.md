@@ -11,8 +11,8 @@ A tiny event-based state manager [Storeon](https://github.com/storeon/storeon) f
 
 > ❗ BREAKING CHANGE ❗
 >
-> - [Migrating to v4](https://github.com/shoonia/storeon-velo/docs/MIGRATION_TO_V4.md)
-> - [Legacy API](https://github.com/shoonia/storeon-velo/docs/LEGACY.md)
+> - [Migrating to V4](https://github.com/shoonia/storeon-velo/blob/master/docs/MIGRATION_TO_V4.md)
+> - [Legacy APIs docs](https://github.com/shoonia/storeon-velo/blob/master/docs/LEGACY.md)
 
 ## Example
 
