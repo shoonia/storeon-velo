@@ -66,8 +66,7 @@
     "legacy",
     "src",
     "LICENSE",
-    "README.md",
-    "LEGACY.md"
+    "README.md"
   ],
   "author": {
     "name": "Alexander Zaytsev",
