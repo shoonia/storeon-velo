@@ -1,6 +1,6 @@
 # Migrating to V4
 
-## `initStore()`
+## Required `initStore()`
 
 ```diff
 import { createStoreon } from 'storeon-velo';
@@ -12,6 +12,29 @@ const app = (store) => {...};
 
 $w.onReady(() => {
 +  return initStore();
+});
+```
+
+### Why?
+
+```js
+$w.onReady(() => {
+  if (wixWindow.rendering.env === 'browser') {
+    return initStore();
+  }
+});
+```
+
+```js
+$w.onReady(async () => {
+  const [posts, todos] = await Promise.all([
+    getJSON('https://jsonplaceholder.typicode.com/posts'),
+    getJSON('https://jsonplaceholder.typicode.com/todos'),
+  ]);
+
+  setState({ posts, todos });
+
+  return initStore();
 });
 ```
 
