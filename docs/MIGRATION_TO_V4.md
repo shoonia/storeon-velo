@@ -1,6 +1,8 @@
 # Migrating to V4
 
-## Required `initStore()`
+`storeon-velo`  is moving to `v4` with a few breaking changes.
+
+## Required `readyStore()`
 
 ```diff
 import { createStoreon } from 'storeon-velo';
@@ -8,10 +10,10 @@ import { createStoreon } from 'storeon-velo';
 const app = (store) => {...};
 
 - const { getState, setState, dispatch, connect } = createStoreon([app]);
-+ const { getState, setState, dispatch, connect, initStore } = createStoreon([app]);
++ const { getState, setState, dispatch, connect, readyStore } = createStoreon([app]);
 
 $w.onReady(() => {
-+  return initStore();
++  return readyStore();
 });
 ```
 
@@ -20,7 +22,7 @@ $w.onReady(() => {
 ```js
 $w.onReady(() => {
   if (wixWindow.rendering.env === 'browser') {
-    return initStore();
+    return readyStore();
   }
 });
 ```
@@ -34,31 +36,30 @@ $w.onReady(async () => {
 
   setState({ posts, todos });
 
-  return initStore();
+  return readyStore();
 });
 ```
 
 ## Removed `connectPage()` method
 
 ```diff
-import { createStoreon } from 'storeon-velo';
-
-const app = (store) => {...};
-
-- const { getState, setState, dispatch, connect, connectPage } = createStoreon([app]);
-+ const { getState, setState, dispatch, connect, initStore } = createStoreon([app]);
-
 - connectPage((state) => {
-+ connect((state) => {
-   $w('#text1').text = state.title;
-});
+-   $w('#text1').text = state.title;
+- });
+
++ const disconnect = connect((state) => {
++   $w('#text1').text = state.title;
++   disconnect();
++ });
 ```
 
 ## Legacy APIs
+
+If you need to work with legacy API, it available by path `'storeon-velo/legacy'`
 
 ```js
 import { createStoreon } from 'storeon-velo/legacy';
 ```
 
-- [Legacy APIs docs](https://github.com/shoonia/storeon-velo/blob/master/docs/LEGACY.md)
 - [New APIs docs](https://github.com/shoonia/storeon-velo/blob/master/README.md)
+- [Legacy APIs docs](https://github.com/shoonia/storeon-velo/blob/master/docs/LEGACY.md)

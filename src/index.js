@@ -62,7 +62,7 @@ export let createStoreon = (modules) => {
       };
     },
 
-    initStore() {
+    readyStore() {
       dispatch('@ready');
 
       on('@changed', (_, changes) => {

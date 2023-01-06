@@ -24,10 +24,10 @@ const app = (store) => {
   store.on('increment', ({ count }) => ({ count: count + 1 }));
 };
 
-const { getState, setState, dispatch, connect, initStore } = createStoreon([app]);
+const { getState, setState, dispatch, connect, readyStore } = createStoreon([app]);
 
 // Subscribe for state property 'count'.
-// The callback function will be run when the store is initialized `initState()`
+// The callback function will be run when the store is redy `readyStore()`
 // and each time when property 'count' would change.
 connect('count', ({ count }) => {
   $w('#text1').text = String(count);
@@ -39,8 +39,8 @@ $w.onReady(() => {
     dispatch('increment');
   });
 
-  // initialize the store
-  return initStore();
+  // initialize observe of the state changes
+  return readyStore();
 });
 ```
 
@@ -61,7 +61,7 @@ Creates a store that holds the complete state tree of your app
 and returns 5 methods for work with the app state. ([modules API](#store))
 
 ```js
-const { getState, setState, dispatch, connect, initStore } = createStoreon(modules);
+const { getState, setState, dispatch, connect, readyStore } = createStoreon(modules);
 ```
 
 Syntax
@@ -74,7 +74,7 @@ type Store = {
   setState: Function
   dispatch: Function
   connect: Function
-  initStore: Function
+  readyStore: Function
 }
 ```
 
@@ -147,21 +147,21 @@ type ConnectHandler = (state: object) => void | Promise<void>
 type Disconnect = () => void
 ```
 
-### initStore
+### readyStore
 
-Initialization of the `connect()` callbacks.
+Start to observe the state changes and calls of the `connect()` callbacks.
 It must be used inside `$w.onReady()` method when all the page elements have finished loading
 
 ```js
 $w.onReady(() => {
-  return initStore();
+  return readyStore();
 });
 ```
 
 Syntax
 
 ```ts
-function initStore(): Promise<any[]>
+function readyStore(): Promise<any[]>
 ```
 
 ## Store
@@ -204,12 +204,12 @@ const logger = (store) => {
   });
 };
 
-const { getState, setState, dispatch, connect, initStore } = createStoreon([
+const { getState, setState, dispatch, connect, readyStore } = createStoreon([
   appModule,
   wixWindow.viewMode === 'Preview' && logger,
 ]);
 
-$w.onReady(initStore);
+$w.onReady(readyStore);
 ```
 
 Syntax
@@ -310,7 +310,7 @@ store.on('@init', () => { });
 
 #### `@ready`
 
-It will be fired in `initStore()`. It must be inside `$w.onReady()` method when all the page elements have finished loading.
+It will be fired in `readyStore()`. It must be inside `$w.onReady()` method when all the page elements have finished loading.
 
 ```js
 store.on('@ready', (state) => { });
@@ -449,7 +449,7 @@ const appModule = (store) => {
   });
 }
 
-const { getState, setState, dispatch, connect, initStore } = createStoreon([
+const { getState, setState, dispatch, connect, readyStore } = createStoreon([
   appModule,
 ]);
 ```
@@ -494,7 +494,7 @@ $w.onReady(() => {
 +    dispatch('cart/add', itemData);
 +  });
 
-  return initStore();
+  return readyStore();
 });
 ```
 
