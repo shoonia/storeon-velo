@@ -9,7 +9,9 @@ A tiny event-based state manager [Storeon](https://github.com/storeon/storeon) f
 
 ![state manager storeon-velo](https://static.wixstatic.com/shapes/e3b156_87008db048c84222aa5f0814b5572677.svg)
 
-> ❗ BREAKING CHANGE ❗
+> ❗ **BREAKING CHANGE** ❗
+>
+> `storeon-velo` is moving to `V4` with a few breaking changes
 >
 > - [Migrating to V4](https://github.com/shoonia/storeon-velo/blob/master/docs/MIGRATION_TO_V4.md)
 > - [Legacy APIs docs](https://github.com/shoonia/storeon-velo/blob/master/docs/LEGACY.md)
