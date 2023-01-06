@@ -1,12 +1,10 @@
 import { rmSync, existsSync } from 'node:fs';
 
-if (existsSync('./lib')) {
-  rmSync('./lib', { recursive: true });
-}
-
-if (existsSync('./legacy')) {
-  rmSync('./legacy', { recursive: true });
-}
+['./lib', './legacy'].forEach((path) => {
+  if (existsSync(path)) {
+    rmSync(path, { recursive: true });
+  }
+});
 
 export default [
   {
