@@ -1,5 +1,5 @@
 import { jest } from '@jest/globals';
-import { createStoreon } from '..';
+import { createStoreon } from '../../legacy';
 
 describe('@init event', () => {
   it('should run @init event', () => {

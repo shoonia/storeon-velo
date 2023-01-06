@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import { createStoreon } from '..';
+import { createStoreon } from '../../legacy';
 
 describe('getState method', () => {
   it('should return the current state', () => {

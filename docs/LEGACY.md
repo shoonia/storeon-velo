@@ -1,4 +1,4 @@
-# storeon-velo
+# storeon-velo (legacy)
 
 [![https://wix.com/velo](https://img.shields.io/badge/Built%20for-Velo%20by%20Wix-3638f4)](https://wix.com/velo)
 [![corvid-storeon test status](https://github.com/shoonia/storeon-velo/workflows/test/badge.svg)](https://github.com/shoonia/storeon-velo/actions)
@@ -9,42 +9,73 @@ A tiny event-based state manager [Storeon](https://github.com/storeon/storeon) f
 
 ![state manager storeon-velo](https://static.wixstatic.com/shapes/e3b156_87008db048c84222aa5f0814b5572677.svg)
 
-> ❗ **BREAKING CHANGE** ❗
->
-> `storeon-velo` is moving to `V4` with a few breaking changes
->
-> - [Migrating to V4](https://github.com/shoonia/storeon-velo/blob/master/docs/MIGRATION_TO_V4.md)
-> - [Legacy APIs docs](https://github.com/shoonia/storeon-velo/blob/master/docs/LEGACY.md)
+- [How to use](#how-to-use)
+- [Example](#example)
+- [Install](#install)
+- [Wix Website Template](#how-to-use)
+- [API](#api)
+  - [`createStoreon()`](#createstoreon)
+  - [`getState()`](#getstate)
+  - [`setState()`](#setstate)
+  - [`dispatch()`](#dispatch)
+  - [`connect()`](#connect)
+  - [`connectPage()`](#connectpage)
+- [Store](#store)
+- [Storeon store methods](#storeon-store-methods)
+  - [`store.dispatch()`](#storedispatch)
+  - [`store.on()`](#storeon)
+  - [`store.get()`](#storeget)
+  - [`store.set()`](#storeget)
+- [Events](#events)
+  - [`@init`](#init)
+  - [`@ready`](#ready)
+  - [`@dispatch`](#dispatch-1)
+  - [`@set`](#set)
+  - [`@changed`](#changed)
+- [Reducers](#reducers)
+- [Async operations](#async-operations)
+- [Work with Repeater](#work-with-repeater)
+- [License](#license)
+
+## How to use
+
+You can install from Package Manager or use demo template.
+
+- [Install](#install)
+- Wix Website Template: [Open In Editor](https://editor.wix.com/html/editor/web/renderer/new?siteId=d6003ab4-7b91-4fe1-b65e-55ff3baca1f4&metaSiteId=654936ba-93bc-4f97-920a-c3050dd82fe7&autoDevMode=true)
 
 ## Example
 
-```js
-import { createStoreon } from 'storeon-velo';
+**`Page Code`**
 
-const app = (store) => {
+```js
+import { createStoreon } from 'storeon-velo/legacy';
+
+const counter = (store) => {
   store.on('@init', () => ({ count: 0 }));
   store.on('increment', ({ count }) => ({ count: count + 1 }));
 };
 
-const { getState, setState, dispatch, connect, readyStore } = createStoreon([app]);
+const { getState, setState, dispatch, connect, connectPage } = createStoreon([counter]);
 
 // Subscribe for state property 'count'.
-// The callback function will be run when the store is redy `readyStore()`
+// The callback function will be run when the page loads ($w.onReady())
 // and each time when property 'count' would change.
 connect('count', ({ count }) => {
   $w('#text1').text = String(count);
 });
 
-$w.onReady(() => {
+// Wrapper around $w.onReady()
+// The callback function will be run once.
+connectPage((state) => {
   $w('#button1').onClick(() => {
     // Emit event
     dispatch('increment');
   });
-
-  // initialize observe of the state changes
-  return readyStore();
 });
 ```
+
+**[Live Demo](https://www.wix.com/alexanderz5/storeon-velo)**
 
 ## Install
 
@@ -55,6 +86,12 @@ to manage the npm packages in your site.
 
 ![Package Manager panel in Wix editor, installing storeon-velo](https://static.wixstatic.com/media/e3b156_89e4871c048b48538242a7568b7ed2de~mv2.jpg)
 
+## Wix Website Template
+
+Just open the template in the Wix Editor and play with `storeon-velo`
+
+- [Open In Editor](https://editor.wix.com/html/editor/web/renderer/new?siteId=d6003ab4-7b91-4fe1-b65e-55ff3baca1f4&metaSiteId=654936ba-93bc-4f97-920a-c3050dd82fe7&autoDevMode=true)
+
 ## API
 
 ### createStoreon
@@ -63,7 +100,7 @@ Creates a store that holds the complete state tree of your app
 and returns 5 methods for work with the app state. ([modules API](#store))
 
 ```js
-const { getState, setState, dispatch, connect, readyStore } = createStoreon(modules);
+const { getState, setState, dispatch, connect, connectPage } = createStoreon(modules);
 ```
 
 Syntax
@@ -76,7 +113,7 @@ type Store = {
   setState: Function
   dispatch: Function
   connect: Function
-  readyStore: Function
+  connectPage: Function
 }
 ```
 
@@ -149,21 +186,21 @@ type ConnectHandler = (state: object) => void | Promise<void>
 type Disconnect = () => void
 ```
 
-### readyStore
+### connectPage
 
-Start to observe the state changes and calls of the `connect()` callbacks.
-It must be used inside `$w.onReady()` method when all the page elements have finished loading
+Sets the function that runs when all the page elements have finished loading.
+(wrapper around `$w.onReady()`)
 
 ```js
-$w.onReady(() => {
-  return readyStore();
-});
+connectPage((state) => { });
 ```
 
 Syntax
 
 ```ts
-function readyStore(): Promise<any[]>
+function connectPage(initFunction: ReadyHandler): void
+
+type ReadyHandler = (state: object) => void | Promise<void>
 ```
 
 ## Store
@@ -175,7 +212,7 @@ Each module is just a function, which will accept a store and bind their event l
 
 ```js
 import wixWindow from 'wix-window';
-import { createStoreon } from 'storeon-velo';
+import { createStoreon } from 'storeon-velo/legacy';
 
 // Business logic
 const appModule = (store) => {
@@ -206,12 +243,10 @@ const logger = (store) => {
   });
 };
 
-const { getState, setState, dispatch, connect, readyStore } = createStoreon([
+const { getState, setState, dispatch, connect, connectPage } = createStoreon([
   appModule,
   wixWindow.viewMode === 'Preview' && logger,
 ]);
-
-$w.onReady(readyStore);
 ```
 
 Syntax
@@ -312,7 +347,7 @@ store.on('@init', () => { });
 
 #### `@ready`
 
-It will be fired in `readyStore()`. It must be inside `$w.onReady()` method when all the page elements have finished loading.
+It will be fired in `$w.onReady()` when all the page elements have finished loading.
 
 ```js
 store.on('@ready', (state) => { });
@@ -407,7 +442,7 @@ Also, you can use `store.set()` method for async listeners.
 
 ```js
 import wixData from 'wix-data';
-import { createStoreon } from 'storeon-velo';
+import { createStoreon } from 'storeon-velo/legacy';
 
 const appModule = (store) => {
   store.on('@init', () => {
@@ -451,7 +486,7 @@ const appModule = (store) => {
   });
 }
 
-const { getState, setState, dispatch, connect, readyStore } = createStoreon([
+const { getState, setState, dispatch, connect, connectPage } = createStoreon([
   appModule,
 ]);
 ```
@@ -488,16 +523,14 @@ connect('products', ({ products }) => {
   });
 });
 
-$w.onReady(() => {
-+  $w('#repeatedContainer').onClick((event) => {
-+    const data = $w('#repeater').data;
-+    const itemData = data.find(item => item._id === event.context.itemId);
++ connectPage(() => {
++   $w('#repeatedContainer').onClick((event) => {
++     const data = $w('#repeater').data;
++     const itemData = data.find(item => item._id === event.context.itemId);
 +
-+    dispatch('cart/add', itemData);
-+  });
-
-  return readyStore();
-});
++     dispatch('cart/add', itemData);
++   });
++ });
 ```
 
 **more:**

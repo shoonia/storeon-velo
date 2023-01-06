@@ -1,4 +1,4 @@
-import { createStoreon } from '..';
+import { createStoreon } from '../../legacy';
 
 describe('@ready event', () => {
   it('should run @ready event', (done) => {

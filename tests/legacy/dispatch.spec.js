@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { jest } from '@jest/globals';
-import { createStoreon } from '..';
+import { createStoreon } from '../../legacy';
 
 describe('dispatch method', () => {
   it('should call the event listener two times', () => {

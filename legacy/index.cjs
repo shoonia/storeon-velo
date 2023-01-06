@@ -3,6 +3,8 @@
 let createStoreon = (modules) => {
   let events = {};
   let state = {};
+
+  let page = [];
   let subs = [];
 
   let dispatch = (event, data) => {
@@ -37,9 +39,28 @@ let createStoreon = (modules) => {
   };
 
   let get = () => state;
+
   let set = (changes) => dispatch('@set', changes);
 
   on('@set', (_, changes) => changes);
+
+  $w.onReady(() => {
+    dispatch('@ready');
+
+    on('@changed', (_, changes) => {
+      subs.forEach((i) => {
+        let hasChanges = i.keys.some((key) => key in changes);
+
+        if (hasChanges) {
+          i.cb(state);
+        }
+      });
+    });
+
+    return Promise.all(
+      page.concat(subs).map((i) => i.cb(state)),
+    );
+  });
 
   modules.forEach((mod) => {
     if (mod) {
@@ -64,20 +85,8 @@ let createStoreon = (modules) => {
       };
     },
 
-    readyStore() {
-      dispatch('@ready');
-
-      on('@changed', (_, changes) => {
-        subs.forEach((i) => {
-          let hasChanges = i.keys.some((key) => key in changes);
-
-          if (hasChanges) {
-            i.cb(state);
-          }
-        });
-      });
-
-      return Promise.all(subs.map((i) => i.cb(state)));
+    connectPage(cb) {
+      page.push({ cb });
     },
   };
 };

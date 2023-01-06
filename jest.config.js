@@ -2,7 +2,7 @@
 const config = {
   rootDir: '.',
   setupFiles: [
-    '<rootDir>/tests/mock.js',
+    '<rootDir>/tests/legacy/mock.js',
   ],
 };
 

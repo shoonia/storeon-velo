@@ -1,6 +1,6 @@
 {
   "name": "storeon-velo",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "A tiny event-based state manager Storeon for Velo by Wix",
   "type": "module",
   "main": "lib/index.cjs",
@@ -10,6 +10,11 @@
       "require": "./lib/index.cjs",
       "import": "./lib/index.js",
       "default": "./lib/index.js"
+    },
+    "./legacy": {
+      "require": "./legacy/index.cjs",
+      "import": "./legacy/index.js",
+      "default": "./legacy/index.js"
     }
   },
   "sideEffects": false,
@@ -22,22 +27,22 @@
   "devDependencies": {
     "@arkweid/lefthook": "^0.7.7",
     "@size-limit/preset-small-lib": "^8.1.0",
-    "@types/jest": "^29.2.2",
-    "eslint": "^8.27.0",
-    "jest": "^29.3.0",
-    "rollup": "^3.2.5",
+    "@types/jest": "^29.2.5",
+    "eslint": "^8.31.0",
+    "jest": "^29.3.1",
+    "rollup": "^3.9.1",
     "size-limit": "^8.1.0"
   },
   "size-limit": [
     {
       "path": "lib/index.cjs",
       "import": "{ createStoreon }",
-      "limit": "687 B"
+      "limit": "659 B"
     },
     {
       "path": "lib/index.js",
       "import": "{ createStoreon }",
-      "limit": "391 B"
+      "limit": "368 B"
     }
   ],
   "repository": {
@@ -58,6 +63,7 @@
   ],
   "files": [
     "lib",
+    "legacy",
     "src",
     "LICENSE",
     "README.md"
