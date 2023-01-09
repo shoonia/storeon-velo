@@ -152,7 +152,7 @@ type Disconnect = () => void
 ### readyStore
 
 Start to observe the state changes and calls of the `connect()` callbacks.
-It must be used inside `$w.onReady()` method when all the page elements have finished loading
+It must be used inside `$w.onReady()` when all the page elements have finished loading
 
 ```js
 $w.onReady(() => {
@@ -312,7 +312,7 @@ store.on('@init', () => { });
 
 #### `@ready`
 
-It will be fired in `readyStore()`. It must be inside `$w.onReady()` method when all the page elements have finished loading.
+It will be fired in `readyStore()` (it must be inside `$w.onReady()` when all the page elements have finished loading).
 
 ```js
 store.on('@ready', (state) => { });
@@ -490,10 +490,10 @@ connect('products', ({ products }) => {
 
 $w.onReady(() => {
 +  $w('#repeatedContainer').onClick((event) => {
-+    const data = $w('#repeater').data;
-+    const itemData = data.find(item => item._id === event.context.itemId);
++    const { products } = getState();
++    const product = products.find((i) => i._id === event.context.itemId);
 +
-+    dispatch('cart/add', itemData);
++    dispatch('cart/add', product);
 +  });
 
   return readyStore();
