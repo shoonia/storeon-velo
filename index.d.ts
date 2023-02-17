@@ -61,7 +61,7 @@ export interface StoreonVeloApi<State = unknown, Events = any> {
    */
   dispatch: StoreonDispatch<Events & createStoreon.DispatchableEvents<State>>
 
-  connect(...args: [key: (keyof State), ...key: (keyof State)[], handler: ConnectHandler<State>]): () => void
+  connect(...args: [...keys: (keyof State)[], handler: ConnectHandler<State>]): () => void
 
   readyStore<T = any>(): Promise<T[]>
 }
@@ -97,11 +97,12 @@ export namespace createStoreon {
   > = (
     state: State extends object ? Readonly<State> : State,
     data: (Events & StoreonEvents<State, Events>)[Event],
-    store: StoreonStore<State, Events>
   ) => Partial<State> | Promise<void> | null | void | false
 
   export interface DispatchableEvents<State> {
     '@init': never
+    '@ready': never
+    '@set': Readonly<Partial<State>>
     '@changed': Readonly<State>
   }
 }
