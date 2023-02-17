@@ -29,6 +29,13 @@ export interface StoreonStore<State = unknown, Events = any> {
    * @returns The current state.
    */
   get(): Readonly<State>
+
+  /**
+   * Set partial state. Accepts an object that will assign to the state.
+   * it can be useful for async event listeners.
+   *
+   * @param data partial state object.
+   */
   set(data: Partial<State>): void
 
   /**
@@ -36,7 +43,6 @@ export interface StoreonStore<State = unknown, Events = any> {
    *
    * @param event The event name.
    * @param data Any additional data for the event.
-   * @returns The current state.
    */
   dispatch: StoreonDispatch<Events & createStoreon.DispatchableEvents<State>>
 }
@@ -50,6 +56,11 @@ export interface StoreonVeloApi<State = unknown, Events = any> {
    */
   getState(): Readonly<State>
 
+  /**
+   * Set partial state. Accepts an object that will assign to the state.
+   *
+   * @param data Any additional data for the event.
+   */
   setState(data: Partial<State>): void
 
   /**
@@ -57,12 +68,21 @@ export interface StoreonVeloApi<State = unknown, Events = any> {
    *
    * @param event The event name.
    * @param data Any additional data for the event.
-   * @returns The current state.
    */
   dispatch: StoreonDispatch<Events & createStoreon.DispatchableEvents<State>>
 
+  /**
+   * Connects to state by property key.
+   * It will return the function disconnect from the store.
+   *
+   * @param args Connect properties keys and event listener.
+   */
   connect(...args: [...keys: (keyof State)[], handler: ConnectHandler<State>]): () => void
 
+  /**
+   * Start to observe the state changes and calls of the `connect()` callbacks.
+   * It must be used inside `$w.onReady()` when all the page elements have finished loading
+   */
   readyStore<T = any>(): Promise<T[]>
 }
 
@@ -116,10 +136,6 @@ export namespace createStoreon {
  *   store.on('@init', () => ({ count: 0 }))
  *   store.on('inc', ({ count }) => ({ count: count + 1 }))
  * }
- * const store = createStoreon([increment])
- * store.get().count //=> 0
- * store.dispatch('inc')
- * store.get().count //=> 1
  * ```
  *
  * @param modules Functions which will set initial state define reducer
