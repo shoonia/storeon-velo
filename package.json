@@ -5,8 +5,10 @@
   "type": "module",
   "main": "lib/index.cjs",
   "module": "lib/index.js",
+  "types": "./index.d.ts",
   "exports": {
     ".": {
+      "types": "./index.d.ts",
       "require": "./lib/index.cjs",
       "import": "./lib/index.js",
       "default": "./lib/index.js"
@@ -65,8 +67,7 @@
     "lib",
     "legacy",
     "src",
-    "LICENSE",
-    "README.md"
+    "index.d.ts"
   ],
   "author": {
     "name": "Alexander Zaytsev",
