@@ -131,11 +131,14 @@ export namespace createStoreon {
  * Initialize new store and apply all modules to the store.
  *
  * ```js
- * import { createStoreon } from 'storeon'
- * let increment = store => {
- *   store.on('@init', () => ({ count: 0 }))
- *   store.on('inc', ({ count }) => ({ count: count + 1 }))
- * }
+ * import { createStoreon } from 'storeon-velo';
+ *
+ * const app = (store) => {
+ *   store.on('@init', () => ({ count: 0 }));
+ *   store.on('inc', ({ count }) => ({ count: count + 1 }));
+ * };
+ *
+ * const { getState, setState, dispatch, connect, readyStore } = createStoreon([app]);
  * ```
  *
  * @param modules Functions which will set initial state define reducer
