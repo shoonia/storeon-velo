@@ -54,7 +54,6 @@
   "files": [
     "lib",
     "legacy",
-    "src",
     "index.d.ts"
   ],
   "author": {
