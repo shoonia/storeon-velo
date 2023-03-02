@@ -35,18 +35,6 @@
     "rollup": "^3.18.0",
     "size-limit": "^8.2.4"
   },
-  "size-limit": [
-    {
-      "path": "lib/index.cjs",
-      "import": "{ createStoreon }",
-      "limit": "659 B"
-    },
-    {
-      "path": "lib/index.js",
-      "import": "{ createStoreon }",
-      "limit": "368 B"
-    }
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/shoonia/storeon-velo.git"
