@@ -1,6 +1,6 @@
 {
   "name": "storeon-velo",
-  "version": "4.1.1",
+  "version": "4.1.2",
   "description": "A tiny event-based state manager Storeon for Velo by Wix",
   "type": "module",
   "main": "lib/index.cjs",
