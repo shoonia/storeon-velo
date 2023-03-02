@@ -83,7 +83,7 @@ export interface StoreonVeloApi<State = unknown, Events = any> {
    * Start to observe the state changes and calls of the `connect()` callbacks.
    * It must be used inside `$w.onReady()` when all the page elements have finished loading
    */
-  readyStore<T = any>(): Promise<T[]>
+  readyStore<T = any[]>(): Promise<T>
 }
 
 export type StoreonModule<State, Events = any> = (
