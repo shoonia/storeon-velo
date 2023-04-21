@@ -2,6 +2,8 @@ import { createStoreon } from '../../legacy';
 
 describe('getState method', () => {
   it('should partial update state', () => {
+    expect.hasAssertions();
+
     const { setState, getState } = createStoreon([
       (store) => {
         store.on('@init', () => ({ x: 0, y: 0 }));
@@ -14,6 +16,8 @@ describe('getState method', () => {
   });
 
   it('should add new property to state', () => {
+    expect.hasAssertions();
+
     const { setState, getState } = createStoreon([
       (store) => {
         store.on('@init', () => ({ a: 10 }));
@@ -26,6 +30,8 @@ describe('getState method', () => {
   });
 
   it('should run store subscription @set', (done) => {
+    expect.hasAssertions();
+
     const { setState } = createStoreon([
       (store) => {
         store.on('@init', () => ({ a: 1, b: 0 }));

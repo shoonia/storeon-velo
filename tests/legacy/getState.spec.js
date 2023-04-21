@@ -3,6 +3,8 @@ import { createStoreon } from '../../legacy';
 
 describe('getState method', () => {
   it('should return the current state', () => {
+    expect.hasAssertions();
+
     const event = randomUUID();
 
     const { dispatch, getState } = createStoreon([
@@ -19,6 +21,8 @@ describe('getState method', () => {
   });
 
   it('should equal data in all methods', (done) => {
+    expect.hasAssertions();
+
     const event = randomUUID();
 
     const { dispatch, getState } = createStoreon([
@@ -38,6 +42,8 @@ describe('getState method', () => {
   });
 
   it('should equal to state with connect', (done) => {
+    expect.hasAssertions();
+
     const { connect, getState } = createStoreon([
       (store) => {
         store.on('@init', () => ({ k: 10, g: '400' }));
@@ -51,6 +57,8 @@ describe('getState method', () => {
   });
 
   it('should equal to state with connectPage', (done) => {
+    expect.hasAssertions();
+
     const { connectPage, getState } = createStoreon([
       (store) => {
         store.on('@init', () => ({ k: 20, g: '800' }));

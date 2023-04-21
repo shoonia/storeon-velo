@@ -3,6 +3,8 @@ import { createStoreon } from '../../legacy';
 
 describe('@init event', () => {
   it('should run @init event', () => {
+    expect.hasAssertions();
+
     const { getState } = createStoreon([
       (store) => {
         store.on('@init', () => ({ a: 0 }));
@@ -13,6 +15,8 @@ describe('@init event', () => {
   });
 
   it('should run initial connect', (done) => {
+    expect.hasAssertions();
+
     const { connect } = createStoreon([
       (store) => {
         store.on('@init', () => ({ b: 1 }));
@@ -26,6 +30,8 @@ describe('@init event', () => {
   });
 
   it('should run initial connectPage', (done) => {
+    expect.hasAssertions();
+
     const { connectPage } = createStoreon([
       (store) => {
         store.on('@init', () => ({ c: 2 }));
@@ -39,6 +45,8 @@ describe('@init event', () => {
   });
 
   it('should execute in the strict queue @init > @ready > connectPage > connect', (done) => {
+    expect.hasAssertions();
+
     const spy = jest.fn();
 
     const { connect, connectPage } = createStoreon([

@@ -4,6 +4,8 @@ import { createStoreon } from '../../legacy';
 
 describe('Multi keys', () => {
   it('should call the cb two times', (done) => {
+    expect.hasAssertions();
+
     const eventOne = randomUUID();
     const eventTwo = randomUUID();
 
@@ -27,6 +29,8 @@ describe('Multi keys', () => {
   });
 
   it('should run one time of change two properties synchronic', (done) => {
+    expect.hasAssertions();
+
     const event = randomUUID();
 
     const cb = jest.fn();
@@ -48,6 +52,8 @@ describe('Multi keys', () => {
   });
 
   it('should be disconnected', (done) => {
+    expect.hasAssertions();
+
     const eventOne = randomUUID();
     const eventTwo = randomUUID();
 
