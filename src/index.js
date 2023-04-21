@@ -27,7 +27,7 @@ export let createStoreon = (modules) => {
   };
 
   let on = (event, cb) => {
-    (events[event] || (events[event] = [])).push(cb);
+    (events[event] ??= []).push(cb);
 
     return () => {
       events[event] = events[event].filter((i) => i !== cb);
