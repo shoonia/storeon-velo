@@ -2,6 +2,8 @@ import { createStoreon } from '../../legacy';
 
 describe('@ready event', () => {
   it('should run @ready event', (done) => {
+    expect.hasAssertions();
+
     createStoreon([
       (store) => {
         store.on('@ready', (state) => {
@@ -13,6 +15,8 @@ describe('@ready event', () => {
   });
 
   it('should run with the initial state', (done) => {
+    expect.hasAssertions();
+
     createStoreon([
       (store) => {
         store.on('@init', () => ({ xyz: true }));
@@ -25,6 +29,8 @@ describe('@ready event', () => {
   });
 
   it('should set the initial state instead @init', (done) => {
+    expect.hasAssertions();
+
     const { connect } = createStoreon([
       (store) => {
         store.on('@ready', () => ({ some: [] }));
@@ -38,6 +44,8 @@ describe('@ready event', () => {
   });
 
   it('should get the initial state from @ready event in connectPage', (done) => {
+    expect.hasAssertions();
+
     const { connectPage } = createStoreon([
       (store) => {
         store.on('@ready', () => ({ data: {} }));
@@ -51,6 +59,8 @@ describe('@ready event', () => {
   });
 
   it('should update state but should not affect connectPage method', (done) => {
+    expect.hasAssertions();
+
     const { connectPage } = createStoreon([
       (store) => {
         store.on('@init', () => ({ key1: 'key1' }));
@@ -65,6 +75,8 @@ describe('@ready event', () => {
   });
 
   it('should update state but should not affect connect method', (done) => {
+    expect.hasAssertions();
+
     const { connect } = createStoreon([
       (store) => {
         store.on('@init', () => ({ one: 'one' }));

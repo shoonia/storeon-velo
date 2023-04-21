@@ -4,6 +4,8 @@ import { createStoreon } from '../../legacy';
 
 describe('connect method', () => {
   it('should run method connect without key', (done) => {
+    expect.hasAssertions();
+
     const { connect } = createStoreon([]);
 
     connect(/* no key */ (state) => {
@@ -13,6 +15,8 @@ describe('connect method', () => {
   });
 
   it('should run with async function', (done) => {
+    expect.hasAssertions();
+
     const { connect } = createStoreon([]);
 
     // eslint-disable-next-line require-await
@@ -23,6 +27,8 @@ describe('connect method', () => {
   });
 
   it('should run method connect with an unknown key', (done) => {
+    expect.hasAssertions();
+
     const { connect } = createStoreon([]);
 
     connect('unknown', (state) => {
@@ -32,6 +38,8 @@ describe('connect method', () => {
   });
 
   it('should run only after @ready', (done) => {
+    expect.hasAssertions();
+
     const eventX = randomUUID();
     const eventY = randomUUID();
 
@@ -60,6 +68,8 @@ describe('connect method', () => {
   });
 
   it('should disconnect after the first call', (done) => {
+    expect.hasAssertions();
+
     const event = randomUUID();
 
     const cb = jest.fn();
@@ -90,6 +100,8 @@ describe('connect method', () => {
   });
 
   it('should connect twice', (done) => {
+    expect.hasAssertions();
+
     const event = randomUUID();
 
     const cb = jest.fn();
@@ -113,6 +125,8 @@ describe('connect method', () => {
   });
 
   it('should get the actual current data', (done) => {
+    expect.hasAssertions();
+
     const spy = jest.fn();
 
     const { connect } = createStoreon([
@@ -138,6 +152,8 @@ describe('connect method', () => {
   });
 
   it('should not be affected connect if use dispatch in @ready', (done) => {
+    expect.hasAssertions();
+
     const event = randomUUID();
 
     const spy = jest.fn();
@@ -167,6 +183,8 @@ describe('connect method', () => {
   });
 
   it('should not run with @ready event if set up inside connectPage method', (done) => {
+    expect.hasAssertions();
+
     const event = randomUUID();
 
     const cbOutside = jest.fn();

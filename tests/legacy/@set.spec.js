@@ -4,6 +4,8 @@ import { createStoreon } from '../../legacy';
 
 describe('@set event', () => {
   it('should update state', (done) => {
+    expect.hasAssertions();
+
     const { getState, connectPage } = createStoreon([
       (store) => {
         store.on('@init', () => ({ a: 0, b: 0 }));
@@ -22,6 +24,8 @@ describe('@set event', () => {
   });
 
   it('should work with async handler', (done) => {
+    expect.hasAssertions();
+
     const event = randomUUID();
 
     const { connect, connectPage, dispatch, getState } = createStoreon([
@@ -47,6 +51,8 @@ describe('@set event', () => {
   });
 
   it('should update the state with @set event', (done) => {
+    expect.hasAssertions();
+
     const { dispatch, connectPage, getState } = createStoreon([
       (store) => {
         store.on('@init', () => ({ x: 0, y: 0 }));

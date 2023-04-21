@@ -4,6 +4,8 @@ import { createStoreon } from '../../legacy';
 
 describe('connectPage method', () => {
   it('should run connectPage method', (done) => {
+    expect.hasAssertions();
+
     const { connectPage } = createStoreon([]);
 
     connectPage((state) => {
@@ -13,6 +15,8 @@ describe('connectPage method', () => {
   });
 
   it('should run with async function', (done) => {
+    expect.hasAssertions();
+
     const { connectPage } = createStoreon([]);
 
     // eslint-disable-next-line require-await
@@ -23,6 +27,8 @@ describe('connectPage method', () => {
   });
 
   it('should get correctly state for each connectPage', (done) => {
+    expect.hasAssertions();
+
     const event = randomUUID();
 
     const spy = jest.fn();

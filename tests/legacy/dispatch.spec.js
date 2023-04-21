@@ -4,6 +4,8 @@ import { createStoreon } from '../../legacy';
 
 describe('dispatch method', () => {
   it('should call the event listener two times', () => {
+    expect.hasAssertions();
+
     const event = randomUUID();
     const spy = jest.fn();
 
@@ -20,6 +22,8 @@ describe('dispatch method', () => {
   });
 
   it('should post the data to the event listener', () => {
+    expect.hasAssertions();
+
     const event = randomUUID();
     const spy = jest.fn();
 

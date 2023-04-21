@@ -1,7 +1,7 @@
-import { createStoreon } from '../../legacy';
+import { createStoreon } from '../lib';
 
 describe('getState method', () => {
-  it('should partial update state', () => {
+  it('should update state', () => {
     expect.hasAssertions();
 
     const { setState, getState } = createStoreon([
@@ -29,7 +29,7 @@ describe('getState method', () => {
     expect(getState()).toEqual({ a: 10, b: 20 });
   });
 
-  it('should run store subscription @set', (done) => {
+  it('should fire on @set event', (done) => {
     expect.hasAssertions();
 
     const { setState } = createStoreon([
