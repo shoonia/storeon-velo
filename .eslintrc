@@ -1,5 +1,11 @@
 {
-  "extends": "eslint:recommended",
+  "extends": [
+    "eslint:recommended",
+    "plugin:jest/recommended"
+  ],
+  "plugins": [
+    "jest"
+  ],
   "env": {
     "es6": true,
     "node": true,
@@ -11,5 +17,17 @@
   },
   "globals": {
     "$w": "readonly"
+  },
+  "rules": {
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "jest/no-done-callback": "off",
+    "jest/prefer-expect-assertions": "error"
   }
 }
