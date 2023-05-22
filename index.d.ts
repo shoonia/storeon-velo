@@ -92,10 +92,7 @@ export type StoreonModule<State, Events = any> = (
 
 export interface StoreonEvents<State, Events = any>
   extends createStoreon.DispatchableEvents<State> {
-  '@dispatch': createStoreon.DispatchEvent<
-    State,
-    Events & createStoreon.DispatchableEvents<State>
-  >
+  '@dispatch': createStoreon.DispatchEvent<Events & createStoreon.DispatchableEvents<State>>
 }
 
 export type StoreonDispatch<Events> = (<Event extends keyof Events>(
@@ -105,10 +102,9 @@ export type StoreonDispatch<Events> = (<Event extends keyof Events>(
 
 export namespace createStoreon {
   export type DispatchEvent<
-    State,
     Events,
     Event extends keyof Events = keyof Events
-  > = [Event, Events[Event], EventHandler<State, Events, Event>[]]
+  > = [Event, Events[Event]]
 
   export type EventHandler<
     State,

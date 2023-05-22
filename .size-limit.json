@@ -2,11 +2,11 @@
   {
     "path": "lib/index.cjs",
     "import": "{ createStoreon }",
-    "limit": "659 B"
+    "limit": "649 B"
   },
   {
     "path": "lib/index.js",
     "import": "{ createStoreon }",
-    "limit": "368 B"
+    "limit": "355 B"
   }
 ]
