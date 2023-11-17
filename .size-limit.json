@@ -7,6 +7,6 @@
   {
     "path": "lib/index.js",
     "import": "{ createStoreon }",
-    "limit": "346 B"
+    "limit": "341 B"
   }
 ]
