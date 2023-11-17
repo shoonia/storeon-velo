@@ -2,13 +2,14 @@
   "compilerOptions": {
     "allowJs": true,
     "checkJs": true,
-    "module": "ES2022",
+    "module": "ESNext",
     "moduleResolution": "Node",
-    "target": "ES2022",
+    "target": "ESNext",
     "sourceMap": false,
+    "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "lib": [
-      "ES2022"
+      "ES2023"
     ]
   },
   "include": [
