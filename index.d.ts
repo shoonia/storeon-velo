@@ -86,36 +86,26 @@ export interface StoreonVeloApi<State = unknown, Events = any> {
   readyStore<T = any[]>(): Promise<T>
 }
 
-export type StoreonModule<State, Events = any> = (
-  store: StoreonStore<State, Events>
-) => void
+export type StoreonModule<State, Events = any> = (store: StoreonStore<State, Events>) => void
 
-export interface StoreonEvents<State, Events = any>
-  extends createStoreon.DispatchableEvents<State> {
-  '@dispatch': createStoreon.DispatchEvent<
-    State,
-    Events & createStoreon.DispatchableEvents<State>
-  >
+export interface StoreonEvents<State, Events = any> extends createStoreon.DispatchableEvents<State> {
+  '@dispatch': createStoreon.DispatchEvent<Events & createStoreon.DispatchableEvents<State>>
 }
 
-export type StoreonDispatch<Events> = (<Event extends keyof Events>(
+export type StoreonDispatch<Events> = <Event extends keyof Events>(
   event: Event,
   ...data: DataTypes<Partial<Events>, Event>
-) => void) & { ___events: Events }
+) => void
 
 export namespace createStoreon {
-  export type DispatchEvent<
-    State,
-    Events,
-    Event extends keyof Events = keyof Events
-  > = [Event, Events[Event], EventHandler<State, Events, Event>[]]
+  export type DispatchEvent<Events, Event extends keyof Events = keyof Events> = [Event, Events[Event]]
 
   export type EventHandler<
     State,
     Events,
     Event extends keyof (Events & StoreonEvents<State, Events>)
   > = (
-    state: State extends object ? Readonly<State> : State,
+    state: Readonly<State>,
     data: (Events & StoreonEvents<State, Events>)[Event],
   ) => Partial<State> | Promise<void> | null | void | false
 
