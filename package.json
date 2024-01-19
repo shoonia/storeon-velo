@@ -12,11 +12,6 @@
       "require": "./lib/index.cjs",
       "import": "./lib/index.js",
       "default": "./lib/index.js"
-    },
-    "./legacy": {
-      "require": "./legacy/index.cjs",
-      "import": "./legacy/index.js",
-      "default": "./legacy/index.js"
     }
   },
   "sideEffects": false,
@@ -49,12 +44,12 @@
     "wixcode",
     "editorx",
     "velo",
+    "wix-studio",
     "storeon",
     "redux"
   ],
   "files": [
     "lib",
-    "legacy",
     "index.d.ts"
   ],
   "author": {
