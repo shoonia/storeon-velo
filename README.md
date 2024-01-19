@@ -41,12 +41,12 @@ $w.onReady(() => {
 
 ## Install
 
-## Velo
+### Velo
 
 You use the [Package Manager](https://dev.wix.com/docs/develop-websites/articles/coding-with-velo/packages/working-with-npm-packages)
 to manage the npm packages in your Wix site.
 
-## NPM/Yarn
+### NPM/Yarn
 
 ```bash
 npm install storeon-velo
