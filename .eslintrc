@@ -15,9 +15,6 @@
     "ecmaVersion": 2023,
     "sourceType": "module"
   },
-  "globals": {
-    "$w": "readonly"
-  },
   "rules": {
     "quotes": [
       "error",
