@@ -173,7 +173,7 @@ It accepts a list of the modules.
 Each module is just a function, which will accept a store and bind their event listeners.
 
 ```js
-import wixWindow from 'wix-window';
+import { query } from 'wix-location-frontend';
 import { createStoreon } from 'storeon-velo';
 
 // Business logic
@@ -192,25 +192,35 @@ const appModule = (store) => {
 };
 
 // Devtools
-const logger = (store) => {
+export const logger = (store) => {
   store.on('@dispatch', (state, [event, data]) => {
     if (event === '@changed') {
-      const keys = Object.keys(data).join(', ');
-      console.log('changed:', keys, state);
-    } else if (typeof data !== 'undefined') {
-      console.log('action:', event, data);
+      console.info(
+        `%c @changed:%c ${Object.keys(data).join(', ')}\n`,
+        'color:#25a55a;font-weight:bold;',
+        'font-style:oblique;',
+        state,
+      );
     } else {
-      console.log('action:', event);
+      console.info(
+        `%c action:%c ${event}`,
+        'color:#c161f0;font-weight:bold;',
+        'color:#f69891;',
+        typeof data !== 'undefined' ? data : '',
+      );
     }
   });
 };
 
 const { getState, setState, dispatch, connect, readyStore } = createStoreon([
   appModule,
-  wixWindow.viewMode === 'Preview' && logger,
+  // Enable development logger if a query param in the URL is ?logger=on
+  query.logger === 'on' && logger,
 ]);
 
-$w.onReady(readyStore);
+$w.onReady(() => {
+  return readyStore();
+});
 ```
 
 Syntax
