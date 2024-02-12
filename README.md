@@ -9,13 +9,6 @@ A tiny event-based state manager [Storeon](https://github.com/storeon/storeon) f
 
 ![state manager storeon-velo](https://static.wixstatic.com/shapes/e3b156_87008db048c84222aa5f0814b5572677.svg)
 
-> ❗ **BREAKING CHANGE** ❗
->
-> `storeon-velo` is moving to `V4` with a few breaking changes
->
-> - [Migrating to V4](https://github.com/shoonia/storeon-velo/blob/master/docs/MIGRATION_TO_V4.md)
-> - [Legacy APIs docs](https://github.com/shoonia/storeon-velo/blob/master/docs/LEGACY.md)
-
 ## Example
 
 ```js
@@ -48,12 +41,18 @@ $w.onReady(() => {
 
 ## Install
 
-You use the [Package Manager](https://support.wix.com/en/article/velo-working-with-npm-packages)
-to manage the npm packages in your site.
+### Velo
 
-[Check latest available version](https://www.wix.com/velo/npm-modules)
+You use the [Package Manager](https://dev.wix.com/docs/develop-websites/articles/coding-with-velo/packages/working-with-npm-packages)
+to manage the npm packages in your Wix site.
 
-![Package Manager panel in Wix editor, installing storeon-velo](https://static.wixstatic.com/media/e3b156_89e4871c048b48538242a7568b7ed2de~mv2.jpg)
+### NPM/Yarn
+
+```bash
+npm install storeon-velo
+#or
+yarn add storeon-velo
+```
 
 ## API
 

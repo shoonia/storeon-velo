@@ -1,40 +1,46 @@
 import { randomUUID } from 'node:crypto';
 import { jest } from '@jest/globals';
-import { createStoreon } from '../../legacy';
+import { createStoreon } from '..';
 
 describe('connect method', () => {
   it('should run method connect without key', (done) => {
     expect.hasAssertions();
 
-    const { connect } = createStoreon([]);
+    const { connect, readyStore } = createStoreon([]);
 
-    connect(/* no key */ (state) => {
+    connect(/* no key */(state) => {
       expect(state).toEqual({});
       done();
     });
+
+    readyStore();
   });
 
   it('should run with async function', (done) => {
     expect.hasAssertions();
 
-    const { connect } = createStoreon([]);
+    const { connect, readyStore } = createStoreon([]);
 
     // eslint-disable-next-line require-await
     connect(async (state) => {
       expect(state).toEqual({});
       done();
     });
+
+    readyStore();
   });
 
   it('should run method connect with an unknown key', (done) => {
     expect.hasAssertions();
 
-    const { connect } = createStoreon([]);
+    const { connect, readyStore } = createStoreon([]);
 
-    connect('unknown', (state) => {
+    connect(randomUUID(), (state) => {
       expect(state).toEqual({});
       done();
     });
+
+    readyStore();
   });
 
   it('should run only after @ready', (done) => {
@@ -45,7 +51,7 @@ describe('connect method', () => {
 
     const spy = jest.fn();
 
-    const { connect, dispatch } = createStoreon([
+    const { connect, dispatch, readyStore } = createStoreon([
       (store) => {
         store.on(eventX, (_, x) => ({ x }));
         store.on(eventY, (_, y) => ({ y }));
@@ -65,6 +71,8 @@ describe('connect method', () => {
 
     dispatch(eventX, 2);
     dispatch(eventY, 4);
+
+    readyStore();
   });
 
   it('should disconnect after the first call', (done) => {
@@ -72,10 +80,11 @@ describe('connect method', () => {
 
     const event = randomUUID();
 
+    /** @type {*} */
     const cb = jest.fn();
     const spy = jest.fn();
 
-    const { dispatch, connect, connectPage } = createStoreon([
+    const { dispatch, connect, readyStore } = createStoreon([
       (store) => {
         store.on('@init', () => ({ data: '' }));
         store.on(event, (_, data) => {
@@ -85,51 +94,51 @@ describe('connect method', () => {
       },
     ]);
 
+    readyStore();
+
     const off = connect('data', cb);
 
-    connectPage(() => {
-      dispatch(event, 'one');
-      off();
-      dispatch(event, 'two');
+    dispatch(event, 'one');
+    off();
+    dispatch(event, 'two');
 
-      expect(cb).toHaveBeenCalledTimes(1);
-      expect(cb).toHaveBeenCalledWith({ data: 'one' });
-      expect(spy).toHaveBeenCalledTimes(2);
-      done();
-    });
+    expect(cb).toHaveBeenCalledTimes(1);
+    expect(cb).toHaveBeenCalledWith({ data: 'one' });
+    expect(spy).toHaveBeenCalledTimes(2);
+    done();
   });
 
-  it('should connect twice', (done) => {
+  it('should connect twice', () => {
     expect.hasAssertions();
 
     const event = randomUUID();
 
+    /** @type {*} */
     const cb = jest.fn();
 
-    const { dispatch, connect, connectPage } = createStoreon([
+    const { dispatch, connect, readyStore } = createStoreon([
       (store) => {
         store.on(event, () => ({ z: 1 }));
       },
     ]);
 
+    readyStore();
+
     connect('z', cb);
     connect('z', cb);
 
-    connectPage(() => {
-      expect(cb).toHaveBeenCalledTimes(0);
-      dispatch(event);
-      expect(cb).toHaveBeenCalledTimes(2);
-      expect(cb).toHaveBeenCalledWith({ z: 1 });
-      done();
-    });
+    expect(cb).toHaveBeenCalledTimes(0);
+    dispatch(event);
+    expect(cb).toHaveBeenCalledTimes(2);
+    expect(cb).toHaveBeenCalledWith({ z: 1 });
   });
 
-  it('should get the actual current data', (done) => {
+  it('should get the actual data', (done) => {
     expect.hasAssertions();
 
     const spy = jest.fn();
 
-    const { connect } = createStoreon([
+    const { connect, readyStore } = createStoreon([
       (store) => {
         store.on('@init', () => {
           spy();
@@ -149,6 +158,8 @@ describe('connect method', () => {
       expect(spy).toHaveBeenCalledTimes(2);
       done();
     });
+
+    readyStore();
   });
 
   it('should not be affected connect if use dispatch in @ready', (done) => {
@@ -158,7 +169,7 @@ describe('connect method', () => {
 
     const spy = jest.fn();
 
-    const { dispatch, connect } = createStoreon([
+    const { dispatch, connect, readyStore } = createStoreon([
       (store) => {
         store.on('@init', () => ({ t: 0 }));
 
@@ -180,6 +191,8 @@ describe('connect method', () => {
       expect(spy).toHaveBeenCalledTimes(2);
       done();
     });
+
+    readyStore();
   });
 
   it('should not run with @ready event if set up inside connectPage method', (done) => {
@@ -187,10 +200,12 @@ describe('connect method', () => {
 
     const event = randomUUID();
 
+    /** @type {*} */
     const cbOutside = jest.fn();
+    /** @type {*} */
     const cbInside = jest.fn();
 
-    const { dispatch, connect, connectPage } = createStoreon([
+    const { dispatch, connect, readyStore } = createStoreon([
       (store) => {
         store.on(event, () => ({ a: 'text' }));
       },
@@ -198,7 +213,7 @@ describe('connect method', () => {
 
     connect('a', cbOutside);
 
-    connectPage(() => {
+    connect(() => {
       connect('a', cbInside);
 
       setTimeout(() => {
@@ -210,5 +225,7 @@ describe('connect method', () => {
         done();
       }, 5);
     });
+
+    readyStore();
   });
 });

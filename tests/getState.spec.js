@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import { createStoreon } from '../../legacy';
+import { createStoreon } from '..';
 
 describe('getState method', () => {
   it('should return the current state', () => {
@@ -25,49 +25,38 @@ describe('getState method', () => {
 
     const event = randomUUID();
 
-    const { dispatch, getState } = createStoreon([
+    const { dispatch, getState, readyStore } = createStoreon([
       (store) => {
         store.on('@init', () => ({ list: [1,2,3] }));
 
         store.on(event, (state) => {
           expect(getState()).toBe(state);
           expect(getState()).toBe(store.get());
-          expect(getState()).toEqual({ list: [1,2,3] });
+          expect(getState()).toStrictEqual({ list: [1,2,3] });
           done();
         });
       }
     ]);
 
+    readyStore();
     dispatch(event);
   });
 
   it('should equal to state with connect', (done) => {
     expect.hasAssertions();
 
-    const { connect, getState } = createStoreon([
+    const { connect, getState, readyStore } = createStoreon([
       (store) => {
         store.on('@init', () => ({ k: 10, g: '400' }));
       },
     ]);
 
     connect('k', (state) => {
-      expect(getState()).toEqual(state);
+      expect(getState()).toBe(state);
+      expect(getState()).toStrictEqual({ k: 10, g: '400' });
       done();
     });
-  });
 
-  it('should equal to state with connectPage', (done) => {
-    expect.hasAssertions();
-
-    const { connectPage, getState } = createStoreon([
-      (store) => {
-        store.on('@init', () => ({ k: 20, g: '800' }));
-      },
-    ]);
-
-    connectPage((state) => {
-      expect(getState()).toEqual(state);
-      done();
-    });
+    readyStore();
   });
 });

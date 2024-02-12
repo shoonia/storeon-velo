@@ -1,15 +1,17 @@
 import { jest } from '@jest/globals';
-import { createStoreon } from '../../legacy';
+import { createStoreon } from '..';
 
 describe('@init event', () => {
   it('should run @init event', () => {
     expect.hasAssertions();
 
-    const { getState } = createStoreon([
+    const { getState, readyStore } = createStoreon([
       (store) => {
         store.on('@init', () => ({ a: 0 }));
       },
     ]);
+
+    readyStore();
 
     expect(getState()).toEqual({ a: 0 });
   });
@@ -17,7 +19,7 @@ describe('@init event', () => {
   it('should run initial connect', (done) => {
     expect.hasAssertions();
 
-    const { connect } = createStoreon([
+    const { connect, readyStore } = createStoreon([
       (store) => {
         store.on('@init', () => ({ b: 1 }));
       },
@@ -27,29 +29,16 @@ describe('@init event', () => {
       expect(state).toEqual({ b: 1 });
       done();
     });
+
+    readyStore();
   });
 
-  it('should run initial connectPage', (done) => {
-    expect.hasAssertions();
-
-    const { connectPage } = createStoreon([
-      (store) => {
-        store.on('@init', () => ({ c: 2 }));
-      },
-    ]);
-
-    connectPage((state) => {
-      expect(state).toEqual({ c: 2 });
-      done();
-    });
-  });
-
-  it('should execute in the strict queue @init > @ready > connectPage > connect', (done) => {
+  it('should execute in the strict queue @init > @ready > connect', (done) => {
     expect.hasAssertions();
 
     const spy = jest.fn();
 
-    const { connect, connectPage } = createStoreon([
+    const { connect, readyStore } = createStoreon([
       (store) => {
         store.on('@init', () => {
           spy();
@@ -66,13 +55,10 @@ describe('@init event', () => {
 
     connect('d', () => {
       spy();
-      expect(spy).toHaveBeenCalledTimes(4);
+      expect(spy).toHaveBeenCalledTimes(3);
       done();
     });
 
-    connectPage(() => {
-      spy();
-      expect(spy).toHaveBeenCalledTimes(3);
-    });
+    readyStore();
   });
 });

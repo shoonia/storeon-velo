@@ -1,12 +1,12 @@
 import { randomUUID } from 'node:crypto';
 import { setTimeout } from 'node:timers/promises';
-import { createStoreon } from '../../legacy';
+import { createStoreon } from '..';
 
 describe('@set event', () => {
   it('should update state', (done) => {
     expect.hasAssertions();
 
-    const { getState, connectPage } = createStoreon([
+    const { getState, connect, readyStore } = createStoreon([
       (store) => {
         store.on('@init', () => ({ a: 0, b: 0 }));
 
@@ -16,11 +16,13 @@ describe('@set event', () => {
       },
     ]);
 
-    connectPage((state) => {
+    connect((state) => {
       expect(state).toEqual({ a: 5, b: 0 });
       expect(getState()).toEqual({ a: 5, b: 0 });
       done();
     });
+
+    readyStore();
   });
 
   it('should work with async handler', (done) => {
@@ -28,7 +30,7 @@ describe('@set event', () => {
 
     const event = randomUUID();
 
-    const { connect, connectPage, dispatch, getState } = createStoreon([
+    const { connect, dispatch, getState, readyStore } = createStoreon([
       (store) => {
         store.on('@init', () => ({ i: 10, p: null }));
 
@@ -39,21 +41,21 @@ describe('@set event', () => {
       },
     ]);
 
-    connectPage(() => {
-      connect('i', (state) => {
-        expect(state).toEqual({ i: 5, p: null });
-        expect(getState()).toEqual({ i: 5, p: null });
-        done();
-      });
+    readyStore();
 
-      dispatch(event);
+    connect('i', (state) => {
+      expect(state).toEqual({ i: 5, p: null });
+      expect(getState()).toEqual({ i: 5, p: null });
+      done();
     });
+
+    dispatch(event);
   });
 
-  it('should update the state with @set event', (done) => {
+  it('should update the state with @set event', () => {
     expect.hasAssertions();
 
-    const { dispatch, connectPage, getState } = createStoreon([
+    const { dispatch, getState } = createStoreon([
       (store) => {
         store.on('@init', () => ({ x: 0, y: 0 }));
       },
@@ -61,10 +63,6 @@ describe('@set event', () => {
 
     dispatch('@set', { x: 9 });
 
-    connectPage((state) => {
-      expect(state).toEqual({ x: 9, y: 0 });
-      expect(getState()).toEqual({ x: 9, y: 0 });
-      done();
-    });
+    expect(getState()).toEqual({ x: 9, y: 0 });
   });
 });
