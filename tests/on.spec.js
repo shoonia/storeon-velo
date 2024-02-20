@@ -25,4 +25,19 @@ describe('state.on()', () => {
     expect(spy).toHaveBeenCalledTimes(1);
     expect(spy).toHaveBeenCalledWith({}, '1');
   });
+
+  it('should not update state by async listener', () => {
+    expect.hasAssertions();
+
+    const event = randomUUID();
+
+    const { dispatch, getState } = createStoreon([
+      (store) => {
+        store.on(event, async () => ({ x: 1 }));
+      },
+    ]);
+
+    dispatch(event);
+    expect(getState()).toStrictEqual({});
+  });
 });
