@@ -17,8 +17,8 @@ describe('@set event', () => {
     ]);
 
     connect((state) => {
-      expect(state).toEqual({ a: 5, b: 0 });
-      expect(getState()).toEqual({ a: 5, b: 0 });
+      expect(state).toStrictEqual({ a: 5, b: 0 });
+      expect(getState()).toStrictEqual({ a: 5, b: 0 });
       done();
     });
 
@@ -44,8 +44,8 @@ describe('@set event', () => {
     readyStore();
 
     connect('i', (state) => {
-      expect(state).toEqual({ i: 5, p: null });
-      expect(getState()).toEqual({ i: 5, p: null });
+      expect(state).toStrictEqual({ i: 5, p: null });
+      expect(getState()).toStrictEqual({ i: 5, p: null });
       done();
     });
 
@@ -63,6 +63,6 @@ describe('@set event', () => {
 
     dispatch('@set', { x: 9 });
 
-    expect(getState()).toEqual({ x: 9, y: 0 });
+    expect(getState()).toStrictEqual({ x: 9, y: 0 });
   });
 });

@@ -11,16 +11,16 @@ describe('dispatch method', () => {
 
     const { dispatch } = createStoreon([
       (store) => {
-        store.on(event, (state) => {
-          spy(state);
-        });
+        store.on(event, spy);
       },
     ]);
 
-    dispatch(event);
-    dispatch(event);
+    dispatch(event, 1);
+    dispatch(event, 2);
 
     expect(spy).toHaveBeenCalledTimes(2);
+    expect(spy).toHaveBeenNthCalledWith(1, {}, 1);
+    expect(spy).toHaveBeenNthCalledWith(2, {}, 2);
   });
 
   it('should post the data to the event listener', () => {
@@ -31,15 +31,13 @@ describe('dispatch method', () => {
 
     const { dispatch } = createStoreon([
       (store) => {
-        store.on(event, (_, data) => {
-          spy(data);
-        });
+        store.on(event, spy);
       },
     ]);
 
     dispatch(event, { data: {} });
 
     expect(spy).toHaveBeenCalledTimes(1);
-    expect(spy).toHaveBeenCalledWith({ data: {} });
+    expect(spy).toHaveBeenCalledWith({}, { data: {} });
   });
 });

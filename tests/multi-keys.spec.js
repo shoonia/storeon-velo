@@ -26,6 +26,8 @@ describe('Multi keys', () => {
     dispatch(eventTwo, 1);
 
     expect(cb).toHaveBeenCalledTimes(2);
+    expect(cb).toHaveBeenNthCalledWith(1, { x: 1 });
+    expect(cb).toHaveBeenNthCalledWith(2, { x: 1, y: 1 });
   });
 
   it('should run one time of change two properties synchronic', () => {

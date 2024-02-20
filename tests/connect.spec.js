@@ -9,7 +9,7 @@ describe('connect method', () => {
     const { connect, readyStore } = createStoreon([]);
 
     connect(/* no key */(state) => {
-      expect(state).toEqual({});
+      expect(state).toStrictEqual({});
       done();
     });
 
@@ -23,7 +23,7 @@ describe('connect method', () => {
 
     // eslint-disable-next-line require-await
     connect(async (state) => {
-      expect(state).toEqual({});
+      expect(state).toStrictEqual({});
       done();
     });
 
@@ -36,7 +36,7 @@ describe('connect method', () => {
     const { connect, readyStore } = createStoreon([]);
 
     connect(randomUUID(), (state) => {
-      expect(state).toEqual({});
+      expect(state).toStrictEqual({});
       done();
     });
 
@@ -55,17 +55,14 @@ describe('connect method', () => {
       (store) => {
         store.on(eventX, (_, x) => ({ x }));
         store.on(eventY, (_, y) => ({ y }));
-
-        store.on('@ready', (state) => {
-          spy(state);
-        });
+        store.on('@ready', spy);
       },
     ]);
 
     connect('x', (state) => {
       expect(spy).toHaveBeenCalledTimes(1);
-      expect(spy).toHaveBeenCalledWith({ x: 2, y: 4 });
-      expect(state).toEqual({ x: 2, y: 4 });
+      expect(spy).toHaveBeenCalledWith({ x: 2, y: 4 }, undefined);
+      expect(state).toStrictEqual({ x: 2, y: 4 });
       done();
     });
 
@@ -147,14 +144,14 @@ describe('connect method', () => {
 
         store.on('@ready', (state) => {
           spy();
-          expect(state).toEqual({ i: 0 });
+          expect(state).toStrictEqual({ i: 0 });
           return { i: 1 };
         });
       },
     ]);
 
     connect('i', (state) => {
-      expect(state).toEqual({ i: 1 });
+      expect(state).toStrictEqual({ i: 1 });
       expect(spy).toHaveBeenCalledTimes(2);
       done();
     });
@@ -187,7 +184,7 @@ describe('connect method', () => {
     dispatch(event);
 
     connect('t', (state) => {
-      expect(state).toEqual({ t: 2 });
+      expect(state).toStrictEqual({ t: 2 });
       expect(spy).toHaveBeenCalledTimes(2);
       done();
     });

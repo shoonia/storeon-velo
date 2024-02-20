@@ -13,7 +13,7 @@ describe('@init event', () => {
 
     readyStore();
 
-    expect(getState()).toEqual({ a: 0 });
+    expect(getState()).toStrictEqual({ a: 0 });
   });
 
   it('should run initial connect', (done) => {
@@ -26,7 +26,7 @@ describe('@init event', () => {
     ]);
 
     connect('b', (state) => {
-      expect(state).toEqual({ b: 1 });
+      expect(state).toStrictEqual({ b: 1 });
       done();
     });
 

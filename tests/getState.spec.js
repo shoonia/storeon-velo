@@ -13,11 +13,11 @@ describe('getState method', () => {
       },
     ]);
 
-    expect(getState()).toEqual({});
+    expect(getState()).toStrictEqual({});
     dispatch(event, 1);
-    expect(getState()).toEqual({ x: 1 });
+    expect(getState()).toStrictEqual({ x: 1 });
     dispatch(event, 2);
-    expect(getState()).toEqual({ x: 2 });
+    expect(getState()).toStrictEqual({ x: 2 });
   });
 
   it('should equal data in all methods', (done) => {

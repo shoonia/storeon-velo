@@ -12,7 +12,7 @@ describe('getState method', () => {
 
     setState({ x: 1 });
 
-    expect(getState()).toEqual({ x: 1, y: 0 });
+    expect(getState()).toStrictEqual({ x: 1, y: 0 });
   });
 
   it('should add new property to state', () => {
@@ -26,7 +26,7 @@ describe('getState method', () => {
 
     setState({ b: 20 });
 
-    expect(getState()).toEqual({ a: 10, b: 20 });
+    expect(getState()).toStrictEqual({ a: 10, b: 20 });
   });
 
   it('should fire on @set event', (done) => {
@@ -36,8 +36,8 @@ describe('getState method', () => {
       (store) => {
         store.on('@init', () => ({ a: 1, b: 0 }));
         store.on('@set', (state, changes) => {
-          expect(state).toEqual({ a: 1, b: 1 });
-          expect(changes).toEqual({ b: 1 });
+          expect(state).toStrictEqual({ a: 1, b: 1 });
+          expect(changes).toStrictEqual({ b: 1 });
           done();
         });
       },

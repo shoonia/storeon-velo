@@ -7,7 +7,7 @@ describe('@ready event', () => {
     const { readyStore } = createStoreon([
       (store) => {
         store.on('@ready', (state) => {
-          expect(state).toEqual({});
+          expect(state).toStrictEqual({});
           done();
         });
       },
@@ -23,7 +23,7 @@ describe('@ready event', () => {
       (store) => {
         store.on('@init', () => ({ xyz: true }));
         store.on('@ready', (state) => {
-          expect(state).toEqual({ xyz: true });
+          expect(state).toStrictEqual({ xyz: true });
           done();
         });
       },
@@ -42,7 +42,7 @@ describe('@ready event', () => {
     ]);
 
     connect('some', (state) => {
-      expect(state).toEqual({ some: [] });
+      expect(state).toStrictEqual({ some: [] });
       done();
     });
 
@@ -61,7 +61,7 @@ describe('@ready event', () => {
     ]);
 
     connect('one', 'two', (state) => {
-      expect(state).toEqual({ one: 'one', two: 'two' });
+      expect(state).toStrictEqual({ one: 'one', two: 'two' });
       done();
     });
 
