@@ -1,4 +1,4 @@
-import { createStoreon } from '../lib';
+import { createStoreon } from '..';
 
 describe('getState method', () => {
   it('should update state', () => {
