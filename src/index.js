@@ -14,7 +14,7 @@ export let createStoreon = (modules) => {
       events[event].forEach((cb) => {
         let diff = cb(state, data);
 
-        if (diff && typeof diff.then !== 'function') {
+        if (diff && 'function' !== typeof diff.then) {
           state = { ...state, ...diff };
           changes = { ...changes, ...diff };
         }
