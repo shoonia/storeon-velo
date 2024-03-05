@@ -52,13 +52,13 @@ export let createStoreon = (modules) => {
     getState: get,
     setState: set,
 
-    connect(...k) {
-      let c = k.pop();
+    connect(...e) {
+      let f = e.pop();
 
-      subs.push({ k, c });
+      subs.push({ e, f });
 
       return () => {
-        subs = subs.filter((i) => i.c !== c);
+        subs = subs.filter((i) => i.f !== f);
       };
     },
 
@@ -67,15 +67,15 @@ export let createStoreon = (modules) => {
 
       on('@changed', (_, changes) => {
         subs.forEach((i) => {
-          let hasChanges = i.k.some((key) => key in changes);
+          let hasChanges = i.e.some((key) => key in changes);
 
           if (hasChanges) {
-            i.c(state);
+            i.f(state);
           }
         });
       });
 
-      return Promise.all(subs.map((i) => i.c(state)));
+      return Promise.all(subs.map((i) => i.f(state)));
     },
   };
 };
