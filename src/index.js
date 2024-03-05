@@ -1,5 +1,5 @@
 export let createStoreon = (modules) => {
-  let events = {};
+  let events = Object.create(null);
   let state = {};
   let subs = [];
 
@@ -8,7 +8,7 @@ export let createStoreon = (modules) => {
       dispatch('@dispatch', [event, data]);
     }
 
-    if (events[event]) {
+    if (event in events) {
       let changes;
 
       events[event].forEach((cb) => {
