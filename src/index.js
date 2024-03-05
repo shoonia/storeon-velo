@@ -1,5 +1,5 @@
 export let createStoreon = (modules) => {
-  let events = {};
+  let events = Object.create(null);
   let state = {};
   let subs = [];
 
@@ -8,13 +8,13 @@ export let createStoreon = (modules) => {
       dispatch('@dispatch', [event, data]);
     }
 
-    if (events[event]) {
+    if (event in events) {
       let changes;
 
       events[event].forEach((cb) => {
         let diff = cb(state, data);
 
-        if (diff && typeof diff.then !== 'function') {
+        if (diff && 'function' !== typeof diff.then) {
           state = { ...state, ...diff };
           changes = { ...changes, ...diff };
         }
@@ -52,13 +52,13 @@ export let createStoreon = (modules) => {
     getState: get,
     setState: set,
 
-    connect(...k) {
-      let c = k.pop();
+    connect(...e) {
+      let f = e.pop();
 
-      subs.push({ k, c });
+      subs.push({ e, f });
 
       return () => {
-        subs = subs.filter((i) => i.c !== c);
+        subs = subs.filter((i) => i.f !== f);
       };
     },
 
@@ -67,15 +67,15 @@ export let createStoreon = (modules) => {
 
       on('@changed', (_, changes) => {
         subs.forEach((i) => {
-          let hasChanges = i.k.some((key) => key in changes);
+          let hasChanges = i.e.some((key) => key in changes);
 
           if (hasChanges) {
-            i.c(state);
+            i.f(state);
           }
         });
       });
 
-      return Promise.all(subs.map((i) => i.c(state)));
+      return Promise.all(subs.map((i) => i.f(state)));
     },
   };
 };
