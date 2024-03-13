@@ -4,7 +4,7 @@ export let createStoreon = (modules) => {
   let subs = [];
 
   let dispatch = (event, data) => {
-    if (event !== '@dispatch') {
+    if ('@dispatch' !== event) {
       dispatch('@dispatch', [event, data]);
     }
 
