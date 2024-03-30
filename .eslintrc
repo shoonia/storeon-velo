@@ -6,7 +6,6 @@
     "es6": true,
     "node": true
   },
-
   "parserOptions": {
     "ecmaVersion": 2023,
     "sourceType": "module"
