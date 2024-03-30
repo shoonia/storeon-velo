@@ -1,9 +1,10 @@
-import { createStoreon } from '..';
+import { describe, it } from 'node:test';
+import { expect } from './expect.js';
+
+import { createStoreon } from '../src/index.js';
 
 describe('@ready event', () => {
-  it('should run @ready event', (done) => {
-    expect.hasAssertions();
-
+  it('should run @ready event', (t, done) => {
     const { readyStore } = createStoreon([
       (store) => {
         store.on('@ready', (state) => {
@@ -16,9 +17,7 @@ describe('@ready event', () => {
     readyStore();
   });
 
-  it('should run with the initial state', (done) => {
-    expect.hasAssertions();
-
+  it('should run with the initial state', (t, done) => {
     const { readyStore } = createStoreon([
       (store) => {
         store.on('@init', () => ({ xyz: true }));
@@ -32,9 +31,7 @@ describe('@ready event', () => {
     readyStore();
   });
 
-  it('should set the initial state instead @init', (done) => {
-    expect.hasAssertions();
-
+  it('should set the initial state instead @init', (t, done) => {
     const { connect, readyStore } = createStoreon([
       (store) => {
         store.on('@ready', () => ({ some: [] }));
@@ -50,9 +47,7 @@ describe('@ready event', () => {
   });
 
 
-  it('should update state but should not affect connect method', (done) => {
-    expect.hasAssertions();
-
+  it('should update state but should not affect connect method', (t, done) => {
     const { connect, readyStore } = createStoreon([
       (store) => {
         store.on('@init', () => ({ one: 'one' }));

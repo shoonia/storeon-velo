@@ -1,12 +1,12 @@
 import { randomUUID } from 'node:crypto';
-import { jest } from '@jest/globals';
-import { createStoreon } from '..';
+import { describe, it, mock } from 'node:test';
+
+import { expect } from './expect.js';
+import { createStoreon } from '../src/index.js';
 
 describe('dispatch method', () => {
   it('should call the event listener two times', () => {
-    expect.hasAssertions();
-
-    const spy = jest.fn();
+    const spy = mock.fn();
     const event = randomUUID();
 
     const { dispatch } = createStoreon([
@@ -24,10 +24,8 @@ describe('dispatch method', () => {
   });
 
   it('should post the data to the event listener', () => {
-    expect.hasAssertions();
-
     const event = randomUUID();
-    const spy = jest.fn();
+    const spy = mock.fn();
 
     const { dispatch } = createStoreon([
       (store) => {
@@ -38,6 +36,6 @@ describe('dispatch method', () => {
     dispatch(event, { data: {} });
 
     expect(spy).toHaveBeenCalledTimes(1);
-    expect(spy).toHaveBeenCalledWith({}, { data: {} });
+    expect(spy).toHaveBeenLastCalledWith({}, { data: {} });
   });
 });

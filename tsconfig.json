@@ -2,11 +2,12 @@
   "compilerOptions": {
     "allowJs": true,
     "checkJs": true,
-    "module": "ESNext",
-    "moduleResolution": "Node",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "target": "ESNext",
     "sourceMap": false,
     "forceConsistentCasingInFileNames": true,
+    "noUnusedLocals": true,
     "noEmit": true,
     "lib": [
       "ES2023"
@@ -14,8 +15,7 @@
   },
   "include": [
     "src/**/*.js",
-    "tests/**/*.js",
-    "tests/legacy/$w.d.ts"
+    "tests/**/*.js"
   ],
   "exclude": [
     "node_modules"

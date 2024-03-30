@@ -1,11 +1,12 @@
 import { randomUUID } from 'node:crypto';
 import { setTimeout } from 'node:timers/promises';
-import { createStoreon } from '..';
+import { describe, it } from 'node:test';
+
+import { expect } from './expect.js';
+import { createStoreon } from '../src/index.js';
 
 describe('@set event', () => {
-  it('should update state', (done) => {
-    expect.hasAssertions();
-
+  it('should update state', (t, done) => {
     const { getState, connect, readyStore } = createStoreon([
       (store) => {
         store.on('@init', () => ({ a: 0, b: 0 }));
@@ -25,9 +26,7 @@ describe('@set event', () => {
     readyStore();
   });
 
-  it('should work with async handler', (done) => {
-    expect.hasAssertions();
-
+  it('should work with async handler', (t, done) => {
     const event = randomUUID();
 
     const { connect, dispatch, getState, readyStore } = createStoreon([
@@ -53,8 +52,6 @@ describe('@set event', () => {
   });
 
   it('should update the state with @set event', () => {
-    expect.hasAssertions();
-
     const { dispatch, getState } = createStoreon([
       (store) => {
         store.on('@init', () => ({ x: 0, y: 0 }));

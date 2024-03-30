@@ -1,9 +1,10 @@
-import { createStoreon } from '..';
+import { describe, it } from 'node:test';
+
+import { expect } from './expect.js';
+import { createStoreon } from '../src/index.js';
 
 describe('getState method', () => {
   it('should update state', () => {
-    expect.hasAssertions();
-
     const { setState, getState } = createStoreon([
       (store) => {
         store.on('@init', () => ({ x: 0, y: 0 }));
@@ -16,8 +17,6 @@ describe('getState method', () => {
   });
 
   it('should add new property to state', () => {
-    expect.hasAssertions();
-
     const { setState, getState } = createStoreon([
       (store) => {
         store.on('@init', () => ({ a: 10 }));
@@ -29,9 +28,7 @@ describe('getState method', () => {
     expect(getState()).toStrictEqual({ a: 10, b: 20 });
   });
 
-  it('should fire on @set event', (done) => {
-    expect.hasAssertions();
-
+  it('should fire on @set event', (t, done) => {
     const { setState } = createStoreon([
       (store) => {
         store.on('@init', () => ({ a: 1, b: 0 }));

@@ -1,13 +1,13 @@
 import { randomUUID } from 'node:crypto';
-import { jest } from '@jest/globals';
-import { createStoreon } from '..';
+import { describe, it, mock } from 'node:test';
+
+import { expect } from './expect.js';
+import { createStoreon } from '../src/index.js';
 
 describe('state.on()', () => {
   it('should unsubscribe event listener', () => {
-    expect.hasAssertions();
-
     const event = randomUUID();
-    const spy = jest.fn();
+    const spy = mock.fn();
 
     /** @type {Function} */
     let off;
@@ -23,12 +23,10 @@ describe('state.on()', () => {
     dispatch(event, '2');
 
     expect(spy).toHaveBeenCalledTimes(1);
-    expect(spy).toHaveBeenCalledWith({}, '1');
+    expect(spy).toHaveBeenLastCalledWith({}, '1');
   });
 
   it('should not update state by async listener', () => {
-    expect.hasAssertions();
-
     const event = randomUUID();
 
     const { dispatch, getState } = createStoreon([

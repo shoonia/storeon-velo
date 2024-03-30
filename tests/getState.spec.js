@@ -1,10 +1,11 @@
 import { randomUUID } from 'node:crypto';
-import { createStoreon } from '..';
+import { describe, it } from 'node:test';
+
+import { expect } from './expect.js';
+import { createStoreon } from '../src/index.js';
 
 describe('getState method', () => {
   it('should return the current state', () => {
-    expect.hasAssertions();
-
     const event = randomUUID();
 
     const { dispatch, getState } = createStoreon([
@@ -20,9 +21,7 @@ describe('getState method', () => {
     expect(getState()).toStrictEqual({ x: 2 });
   });
 
-  it('should equal data in all methods', (done) => {
-    expect.hasAssertions();
-
+  it('should equal data in all methods', (t, done) => {
     const event = randomUUID();
 
     const { dispatch, getState, readyStore } = createStoreon([
@@ -42,9 +41,7 @@ describe('getState method', () => {
     dispatch(event);
   });
 
-  it('should equal to state with connect', (done) => {
-    expect.hasAssertions();
-
+  it('should equal to state with connect', (t, done) => {
     const { connect, getState, readyStore } = createStoreon([
       (store) => {
         store.on('@init', () => ({ k: 10, g: '400' }));

@@ -1,16 +1,14 @@
 import { randomUUID } from 'node:crypto';
-import { jest } from '@jest/globals';
-import { createStoreon } from '..';
+import { describe, it, mock } from 'node:test';
+
+import { expect } from './expect.js';
+import { createStoreon } from '../src/index.js';
 
 describe('Multi keys', () => {
   it('should call the cb two times', () => {
-    expect.hasAssertions();
-
     const eventOne = randomUUID();
     const eventTwo = randomUUID();
-
-    /** @type {*} */
-    const cb = jest.fn();
+    const cb = mock.fn();
 
     const { dispatch, connect, readyStore } = createStoreon([
       (store) => {
@@ -31,12 +29,8 @@ describe('Multi keys', () => {
   });
 
   it('should run one time of change two properties synchronic', () => {
-    expect.hasAssertions();
-
     const event = randomUUID();
-
-    /** @type {*} */
-    const cb = jest.fn();
+    const cb = mock.fn();
 
     const { dispatch, connect, readyStore } = createStoreon([
       (store) => {
@@ -49,18 +43,14 @@ describe('Multi keys', () => {
     dispatch(event);
 
     expect(cb).toHaveBeenCalledTimes(1);
-    expect(cb).toHaveBeenCalledWith({ x: '1', y: '1' });
+    expect(cb).toHaveBeenLastCalledWith({ x: '1', y: '1' });
   });
 
   it('should be disconnected', () => {
-    expect.hasAssertions();
-
     const eventOne = randomUUID();
     const eventTwo = randomUUID();
-
-    /** @type {*} */
-    const cb = jest.fn();
-    const spy = jest.fn();
+    const cb = mock.fn();
+    const spy = mock.fn();
 
     const { dispatch, connect, readyStore } = createStoreon([
       (store) => {

@@ -1,10 +1,10 @@
-import { jest } from '@jest/globals';
-import { createStoreon } from '..';
+import { mock, describe, it } from 'node:test';
+
+import { expect } from './expect.js';
+import { createStoreon } from '../src/index.js';
 
 describe('@init event', () => {
   it('should run @init event', () => {
-    expect.hasAssertions();
-
     const { getState, readyStore } = createStoreon([
       (store) => {
         store.on('@init', () => ({ a: 0 }));
@@ -16,9 +16,7 @@ describe('@init event', () => {
     expect(getState()).toStrictEqual({ a: 0 });
   });
 
-  it('should run initial connect', (done) => {
-    expect.hasAssertions();
-
+  it('should run initial connect', (t, done) => {
     const { connect, readyStore } = createStoreon([
       (store) => {
         store.on('@init', () => ({ b: 1 }));
@@ -33,10 +31,8 @@ describe('@init event', () => {
     readyStore();
   });
 
-  it('should execute in the strict queue @init > @ready > connect', (done) => {
-    expect.hasAssertions();
-
-    const spy = jest.fn();
+  it('should execute in the strict queue @init > @ready > connect', (t, done) => {
+    const spy = mock.fn();
 
     const { connect, readyStore } = createStoreon([
       (store) => {

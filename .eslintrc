@@ -1,16 +1,12 @@
 {
   "extends": [
-    "eslint:recommended",
-    "plugin:jest/recommended"
-  ],
-  "plugins": [
-    "jest"
+    "eslint:recommended"
   ],
   "env": {
     "es6": true,
-    "node": true,
-    "jest": true
+    "node": true
   },
+
   "parserOptions": {
     "ecmaVersion": 2023,
     "sourceType": "module"
@@ -23,8 +19,6 @@
     "semi": [
       "error",
       "always"
-    ],
-    "jest/no-done-callback": "off",
-    "jest/prefer-expect-assertions": "error"
+    ]
   }
 }
