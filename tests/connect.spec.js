@@ -19,7 +19,6 @@ describe('connect method', () => {
   it('should run with async function', (t, done) => {
     const { connect, readyStore } = createStoreon([]);
 
-    // eslint-disable-next-line require-await
     connect(async (state) => {
       expect(state).toStrictEqual({});
       done();
@@ -188,7 +187,7 @@ describe('connect method', () => {
     connect(() => {
       connect('a', cbInside);
 
-      setTimeout(() => {
+      globalThis.setTimeout(() => {
         dispatch(event);
 
         expect(cbOutside).toHaveBeenCalledTimes(2);

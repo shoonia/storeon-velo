@@ -13,10 +13,10 @@
     "test": "node --test tests/*.spec.js"
   },
   "devDependencies": {
-    "@evilmartians/lefthook": "^1.6.7",
+    "@evilmartians/lefthook": "^1.6.10",
     "@size-limit/preset-small-lib": "^11.1.2",
-    "@types/node": "^20.12.2",
-    "eslint": "^8.57.0",
+    "@types/node": "^20.12.7",
+    "eslint": "^9.1.0",
     "size-limit": "^11.1.2"
   },
   "repository": {
