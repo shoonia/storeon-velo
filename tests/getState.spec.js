@@ -34,7 +34,7 @@ describe('getState method', () => {
           expect(getState()).toStrictEqual({ list: [1,2,3] });
           done();
         });
-      }
+      },
     ]);
 
     readyStore();
