@@ -13,11 +13,11 @@
     "test": "node --test tests/*.spec.js"
   },
   "devDependencies": {
-    "@evilmartians/lefthook": "^1.8.4",
-    "@size-limit/preset-small-lib": "^11.1.6",
-    "@types/node": "^22.9.1",
-    "eslint": "^9.15.0",
-    "size-limit": "^11.1.6"
+    "@evilmartians/lefthook": "^1.11.13",
+    "@size-limit/preset-small-lib": "^11.2.0",
+    "@types/node": "^22.15.29",
+    "eslint": "^9.28.0",
+    "size-limit": "^11.2.0"
   },
   "repository": {
     "type": "git",
