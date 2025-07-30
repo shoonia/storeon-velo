@@ -22,7 +22,7 @@ const app = (store) => {
 const { getState, setState, dispatch, connect, readyStore } = createStoreon([app]);
 
 // Subscribe for state property 'count'.
-// The callback function will be run when the store is redy `readyStore()`
+// The callback function will be run when the store is ready `readyStore()`
 // and each time when property 'count' would change.
 connect('count', ({ count }) => {
   $w('#text1').text = String(count);
