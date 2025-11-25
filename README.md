@@ -511,8 +511,8 @@ $w.onReady(() => {
 
 **more:**
 
-- [Event handling of Repeater Item](https://shoonia.site/event-handling-of-repeater-item)
-- [The utils for repeated item scope event handlers](https://shoonia.site/the-utils-for-repeated-item-scope-event-handlers)
+- [Event handling of Repeater Item](https://shoonia.netlify.app/event-handling-of-repeater-item)
+- [The utils for repeated item scope event handlers](https://shoonia.netlify.app/the-utils-for-repeated-item-scope-event-handlers)
 
 ## License
 
