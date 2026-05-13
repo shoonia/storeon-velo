@@ -1,5 +1,5 @@
 export let createStoreon = (modules) => {
-  let events = Object.create(null);
+  let events = new Map();
   let state = {};
   let subs = [];
 
@@ -8,10 +8,10 @@ export let createStoreon = (modules) => {
       dispatch('@dispatch', [event, data]);
     }
 
-    if (event in events) {
+    if (events.has(event)) {
       let changes;
 
-      events[event].forEach((cb) => {
+      events.get(event).forEach((cb) => {
         let diff = cb(state, data);
 
         if (diff && 'function' !== typeof diff.then) {
@@ -27,10 +27,10 @@ export let createStoreon = (modules) => {
   };
 
   let on = (event, cb) => {
-    (events[event] ??= []).push(cb);
+    events.getOrInsert(event, new Set()).add(cb);
 
     return () => {
-      events[event] = events[event].filter((i) => i !== cb);
+      events.get(event).delete(cb);
     };
   };
 
