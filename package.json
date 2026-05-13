@@ -8,6 +8,7 @@
   "exports": "./src/index.js",
   "sideEffects": false,
   "scripts": {
+    "build": ":",
     "lint": "eslint src/**/*.js tests/**/*.js",
     "size": "size-limit",
     "test": "node --test tests/*.spec.js"
