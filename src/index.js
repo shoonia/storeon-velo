@@ -53,12 +53,12 @@ export let createStoreon = (modules) => {
     setState: set,
 
     connect(...e) {
-      let f = e.pop();
+      let i = { e, f: e.pop() };
 
-      subs.push({ e, f });
+      subs.push(i);
 
       return () => {
-        subs = subs.filter((i) => i.f !== f);
+        subs = subs.filter((j) => j !== i);
       };
     },
 
