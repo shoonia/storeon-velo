@@ -1,5 +1,9 @@
 import { strictEqual, deepStrictEqual } from 'node:assert/strict';
 
+Map.prototype.getOrInsert ??= function (key, value) {
+  return this.has(key) ? this.get(key) : (this.set(key, value), value);
+};
+
 export const expect = (actual) => ({
   toBe: (expected) =>
     strictEqual(actual, expected),
