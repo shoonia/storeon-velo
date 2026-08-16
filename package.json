@@ -8,16 +8,13 @@
   "exports": "./src/index.js",
   "sideEffects": false,
   "scripts": {
-    "lint": "eslint src/**/*.js tests/**/*.js",
     "size": "size-limit",
     "test": "node --test tests/*.spec.js"
   },
   "devDependencies": {
-    "@evilmartians/lefthook": "^1.12.2",
-    "@size-limit/preset-small-lib": "^11.2.0",
+    "@size-limit/preset-small-lib": "^13.0.3",
     "@types/node": "^24.1.0",
-    "eslint": "^9.32.0",
-    "size-limit": "^11.2.0"
+    "size-limit": "^13.0.3"
   },
   "repository": {
     "type": "git",
